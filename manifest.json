@@ -1,10 +1,27 @@
 {
-  "name": "Hello Extensions",
-  "description": "Base Level Extension",
+  "name": "PaperPal",
+  "description": "An extension to store and recommend research papers",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "hello_extensions.png"
+    "default_icon": {              
+      "16": "/images/paperpal-16.png",
+      "19": "/images/paperpal-19.png",
+      "24": "/images/paperpal-24.png",
+      "32": "/images/paperpal-32.png",
+      "38": "/images/paperpal-38.png",
+      "48": "/images/paperpal-48.png",
+      "128": "/images/paperpal-128.png"
+    }
+  },
+  "icons": {
+    "16": "/images/paperpal-16.png",
+    "19": "/images/paperpal-19.png",
+    "24": "/images/paperpal-24.png",
+    "32": "/images/paperpal-32.png",
+    "38": "/images/paperpal-38.png",
+    "48": "/images/paperpal-48.png",
+    "128": "/images/paperpal-128.png"
   }
 }
