@@ -1,0 +1,8 @@
+uritemplate==4.1.1
+urllib3==1.26.14
+waitress==2.1.2
+websockets==10.4
+Werkzeug==2.0.2
+Flask==2.0.2
+Flask-Cors==3.0.10
+requests==2.26.0
