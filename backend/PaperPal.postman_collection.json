@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "7268155f-e983-4698-930f-900e7c059373",
+		"name": "PaperPal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3283079"
+	},
+	"item": [
+		{
+			"name": "Get title from paperID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:8000/title/1324",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"title",
+						"1324"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get info",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[123, 234, 345, 456]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/info",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"info"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get info",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[123, 234, 345, 456]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/info",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"info"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1240"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 05 Apr 2023 22:08:46 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[{\"title\": \"INFO - DEFAULT TITLE 0\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2023, \"more_metadata\": \"TBA\"}, {\"title\": \"INFO - DEFAULT TITLE 1\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2022, \"more_metadata\": \"TBA\"}, {\"title\": \"INFO - DEFAULT TITLE 2\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2021, \"more_metadata\": \"TBA\"}, {\"title\": \"INFO - DEFAULT TITLE 3\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2020, \"more_metadata\": \"TBA\"}, {\"title\": \"INFO - DEFAULT TITLE 4\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2019, \"more_metadata\": \"TBA\"}, {\"title\": \"INFO - DEFAULT TITLE 5\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2018, \"more_metadata\": \"TBA\"}, {\"title\": \"INFO - DEFAULT TITLE 6\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2017, \"more_metadata\": \"TBA\"}, {\"title\": \"INFO - DEFAULT TITLE 7\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2016, \"more_metadata\": \"TBA\"}, {\"title\": \"INFO - DEFAULT TITLE 8\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2015, \"more_metadata\": \"TBA\"}, {\"title\": \"INFO - DEFAULT TITLE 9\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2014, \"more_metadata\": \"TBA\"}]"
+				}
+			]
+		},
+		{
+			"name": "Get recommendations",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"my_list\": [123, 234, 345],\n    \"likes\": [123],\n    \"dislikes\": [345]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8000/recommendations",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8000",
+					"path": [
+						"recommendations"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get recommendations",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"my_list\": [123, 234, 345],\n    \"likes\": [123],\n    \"dislikes\": [345]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/recommendations",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"recommendations"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "372"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 05 Apr 2023 22:04:05 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[{\"title\": \"RECO - DEFAULT TITLE 1\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2023, \"more_metadata\": \"TBA\"}, {\"title\": \"RECO - DEFAULT TITLE 2\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2022, \"more_metadata\": \"TBA\"}, {\"title\": \"RECO - DEFAULT TITLE 3\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2021, \"more_metadata\": \"TBA\"}]"
+				}
+			]
+		}
+	]
+}
