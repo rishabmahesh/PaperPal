@@ -1,8 +1,47 @@
-.container {
+.popup-container {
+  width: 721px;
+  height: 497px;
+}
+
+.top-container {
 	width: 721px;
 	height: 122px;
-	display: flex;
 	align-items: center;
+  display: flex;
+}
+
+.plus-container {
+  background-color: #6CAFBE;
+  font-size: 30px;
+  height: 122px;
+  width: 519px;
+}
+
+.bottom-container {
+  width: 721px;
+  height: 122px;
+  display: flex;
+  align-items: center;
+  margin-top: 122px;
+}
+
+.folder-container {
+  background-color: #6CAFBE;
+  font-size: 30px;
+  height: 374px;
+  width: 202px;
+}
+
+.paper-container {
+  background-color: #0a363f;
+  font-size: 30px;
+  height: 374px;
+  width: 519px;
+}
+
+.image-container {
+  width: 202px;
+  height: 122px;
 }
 
 img {
@@ -13,7 +52,7 @@ img {
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
-	background-color: #4CAF50;
+	background-color: #2F83E7;
 	color: white;
 	font-size: 30px;
 	border:none;
