@@ -44,10 +44,6 @@
   height: 122px;
 }
 
-img {
-	margin-right: 10px;
-}
-
 .plus-button {
 	width: 50px;
 	height: 50px;
@@ -57,4 +53,14 @@ img {
 	font-size: 30px;
 	border:none;
 	margin-left:auto;
+}
+
+.add-folder-button {
+  height: 69px;
+  width: 202px;
+  margin-top: 305px;
+  background-color: #296A5E;
+  text-align: center;
+  color: white;
+  font-size: 23px;
 }
