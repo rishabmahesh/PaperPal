@@ -51,7 +51,7 @@ def main():
     if os.environ.get('TESTING') == "1":
         app.run(host='0.0.0.0', port=8000, debug=True)  # Flask for debugging
     else:
-        serve(app, port=8000)
+        serve(app, port=8080)
 
 
 if __name__ == "__main__":
