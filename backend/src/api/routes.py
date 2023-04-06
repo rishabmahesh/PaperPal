@@ -67,7 +67,6 @@ def get_info_single(paper_id):
     return resp
 
 
-
 @api.route("/recommendations", methods=["GET"])
 def recommendations():
     logger.info("Entered /reommendations")
