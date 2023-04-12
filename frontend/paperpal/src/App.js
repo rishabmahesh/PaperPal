@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './images/PaperPal-extension.png';
+import { AddIcon } from '@chakra-ui/icons';
 import { Image, Button, useTheme } from '@chakra-ui/react'
 
 function App() {
@@ -28,6 +29,10 @@ function App() {
       width: '519px',
       height: '122px',
       backgroundColor: brand[500],
+      display: 'flex', 
+      flexDirection: 'row',
+      justifyContent: 'center', 
+      alignItems: 'center',
     },
     bottomBarStyles: {
       width: '721px',
@@ -64,6 +69,12 @@ function App() {
     addPaperButton: {
       display: 'flex',
       paddingLeft: '5%',
+    },
+    inputBox:{
+      marginLeft: '20px',
+      width: '350px', 
+      height: '30px',
+
     }
   }
 
@@ -74,9 +85,12 @@ function App() {
         <Image src={logo} alt="paperpal-logo" width={"202px"} height={"122px"} />
         <div style={styles.upperBox}>
           <div style={styles.addPaperButton}>
-            <Button colorScheme='addPaperButton'>Button</Button>
+            <Button colorScheme='addPaperButton' height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center'>
+              <AddIcon />
+            </Button>
+            <input type="text" style={styles.inputBox} />
+            
           </div>
-          <h1>Hello world!!</h1>
         </div>
       </div>
 
