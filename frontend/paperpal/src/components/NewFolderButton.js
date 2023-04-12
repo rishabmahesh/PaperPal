@@ -25,7 +25,7 @@ export default function NewFolderButton(props) {
         _active={{
           bg: '#307C6E',
         }}>
-        Folder 1
+        {props.name}
       </Button>
     </div>
   );

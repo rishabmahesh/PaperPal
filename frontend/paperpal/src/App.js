@@ -7,7 +7,24 @@ function App() {
   const theme = useTheme();
   const { brand } = theme.colors;
 
-  const [folders, setFolders] = useState([]);
+  const [extensionStorage, setExtensionStorage] = useState({});
+
+  const extensionStorageInit = {
+    numberOfFolders: 0,
+    folders: [],
+  };
+
+  // const paper = {
+  //   title: 'Paper 1',
+  //   authors: ['Author 1'],
+  //   year: '2021',
+  //   pubication: 'Publication 1',
+  // }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(() => {
+    localStorage.getItem('extensionStorage') ? setExtensionStorage(JSON.parse(localStorage.getItem('extensionStorage'))) : setExtensionStorage(extensionStorageInit);
+  }, []);
 
   const styles = {
     extensionStyles: {
@@ -70,8 +87,35 @@ function App() {
     }
   }
 
+  /**
+   * Adds a new folder to the extensionStorage object and updates the local storage
+   */
   function addFolder() {
-    setFolders([...folders, <NewFolderButton />]);
+    // create new folder obj
+    const newFolder = {
+      name: `Folder ${extensionStorage.folders.length + 1}`,
+      papers: [],
+    }
+    
+    // push new folder obj to folders array
+    extensionStorage.folders.push(newFolder);
+
+    // update extensionStorage locally and in local storage
+    setExtensionStorage(prevState => {
+      return {
+        ...prevState,
+        numberOfFolders: extensionStorage.folders.length,
+        folders: prevState.folders
+      }
+    })
+    saveExtensionStorage();
+  }
+
+  /**
+   * Saves the extensionStorage object to local storage
+   */
+  function saveExtensionStorage() {
+    localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage));
   }
 
   return (
@@ -89,7 +133,8 @@ function App() {
       <div style={styles.bottomBarStyles}>
         <div style={styles.folderBox}>
           <div style={styles.foldersBoxContainerStyles}>
-            {folders.map((folder) => folder)}
+            {extensionStorage.folders && extensionStorage.folders.length > 0 ? extensionStorage.folders.map((folder) => <NewFolderButton name={folder.name} />) : null}
+            {/* Replace null with "No folder yet" in above line */}
           </div>
 
           <Button
