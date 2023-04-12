@@ -1,20 +1,23 @@
 import React from 'react';
 import logo from './images/PaperPal-extension.png';
-import { Image } from '@chakra-ui/react'
+import { Image, Button, useTheme } from '@chakra-ui/react'
+
+
 
 function App() {
-
+  const theme = useTheme();
+  const { brand } = theme.colors;
   const styles = {
     extensionStyles: {
       width: '721px',
       height: '496px',
-      backgroundColor: '#F2F2F2',
+      backgroundColor: brand.extensionStyles,
     },
     topBarStyles: {
       alignItems: 'center',
       display: 'flex',
       flexDirection: 'row',
-      backgroundColor: '#13747A',
+      backgroundColor: brand['topBarStyles'],
       width: '721px',
       height: '122px',
     },
@@ -25,7 +28,8 @@ function App() {
     upperBox: {
       width: '519px',
       height: '122px',
-      backgroundColor: '#6CAFBE',
+      backgroundColor: brand[500],
+      // backgroundColor: '#6CAFBE',
     },
     bottomBarStyles: {
       width: '721px',
@@ -37,7 +41,7 @@ function App() {
     folderBox: {
       width: '202px',
       height: '374px',
-      backgroundColor: '#6CAFBE',
+      backgroundColor: brand.folderBox,
       display: 'flex',
       flexDirection: 'column',
     },
@@ -59,6 +63,10 @@ function App() {
       height: '305px',
       overflowY: 'scroll',
     },
+    addPaperButton: {
+      display: 'flex',
+      paddingLeft: '5%',
+    }
   }
 
   function handleAddFolderButtonMouseEnter(e) {
@@ -75,7 +83,10 @@ function App() {
       <div style={styles.topBarStyles}>
         <Image src={logo} alt="paperpal-logo" width={"202px"} height={"122px"} />
         <div style={styles.upperBox}>
-          <h1>Hello world!</h1>
+          <div style={styles.addPaperButton}>
+            <Button colorScheme='addPaperButton'>Button</Button>
+          </div>
+          <h1>Hello world!!</h1>
         </div>
       </div>
 
@@ -94,8 +105,6 @@ function App() {
           <h1>paper container</h1>
         </div>
       </div>
-
-
     </div>
   );
 }
