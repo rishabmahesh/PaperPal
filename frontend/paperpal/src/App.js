@@ -2,11 +2,10 @@ import React from 'react';
 import logo from './images/PaperPal-extension.png';
 import { Image, Button, useTheme } from '@chakra-ui/react'
 
-
-
 function App() {
   const theme = useTheme();
   const { brand } = theme.colors;
+
   const styles = {
     extensionStyles: {
       width: '721px',
@@ -29,7 +28,6 @@ function App() {
       width: '519px',
       height: '122px',
       backgroundColor: brand[500],
-      // backgroundColor: '#6CAFBE',
     },
     bottomBarStyles: {
       width: '721px',
@@ -69,14 +67,6 @@ function App() {
     }
   }
 
-  function handleAddFolderButtonMouseEnter(e) {
-    e.target.style.backgroundColor = '#297D6D'; // can be changed for color blindness
-  }
-
-  function handleAddFolderButtonMouseLeave(e) {
-    e.target.style.backgroundColor = '#296A5E';
-  }
-
 
   return (
     <div style={styles.extensionStyles}>
@@ -93,12 +83,12 @@ function App() {
       <div style={styles.bottomBarStyles}>
         <div style={styles.folderBox}>
           <div style={styles.foldersBoxContainerStyles}>
-            <h1>inside folderbox container</h1>
+            
           </div>
 
-          <button style={styles.addFolderButtonStyles} onMouseEnter={handleAddFolderButtonMouseEnter} onMouseLeave={handleAddFolderButtonMouseLeave}>
-            <text style={styles.addFolderButtonTextStyles}>Add Folder</text>
-          </button>
+          <Button height='69px' width='202px' bg='#296A5E' borderRadius='0px' _hover={{ bg: '#297D6D' }} fontSize='23px' color='#FFFFFF'>
+            Add Folder
+          </Button>
         </div>
 
         <div style={styles.paperContainerBox}>
