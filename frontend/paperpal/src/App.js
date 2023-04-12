@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './images/PaperPal-extension.png';
 import { Image, Button, useTheme } from '@chakra-ui/react'
+import NewFolderButton from './components/NewFolderButton';
 
 function App() {
   const theme = useTheme();
   const { brand } = theme.colors;
+
+  const [folders, setFolders] = useState([]);
 
   const styles = {
     extensionStyles: {
@@ -67,6 +70,9 @@ function App() {
     }
   }
 
+  function addFolder() {
+    setFolders([...folders, <NewFolderButton />]);
+  }
 
   return (
     <div style={styles.extensionStyles}>
@@ -83,10 +89,18 @@ function App() {
       <div style={styles.bottomBarStyles}>
         <div style={styles.folderBox}>
           <div style={styles.foldersBoxContainerStyles}>
-            
+            {folders.map((folder) => folder)}
           </div>
 
-          <Button height='69px' width='202px' bg='#296A5E' borderRadius='0px' _hover={{ bg: '#297D6D' }} fontSize='23px' color='#FFFFFF'>
+          <Button
+            height='69px'
+            width='202px'
+            bg='#296A5E'
+            borderRadius='0px'
+            _hover={{ bg: '#297D6D' }}
+            fontSize='23px'
+            color='#FFFFFF'
+            onClick={addFolder}>
             Add Folder
           </Button>
         </div>
