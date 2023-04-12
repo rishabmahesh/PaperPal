@@ -38,7 +38,35 @@ function App() {
       width: '202px',
       height: '374px',
       backgroundColor: '#6CAFBE',
+      display: 'flex',
+      flexDirection: 'column',
     },
+    addFolderButtonStyles: {
+      width: '202px',
+      height: '69px',
+      backgroundColor: '#296A5E',
+    },
+    addFolderButtonTextStyles: {
+      color: '#FFFFFF',
+      fontSize: '23px',
+      textAlign: 'center',
+    },
+    insideAddFolderButtonStyles: {
+      backgroundColor: '#000000',
+    },
+    foldersBoxContainerStyles: {
+      width: '202px',
+      height: '305px',
+      overflowY: 'scroll',
+    },
+  }
+
+  function handleAddFolderButtonMouseEnter(e) {
+    e.target.style.backgroundColor = '#297D6D'; // can be changed for color blindness
+  }
+
+  function handleAddFolderButtonMouseLeave(e) {
+    e.target.style.backgroundColor = '#296A5E';
   }
 
 
@@ -53,7 +81,13 @@ function App() {
 
       <div style={styles.bottomBarStyles}>
         <div style={styles.folderBox}>
-          <h1>folder box</h1>
+          <div style={styles.foldersBoxContainerStyles}>
+            <h1>inside folderbox container</h1>
+          </div>
+
+          <button style={styles.addFolderButtonStyles} onMouseEnter={handleAddFolderButtonMouseEnter} onMouseLeave={handleAddFolderButtonMouseLeave}>
+            <text style={styles.addFolderButtonTextStyles}>Add Folder</text>
+          </button>
         </div>
 
         <div style={styles.paperContainerBox}>
