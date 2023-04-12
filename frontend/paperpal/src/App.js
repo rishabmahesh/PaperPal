@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from './images/PaperPal-extension.png';
 import { Image } from '@chakra-ui/react'
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
   return (
     <div style={styles.extensionStyles}>
       <div style={styles.topBarStyles}>
-        <Image src="../images/PaperPal-extension.png" alt="paperpal-logo" width={"202px"} height={"122px"} />
+        <Image src={logo} alt="paperpal-logo" width={"202px"} height={"122px"} />
         <div style={styles.upperBox}>
           <h1>Hello world!</h1>
         </div>
