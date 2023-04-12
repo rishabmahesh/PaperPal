@@ -20,6 +20,25 @@ def get_title_from_id(paper_id):
     return paper[paper["Paper_ID"] == int(paper_id)]['Title']
 
 
+def get_papers_by_author(name=None, author_id=None):
+    # todo: implement this
+    if name:
+        pass
+
+    if author_id:
+        pass
+    pass
+
+
+def get_author_id_from_name(name):
+    pass
+
+
+
+def get_papers_from_university():
+    pass
+
+
 if __name__ == "__main__":
     resp = get_info_from_id(146361)
     print(resp)
