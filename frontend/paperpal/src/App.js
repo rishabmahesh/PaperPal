@@ -3,6 +3,7 @@ import logo from './images/PaperPal-extension.png';
 import { AddIcon } from '@chakra-ui/icons';
 import { Image, Button, useTheme } from '@chakra-ui/react'
 import NewFolderButton from './components/NewFolderButton';
+//import * as chrome from 'chrome-extensions';
 
 function App() {
   const theme = useTheme();
@@ -128,6 +129,17 @@ function App() {
   function saveExtensionStorage() {
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage));
   }
+
+  /*
+  //tried to make a query using chrom API to grab the title
+  function grabPaperTitle(){
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      let tab = tabs[0];
+      let title = tab.title;
+      console.log(title); // log the title to the console
+    });
+  }
+  */
 
   return (
     <div style={styles.extensionStyles}>
