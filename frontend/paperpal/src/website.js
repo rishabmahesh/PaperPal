@@ -3,45 +3,56 @@ import logo from './images/PaperPal-extension.png'
 import { Image, Button } from '@chakra-ui/react'
 import NewFolderButton from './components/NewFolderButton'
 
-export default function Website () {
-  const [extensionStorage, setExtensionStorage] = React.useState({})
+export default function Website(props) {
+
+  // TODO: FIX FOLDER / EXTENSION STORAGE PROBLEM
+  const [extensionStorage, setExtensionStorage] = React.useState(props.extensionStorage)
+
+  const extensionStorageInit = {
+    numberOfFolders: 0,
+    folders: []
+  }
 
   React.useEffect(() => {
-    console.log('Dimensions: ', window.innerWidth, window.innerHeight)
+    // localStorage.getItem('extensionStorage') ? setExtensionStorage(JSON.parse(localStorage.getItem('extensionStorage'))) : setExtensionStorage(extensionStorageInit)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const styles = {
+    leftFolderTabStyles: {
+      height: `${window.innerHeight}px`,
+      display: 'flex',
+      flexDirection: 'column',
+    },
     folderTabStyles: {
       backgroundColor: '#6CAFBE',
       width: '325px',
-    },
-    foldersBoxContainerStyles: {
-      marginTop: '725px',
-    },
-    folderBox: {
-      width: '325px',
+      height: '854px',
       display: 'flex',
-      backgroundColor: '#6CAFBE',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center'
+      flexDirection: 'column'
+    },
+    allFoldersBoxStyles: {
+      overflowY: 'scroll',
+      height: '724px',
     },
   }
 
   return (
-    <div style={styles.website}>
-      <div>
+    <div>
+      <div style={styles.leftFolderTabStyles}>
         <Image src={logo} alt="paperpal-logo" width={'325px'} height={'192px'} />
-        <div style={styles.folderTabStyles}>
-          <div style={styles.folderBox}>
-            <div style={styles.foldersBoxContainerStyles}>
-              {
-                extensionStorage.folders && extensionStorage.folders.length > 0
-                  ? extensionStorage.folders.map((folder) => <NewFolderButton key={folder.name} name={folder.name} height={'108px'} width={'268px'} marginLeft={'28.5px'} marginTop={'18px'} />)
-                  : null}
-              {/* Replace null with "No folder yet" in above line */}
-            </div>
 
+        <div style={styles.folderTabStyles}>
+          {console.log(extensionStorage)}
+          <div style={styles.allFoldersBoxStyles}>
+            {
+              extensionStorage.folders && extensionStorage.folders.length > 0
+                ? extensionStorage.folders.map((folder) => <NewFolderButton key={folder.name} name={folder.name} height={'108px'} width={'268px'} marginLeft={'28.5px'} marginTop={'18px'} />)
+                : null
+            }
+          </div>
+
+          <div>
             <Button
               height='130px'
               width='325px'
@@ -55,6 +66,7 @@ export default function Website () {
               Add Folder
             </Button>
           </div>
+
         </div>
       </div>
 

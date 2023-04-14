@@ -153,7 +153,6 @@ function App () {
                     <AddIcon />
                   </Button>
                   <input type="text" style={styles.inputBox} />
-
                 </div>
               </div>
             </div>
@@ -189,7 +188,7 @@ function App () {
           </div>
         ) : (
           <div>
-            <Website />
+            <Website extensionStorage={extensionStorage} />
           </div>
         )
 
