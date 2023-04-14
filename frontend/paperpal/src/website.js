@@ -2,6 +2,8 @@ import React from 'react'
 import logo from './images/PaperPal-extension.png'
 import { Image, Button } from '@chakra-ui/react'
 import NewFolderButton from './components/NewFolderButton'
+import DisplayPapersinFolder from './components/DisplayPapersinFolder'
+import ReactDOM from "react-dom";
 
 export default function Website(props) {
 
@@ -18,6 +20,12 @@ export default function Website(props) {
   }, [])
 
   const styles = {
+    websiteStyles: {
+      width: `${window.innerWidth}px`,
+      height: `${window.innerHeight}px`,
+      display: 'flex',
+      flexDirection: 'row',
+    },
     leftFolderTabStyles: {
       height: `${window.innerHeight}px`,
       display: 'flex',
@@ -34,6 +42,11 @@ export default function Website(props) {
       overflowY: 'scroll',
       height: '724px',
     },
+    paperContainerBox: {
+      height: `${window.innerHeight}px`,
+      width: `${window.innerWidth-325}px`,
+      marginLeft: '0px',
+    }
   }
 
   /**
@@ -67,8 +80,17 @@ export default function Website(props) {
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage))
   }
 
+  function displayPapers(name) {
+    console.log("in function display");
+    const folder = extensionStorage.folders.find((obj) => obj.name === name);
+    const element = (
+      <DisplayPapersinFolder name={folder.name} papers={folder.papers} />
+    );
+    ReactDOM.render(element, document.getElementById("papers-container"));
+  }
+
   return (
-    <div>
+    <div style={styles.websiteStyles}>
       <div style={styles.leftFolderTabStyles}>
         <Image src={logo} alt="paperpal-logo" width={'325px'} height={'192px'} />
 
@@ -84,6 +106,7 @@ export default function Website(props) {
                     width={'268px'}
                     marginLeft={'28.5px'}
                     marginTop={'18px'}
+                    onClick={() => displayPapers(folder.name)}
                   />
                 )
                 : null
@@ -106,6 +129,10 @@ export default function Website(props) {
           </div>
 
         </div>
+      </div>
+
+      <div id="papers-container" style={styles.paperContainerBox}>
+        <h1>paper container</h1>
       </div>
 
     </div>
