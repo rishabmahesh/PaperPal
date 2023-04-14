@@ -130,16 +130,16 @@ function App() {
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage));
   }
 
-  /*
+
   //tried to make a query using chrom API to grab the title
   function grabPaperTitle(){
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    window.chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
       let tab = tabs[0];
       let title = tab.title;
       console.log(title); // log the title to the console
     });
   }
-  */
+
 
   return (
     <div>
@@ -150,7 +150,7 @@ function App() {
               <Image src={logo} alt="paperpal-logo" width={"202px"} height={"122px"} />
               <div style={styles.upperBox}>
                 <div style={styles.addPaperButton}>
-                  <Button colorScheme='addPaperButton' height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center'>
+                  <Button colorScheme='addPaperButton' height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center' onClick={grabPaperTitle}>
                     <AddIcon />
                   </Button>
                   <input type="text" style={styles.inputBox} />

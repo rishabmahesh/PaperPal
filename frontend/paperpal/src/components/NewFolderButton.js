@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import React from "react";
+import DisplayPapersinFolder from "./DisplayPapersinFolder";
 
 export default function NewFolderButton(props) {
 
@@ -24,7 +25,8 @@ export default function NewFolderButton(props) {
         _hover={{ bg: '#378D7D' }}
         _active={{
           bg: '#307C6E',
-        }}>
+        }}
+        onCLick={DisplayPapersinFolder}>
         {props.name}
       </Button>
     </div>
