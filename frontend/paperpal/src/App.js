@@ -7,7 +7,7 @@ import Website from './website'
 import DisplayPapersinFolder from './components/DisplayPapersinFolder'
 import ReactDOM from "react-dom";
 
-function App () {
+function App() {
   const theme = useTheme()
   const { brand } = theme.colors
 
@@ -103,7 +103,7 @@ function App () {
   /**
    * Adds a new folder to the extensionStorage object and updates the local storage
    */
-  function addFolder () {
+  function addFolder() {
     // create new folder obj
     const newFolder = {
       name: `Folder ${extensionStorage.folders.length + 1}`,
@@ -127,23 +127,22 @@ function App () {
   /**
    * Saves the extensionStorage object to local storage
    */
-  function saveExtensionStorage () {
+  function saveExtensionStorage() {
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage))
   }
 
-  function displayPapers(name){
+  function displayPapers(name) {
     console.log("in function display");
     const folder = extensionStorage.folders.find((obj) => obj.name === name);
     const element = (
       <DisplayPapersinFolder name={folder.name} papers={folder.papers} />
     );
     ReactDOM.render(element, document.getElementById("papers-container"));
-
   }
 
   //tried to make a query using chrom API to grab the title
-  function grabPaperTitle(){
-    window.chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+  function grabPaperTitle() {
+    window.chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       let tab = tabs[0];
       let title = tab.title;
       console.log(title); // log the title to the console
@@ -173,7 +172,16 @@ function App () {
                 <div style={styles.foldersBoxContainerStyles}>
                   {
                     extensionStorage.folders && extensionStorage.folders.length > 0
-                      ? extensionStorage.folders.map((folder) => <NewFolderButton name={folder.name} height={'44px'} width={'145px'} marginLeft={'28px'} marginTop={'18px'} onClick={() => displayPapers(folder.name)}/>)
+                      ? extensionStorage.folders.map((folder) =>
+                        <NewFolderButton
+                          name={folder.name}
+                          height={'44px'}
+                          width={'145px'}
+                          marginLeft={'28px'}
+                          marginTop={'18px'}
+                          onClick={() => displayPapers(folder.name)}
+                        />
+                      )
                       : null}
 
                   {/* Replace null with "No folder yet" in above line */}
