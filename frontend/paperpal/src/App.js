@@ -4,6 +4,8 @@ import { AddIcon } from '@chakra-ui/icons'
 import { Image, Button, useTheme } from '@chakra-ui/react'
 import NewFolderButton from './components/NewFolderButton'
 import Website from './website'
+import DisplayPapersinFolder from './components/DisplayPapersinFolder'
+import ReactDOM from "react-dom";
 
 function App () {
   const theme = useTheme()
@@ -129,6 +131,15 @@ function App () {
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage))
   }
 
+  function displayPapers(name){
+    console.log("in function display");
+    const folder = extensionStorage.folders.find((obj) => obj.name === name);
+    const element = (
+      <DisplayPapersinFolder name={folder.name} papers={folder.papers} />
+    );
+    ReactDOM.render(element, document.getElementById("papers-container"));
+
+  }
 
   //tried to make a query using chrom API to grab the title
   function grabPaperTitle(){
@@ -163,7 +174,7 @@ function App () {
                 <div style={styles.foldersBoxContainerStyles}>
                   {
                     extensionStorage.folders && extensionStorage.folders.length > 0
-                      ? extensionStorage.folders.map((folder) => <NewFolderButton name={folder.name} height={'44px'} width={'145px'} marginLeft={'28px'} marginTop={'18px'} />)
+                      ? extensionStorage.folders.map((folder) => <NewFolderButton name={folder.name} height={'44px'} width={'145px'} marginLeft={'28px'} marginTop={'18px'} onClick={() => displayPapers(folder.name)}/>)
                       : null}
 
                   {/* Replace null with "No folder yet" in above line */}
@@ -182,7 +193,7 @@ function App () {
                 </Button>
               </div>
 
-              <div style={styles.paperContainerBox}>
+              <div id="papers-container" style={styles.paperContainerBox}>
                 <h1>paper container</h1>
               </div>
             </div>
