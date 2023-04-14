@@ -6,16 +6,16 @@ export default function NewFolderButton(props) {
 
   const styles = {
     folderStyles: {
-      marginLeft: '28px',
-      marginTop: '18px',
+      marginLeft: props.marginLeft,
+      marginTop: props.marginTop,
     },
   }
 
   return (
     <div style={styles.folderStyles}>
       <Button
-        height='44px'
-        width='145px'
+        height={props.height}
+        width={props.width}
         bg='#45B19D'
         borderRadius='10px'
         fontSize='23px'
