@@ -6,7 +6,7 @@ import NewFolderButton from './components/NewFolderButton'
 import Website from './website'
 import DisplayPapersinFolder from './components/DisplayPapersinFolder'
 
-function App () {
+function App() {
   const theme = useTheme()
   const { brand } = theme.colors
 
@@ -102,7 +102,7 @@ function App () {
   /**
    * Adds a new folder to the extensionStorage object and updates the local storage
    */
-  function addFolder () {
+  function addFolder() {
     // create new folder obj
     const newFolder = {
       name: `Folder ${extensionStorage.folders.length + 1}`,
@@ -126,7 +126,7 @@ function App () {
   /**
    * Saves the extensionStorage object to local storage
    */
-  function saveExtensionStorage () {
+  function saveExtensionStorage() {
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage))
   }
 
@@ -157,7 +157,6 @@ function App () {
                     <AddIcon />
                   </Button>
                   <input type="text" style={styles.inputBox} />
-
                 </div>
               </div>
             </div>
@@ -167,7 +166,16 @@ function App () {
                 <div style={styles.foldersBoxContainerStyles}>
                   {
                     extensionStorage.folders && extensionStorage.folders.length > 0
-                      ? extensionStorage.folders.map((folder) => <NewFolderButton name={folder.name} height={'44px'} width={'145px'} marginLeft={'28px'} marginTop={'18px'} onClick={() => displayPapers(folder.name)}/>)
+                      ? extensionStorage.folders.map((folder) =>
+                        <NewFolderButton
+                          name={folder.name}
+                          height={'44px'}
+                          width={'145px'}
+                          marginLeft={'28px'}
+                          marginTop={'18px'}
+                          onClick={() => displayPapers(folder.name)}
+                        />
+                      )
                       : null}
                   {/* Replace null with "No folder yet" in above line */}
                 </div>
@@ -192,7 +200,7 @@ function App () {
           </div>
         ) : (
           <div>
-            <Website />
+            <Website extensionStorage={extensionStorage} />
           </div>
         )
 
