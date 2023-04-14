@@ -5,7 +5,6 @@ import { Image, Button, useTheme } from '@chakra-ui/react'
 import NewFolderButton from './components/NewFolderButton'
 import Website from './website'
 import DisplayPapersinFolder from './components/DisplayPapersinFolder'
-import ReactDOM from "react-dom";
 
 function App() {
   const theme = useTheme()
@@ -131,23 +130,18 @@ function App() {
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage))
   }
 
+  //Displays the papers in each fodler on click
+  const [displayedPapers, setDisplayedPapers] = useState(null);
+
   function displayPapers(name) {
-    console.log("in function display");
     const folder = extensionStorage.folders.find((obj) => obj.name === name);
     const element = (
       <DisplayPapersinFolder name={folder.name} papers={folder.papers} />
     );
-    ReactDOM.render(element, document.getElementById("papers-container"));
+    setDisplayedPapers(element);
   }
+  
 
-  //tried to make a query using chrom API to grab the title
-  function grabPaperTitle() {
-    window.chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      let tab = tabs[0];
-      let title = tab.title;
-      console.log(title); // log the title to the console
-    });
-  }
 
 
   return (
@@ -159,7 +153,7 @@ function App() {
               <Image src={logo} alt="paperpal-logo" width={'202px'} height={'122px'} />
               <div style={styles.upperBox}>
                 <div style={styles.addPaperButton}>
-                  <Button colorScheme='addPaperButton' height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center' onClick={grabPaperTitle}>
+                  <Button colorScheme='addPaperButton' height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center'>
                     <AddIcon />
                   </Button>
                   <input type="text" style={styles.inputBox} />
@@ -183,7 +177,6 @@ function App() {
                         />
                       )
                       : null}
-
                   {/* Replace null with "No folder yet" in above line */}
                 </div>
 
@@ -201,7 +194,7 @@ function App() {
               </div>
 
               <div id="papers-container" style={styles.paperContainerBox}>
-                <h1>paper container</h1>
+                {displayedPapers}
               </div>
             </div>
           </div>
