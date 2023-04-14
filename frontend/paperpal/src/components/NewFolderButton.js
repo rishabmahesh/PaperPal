@@ -24,7 +24,8 @@ export default function NewFolderButton(props) {
         _hover={{ bg: '#378D7D' }}
         _active={{
           bg: '#307C6E',
-        }}>
+        }}
+        onClick={props.onClick}>
         {props.name}
       </Button>
     </div>
