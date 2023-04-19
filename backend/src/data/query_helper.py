@@ -20,6 +20,10 @@ def get_title_from_id(paper_id):
     return paper[paper["Paper_ID"] == int(paper_id)]['Title']
 
 
+
+def get_all_abstracts():
+    return paper[['Paper_ID', 'Abstract']]
+
 if __name__ == "__main__":
     resp = get_info_from_id(146361)
     print(resp)
