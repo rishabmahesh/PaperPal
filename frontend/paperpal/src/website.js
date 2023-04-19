@@ -141,7 +141,7 @@ export default function Website(props) {
       <div id="papers-container" style={styles.paperContainerBox}>
         <h1>paper container</h1>
           <div style={styles.FilterContainerBox}>
-          <FilterTab />
+          <FilterTab /> 
           </div>
       </div>
 
