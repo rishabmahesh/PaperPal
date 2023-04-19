@@ -1,21 +1,17 @@
-import React from "react";
-import logo from "./images/PaperPal-extension.png";
-import { Image, Button } from "@chakra-ui/react";
-import NewFolderButton from "./components/NewFolderButton";
-import DisplayPapersinFolder from "./components/DisplayPapersinFolder";
+import React from 'react'
+import logo from './images/PaperPal-extension.png'
+import { Image, Button } from '@chakra-ui/react'
+import NewFolderButton from './components/NewFolderButton'
 import ReactDOM from "react-dom";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import FilterTab from "./components/FilterTab";
-
+import FilterTab from './components/FilterTab'
+import DisplaySavedTable from './components/DisplaySavedTable';
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 
 const savedPaperColumns = [
   { field: "title", headerName: "Title", width: 130 },
@@ -179,7 +175,7 @@ export default function Website(props) {
       marginLeft: "54px",
       marginTop: "40px",
     },
-    FilterContainerBox: {
+    filterContainerBox: {
       height: `${window.innerHeight}px`,
       width: `${window.innerWidth - 500}px`,
       marginLeft: "175px",
@@ -222,9 +218,9 @@ export default function Website(props) {
     console.log("in function display");
     const folder = extensionStorage.folders.find((obj) => obj.name === name);
     const element = (
-      <DisplayPapersinFolder name={folder.name} papers={folder.papers} />
+      <DisplaySavedTable name={folder.name} papers={folder.papers} />
     );
-    ReactDOM.render(element, document.getElementById("papers-container"));
+    ReactDOM.render(element, document.getElementById("saved-papers-container"));
   }
 
   //drawer width
@@ -341,18 +337,10 @@ export default function Website(props) {
           
         </div> */}
 
-            {/* <DataGrid
-            rows={savedPaperRows}
-            columns={savedPaperColumns}
-            pageSize={10}
-            slots={{
-              toolbar: GridToolbar,
-            }}
-          /> */}
+            </div>
 
             <h1>paper container</h1>
             <div style={styles.FilterContainerBox}></div>
-          </div>
         </Main>
       </Box>
     </div>

@@ -12,6 +12,10 @@ export default function FilterTab(props) {
       justifyContent: 'center',
       textAlign: 'center'
     },
+    filterTabStyles: {
+      width: '421px',
+      backgroundColor: '#000000',
+    }
   }
   
   const [selectedAuthors, setSelectedAuthors] = useState([]);
@@ -57,7 +61,7 @@ export default function FilterTab(props) {
   };
 
   return (
-    <div>
+    <div style={styles.filterTabStyles}>
         <h1> Filters</h1>
         <div> 
             <h1> Authors</h1>

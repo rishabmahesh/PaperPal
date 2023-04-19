@@ -1,5 +1,8 @@
 import json
 import os
+import tempfile
+import zipfile
+
 import pandas as pd
 
 
@@ -39,5 +42,22 @@ def get_cosine_similarity_matrix(intermediate_folder_path ="./mapped_intermediat
         cs_df = pd.DataFrame.from_records(records)
         return cs_df
     return csm_dict
-# with open("cosine_similarity_matrix.json", "w") as f:
-#     json.dump(csm_dict, f)
+
+def get_csm_matrix_from_zip(zip_file_path):
+    # unzip the zip file into a temp folder - it contains only one csv file
+    with tempfile.TemporaryDirectory() as temp_dir:
+        with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+            zip_ref.extractall(temp_dir)
+        # read the csv file into a dataframe
+        _csm_df = pd.read_csv(os.path.join(temp_dir, os.listdir(temp_dir)[0]))
+        _csm_df = _csm_df.set_index(['Paper_ID_1'])
+    return _csm_df
+
+
+if __name__ == "__main__":
+    csm_df = get_cosine_similarity_matrix(as_df=True)
+    csm_df.to_csv("./cosine_similarity_matrix.csv", index=False)
+    csm_df2 = pd.read_csv("./cosine_similarity_matrix.csv")
+    print("DONE")
+    # with open("cosine_similarity_matrix.csv", "w") as f:
+    #     json.dump(csm_dict, f)

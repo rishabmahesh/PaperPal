@@ -1,17 +1,17 @@
 import pandas as pd
 import numpy as np
 import json
-from database.combine_intermediate_jsons import get_cosine_similarity_matrix
+from database.combine_intermediate_jsons import get_cosine_similarity_matrix, get_csm_matrix_from_zip
 
 
 author = pd.read_csv("./database/BiblioVIS/CSV_Author.csv")
 paper = pd.read_csv("./database/BiblioVIS/CSV_Paper.csv")
 author_paper = pd.read_csv("./database/BiblioVIS/CSV_Author_Paper.csv")
 author_paper_affiliation = pd.read_csv("./database/BiblioVIS/CSV_Paper_Author_Affiliation.csv")
-csm_df = get_cosine_similarity_matrix(as_df=True, intermediate_folder_path="./database/mapped_intermediate_folder")
+# csm_df = get_cosine_similarity_matrix(as_df=True, intermediate_folder_path="./database/mapped_intermediate_folder")
 # convert csm_df to matrix
-csm_df = csm_df.pivot(index='Paper_ID_1', columns='Paper_ID_2', values='Cosine_Similarity').fillna(1)
-
+# csm_df = csm_df.pivot(index='Paper_ID_1', columns='Paper_ID_2', values='Cosine_Similarity').fillna(1)
+csm_df = get_csm_matrix_from_zip("./database/pivot_df.csv.zip")
 def get_info_from_id(paper_id):
     authors = paper[paper["Paper_ID"] == int(paper_id)].merge(author_paper, on="Paper_ID").merge(author, on="Author_ID")['Name'].values
     response_payload = json.loads(paper[paper['Paper_ID'] == int(paper_id)].to_json(orient='records'))[0]
