@@ -1,5 +1,6 @@
 import { Button, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from 'react'
+import DisplayPaperInformation from './DisplayPaperInformation'
 
 export default function DisplayPapersinFolder(props) {
 
@@ -9,6 +10,13 @@ export default function DisplayPapersinFolder(props) {
       marginTop: '18px',
     },
   }
+
+  const [selectedPaper, setSelectedPaper] = useState(null);
+
+  const handlePaperClick = (paper) => {
+    setSelectedPaper(paper);
+  };
+  
 
   return (
     <div style={styles.paperStyles}>
@@ -20,7 +28,7 @@ export default function DisplayPapersinFolder(props) {
           <Button
             height='44px'
             width='400px'
-            bg='#b7bbbc'
+            bg={selectedPaper === paper ? '#636a6c' : '#b7bbbc'}
             borderRadius='10px'
             fontSize='23px'
             color='#FFFFFF'
@@ -30,10 +38,16 @@ export default function DisplayPapersinFolder(props) {
             marginTop= '18px'
             _hover={{ bg: '#636a6c' }}
             _active={{
-              bg: '#307C6E',
-            }}>
+              bg: '#636a6c',
+            }}
+            onClick={() => handlePaperClick(paper)}>
             {paper.title}
           </Button>
+          {selectedPaper && selectedPaper.title === paper.title && (
+            <div style={styles.infoStyles}>
+              <DisplayPaperInformation author={paper.author} pub={paper.pub} year={paper.year}/>
+            </div>
+          )}
         </div>
       ))}
     </div>

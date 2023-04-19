@@ -136,11 +136,10 @@ function App() {
   function displayPapers(name) {
     const folder = extensionStorage.folders.find((obj) => obj.name === name);
     const element = (
-      <DisplayPapersinFolder name={folder.name} papers={folder.papers} />
+      <DisplayPapersinFolder name={folder.name} papers={folder.papers}/>
     );
     setDisplayedPapers(element);
   }
-  
 
 
 
