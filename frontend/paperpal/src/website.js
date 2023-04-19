@@ -4,6 +4,7 @@ import { Image, Button } from '@chakra-ui/react'
 import NewFolderButton from './components/NewFolderButton'
 import DisplayPapersinFolder from './components/DisplayPapersinFolder'
 import ReactDOM from "react-dom";
+import FilterTab from './components/FilterTab'
 
 export default function Website(props) {
 
@@ -46,6 +47,12 @@ export default function Website(props) {
       height: `${window.innerHeight}px`,
       width: `${window.innerWidth-325}px`,
       marginLeft: '0px',
+    },
+    FilterContainerBox: {
+      height: `${window.innerHeight}px`,
+      width: `${window.innerWidth-500}px`,
+      marginLeft: '175px',
+      marginRight:'100px',
     }
   }
 
@@ -133,6 +140,9 @@ export default function Website(props) {
 
       <div id="papers-container" style={styles.paperContainerBox}>
         <h1>paper container</h1>
+          <div style={styles.FilterContainerBox}>
+          <FilterTab />
+          </div>
       </div>
 
     </div>
