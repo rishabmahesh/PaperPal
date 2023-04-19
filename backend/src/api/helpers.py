@@ -1,6 +1,6 @@
 import time
 from src.utils.constants import FAIL_RECOS
-from src.data.query_helper import get_info_from_id, get_title_from_id
+from src.data.query_helper import get_info_from_id, get_title_from_id, get_all_authors, get_recommendations
 
 
 def title_helper(inp_json, action):
@@ -16,12 +16,17 @@ def info_helper_single(paper_id):
 
 
 def recommendations_helper(inp_json):
-    return FAIL_RECOS
+    return get_recommendations(inp_json, 5)
 
+
+def authors_helper():
+    return get_all_authors()["Name"].values
 
 def home_helper():
     return f"You've reached HOME at {time.time()}!"
 
 
 if __name__ == "__main__":
-    pass
+    ah = authors_helper()
+    print(ah)
+    print("DONE")

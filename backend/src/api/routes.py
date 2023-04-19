@@ -1,7 +1,7 @@
 import os
 import json
 from flask import Blueprint, request, send_file, jsonify, current_app
-from src.api.helpers import title_helper, info_helper, recommendations_helper, home_helper, info_helper_single
+from src.api.helpers import title_helper, info_helper, recommendations_helper, home_helper, info_helper_single, authors_helper
 from src.utils.constants import get_logger
 
 import time
@@ -37,10 +37,26 @@ def home():
     return json.dumps(home_helper())
 
 
+@api.route("/authors", methods=["GET"])
+def get_authors():
+    logger.info("Entered /authors")
+    if request.method != "GET":
+        return "INVALID METHOD", 405
+    json_data = request.get_json()
+    try:
+        resp = json.dumps(authors_helper())
+    except IndexError as e:
+        return handle_error(2, "Could not find paper in database", "paperpal")
+    except ValueError as e:
+        return handle_error(21, "Invalid Paper_ID - make sure it is an int", "paperpal")
+    return resp
+
+
 @api.route("/info", methods=["GET"])
+@api.route("/info", methods=["POST"])
 def get_info():
     logger.info("Entered /info")
-    if request.method != "GET":
+    if request.method != "POST":
         return "INVALID METHOD", 405
     json_data = request.get_json()
     try:
@@ -67,14 +83,23 @@ def get_info_single(paper_id):
     return resp
 
 
-@api.route("/recommendations", methods=["GET"])
+@api.route("/recommendations", methods=["POST"])
 def recommendations():
-    logger.info("Entered /reommendations")
-    if request.method != "GET":
+    logger.info("Entered /recommendations")
+    if request.method != "POST":
         return "INVALID METHOD", 405
     json_data = request.get_json()
-
-    return json.dumps(recommendations_helper(json_data))
+    try:
+        paper_list = json_data["my_list"]
+    except KeyError as e:
+        return handle_error(4, "Could not find 'my_list' parameter in payload", "paperpal")
+    try:
+        resp = json.dumps(recommendations_helper(paper_list))
+    except (ValueError, IndexError, TypeError) as e:
+        return handle_error(5, "could not prepare json response", "paperpal")
+    except KeyError as e:
+        return handle_error(6, "Invalid Paper ID in list", "paperpal")
+    return resp
 
 
 @errors.app_errorhandler(Exception)

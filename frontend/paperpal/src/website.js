@@ -5,6 +5,7 @@ import NewFolderButton from './components/NewFolderButton'
 import DisplayPapersinFolder from './components/DisplayPapersinFolder'
 import ReactDOM from "react-dom";
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import FilterTab from './components/FilterTab'
 
 const savedPaperColumns = [
   { field: 'title', headerName: 'Title', width: 130 },
@@ -80,6 +81,12 @@ export default function Website(props) {
       borderWidth: '1px',
       marginLeft: '54px',
       marginTop: '40px',
+    },
+    FilterContainerBox: {
+      height: `${window.innerHeight}px`,
+      width: `${window.innerWidth - 500}px`,
+      marginLeft: '175px',
+      marginRight: '100px',
     }
   }
 
@@ -166,10 +173,11 @@ export default function Website(props) {
       </div>
 
       <div id="papers-container" style={styles.paperContainerBox}>
-        <div style={styles.savedBoxStyles}>
+        {/* <div style={styles.savedBoxStyles}>
           
-        </div>
-          {/* <DataGrid
+        </div> */}
+
+        {/* <DataGrid
             rows={savedPaperRows}
             columns={savedPaperColumns}
             pageSize={10}
@@ -177,7 +185,11 @@ export default function Website(props) {
               toolbar: GridToolbar,
             }}
           /> */}
-        
+
+        <h1>paper container</h1>
+        <div style={styles.FilterContainerBox}>
+          <FilterTab />
+        </div>
       </div>
 
     </div>

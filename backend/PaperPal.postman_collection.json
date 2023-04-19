@@ -31,15 +31,12 @@
 		},
 		{
 			"name": "Get info",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[123, 234, 345, 456]",
+					"raw": "[146361, 146362]",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -47,7 +44,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://0.0.0.0:8000/info",
+					"raw": "http://0.0.0.0:8080/info",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -55,7 +52,7 @@
 						"0",
 						"0"
 					],
-					"port": "8000",
+					"port": "8080",
 					"path": [
 						"info"
 					]
@@ -119,11 +116,8 @@
 		},
 		{
 			"name": "Get recommendations",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
