@@ -70,7 +70,7 @@ export default function FilterTab(props) {
             />
         </div>
 
-        <div style={styles.paddingStyles}>
+        <div>
             <Box>
                 <Text>Year Range: {yearRange[0]} - {yearRange[1]}</Text>
                 <RangeSlider
