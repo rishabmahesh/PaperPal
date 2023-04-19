@@ -37,12 +37,12 @@ def home():
     return json.dumps(home_helper())
 
 
-@api.route("/info", methods=["GET"])
+@api.route("/info", methods=["POST"])
 def get_info():
     logger.info("Entered /info")
-    if request.method != "GET":
+    if request.method != "POST":
         return "INVALID METHOD", 405
-    json_data = request.get_json()["papers"]
+    json_data = request.get_json()
     try:
         resp = json.dumps(info_helper(json_data))
     except IndexError as e:

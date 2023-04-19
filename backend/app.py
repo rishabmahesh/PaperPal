@@ -49,7 +49,7 @@ def main():
     # app.run(host='127.0.0.1',port=6060, threaded=True)
     # uncomment code below to run flask with debugger
     if os.environ.get('TESTING') == "1":
-        app.run(host='0.0.0.0', port=8000, debug=True)  # Flask for debugging
+        app.run(host='0.0.0.0', port=8080, debug=True)  # Flask for debugging
     else:
         serve(app, port=8080)
 
