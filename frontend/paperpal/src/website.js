@@ -268,7 +268,7 @@ export default function Website(props) {
     })
   );
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
