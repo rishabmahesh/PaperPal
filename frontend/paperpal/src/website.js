@@ -154,7 +154,7 @@ export default function Website(props) {
     },
     folderTabStyles: {
       backgroundColor: "#6CAFBE",
-      width: "325px",
+      width: `${window.innerWidth * 0.2115}px`,
       height: "854px",
       display: "flex",
       flexDirection: "column",
@@ -166,7 +166,8 @@ export default function Website(props) {
     paperContainerBox: {
       height: `${window.innerHeight}px`,
       width: `${window.innerWidth - 325}px`,
-      marginLeft: "0px",
+      display: "flex",
+      flexDirection: "row",
     },
     paperContainerBox2: {
       height: `${window.innerHeight}px`,
@@ -174,13 +175,13 @@ export default function Website(props) {
       marginLeft: `${window.innerWidth - 325}px`,
     },
     savedBoxStyles: {
-      height: "773px",
-      width: "1217px",
+      height: `${window.innerHeight * 0.85}px`,
+      width: recommendationButtonClicked ? `${window.innerWidth * 0.35}px` : `${window.innerWidth * 0.6864}px`,
       backgroundColor: "#D9D9D9",
       borderRadius: "10px",
       borderColor: "#000000",
       borderWidth: "1px",
-      marginLeft: "54px",
+      marginLeft: recommendationButtonClicked ? "0px" : "54px",
       marginTop: "40px",
     },
     filterContainerBox: {
@@ -307,7 +308,7 @@ export default function Website(props) {
             <Image
               src={logo}
               alt="paperpal-logo"
-              width={"325px"}
+              width={`${window.innerWidth * 0.2115}px`}
               height={"192px"}
             />
 
@@ -372,6 +373,7 @@ export default function Website(props) {
         <Main open={open}>
           <div id="papers-container" style={styles.paperContainerBox}>
 
+            {/* Saved papers box */}
             <div style={styles.savedBoxStyles}>
               <div>
 
@@ -400,6 +402,19 @@ export default function Website(props) {
               </div>
 
             </div>
+
+            {/* Recommendation papers box */}
+            {recommendationButtonClicked ? (
+              <div style={styles.savedBoxStyles}>
+                <div>
+
+                </div>
+
+                <div id="recommended-papers-container">
+                  
+                </div>
+              </div>
+            ) : null}
           </div>
 
         </Main>
