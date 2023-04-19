@@ -9,6 +9,7 @@ import DisplaySavedTable from './components/DisplaySavedTable';
 export default function Website() {
 
   const [extensionStorage, setExtensionStorage] = React.useState({})
+  const [recommendationButtonClicked, setRecommendationButtonClicked] = React.useState(false)
 
   const extensionStorageInit = {
     numberOfFolders: 0,
@@ -113,6 +114,22 @@ export default function Website() {
     ReactDOM.render(element, document.getElementById("saved-papers-container"));
   }
 
+  function generateRecommendations() {
+    // TODO: code to call API and get recs
+
+    // TODO: format received papers to required format and send in DisplaySavedTable
+
+
+    // code to validate recs button click
+    setRecommendationButtonClicked(true)
+
+    // code to display recs in table format
+    const element = (
+      <DisplaySavedTable name={null} papers={null} />
+    );
+    ReactDOM.render(element, document.getElementById("saved-papers-container"));
+  }
+
   return (
     <div style={styles.websiteStyles}>
       <div style={styles.leftFolderTabStyles}>
@@ -168,6 +185,7 @@ export default function Website() {
             </h1>
           </div>
 
+          {/* TODO: Hide generate recommendation button until folder is selected via variable */}
           <div style={styles.generateRecsButtonContainerStyles}>
             <Button
               height='45px'
@@ -177,16 +195,45 @@ export default function Website() {
               _hover={{ bg: '#297D6D' }}
               fontSize='23px'
               color='#FFFFFF'
+              onClick={{generateRecommendations}}
             >
               Generate Recommendations
             </Button>
           </div>
 
         </div>
+      </div>
 
-        {/* <div style={styles.filterContainerBox}>
-          <FilterTab />
-        </div> */}
+      <div id="papers-container" style={styles.paperContainerBox}>
+
+        <div style={styles.savedBoxStyles}>
+          <div>
+
+          </div>
+
+          <div id="saved-papers-container">
+            <h1>
+              select a folder
+            </h1>
+          </div>
+
+          {/* TODO: Hide generate recommendation button until folder is selected via variable */}
+          <div style={styles.generateRecsButtonContainerStyles}>
+            <Button
+              height='45px'
+              width='405px'
+              bg='#296A5E'
+              borderRadius='10px'
+              _hover={{ bg: '#297D6D' }}
+              fontSize='23px'
+              color='#FFFFFF'
+              onClick={{}}
+            >
+              Generate Recommendations
+            </Button>
+          </div>
+
+        </div>
       </div>
 
     </div>

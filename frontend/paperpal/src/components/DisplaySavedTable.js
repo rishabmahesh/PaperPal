@@ -27,7 +27,7 @@ const savedPaperRows = [
   { id: 15, title: 'Paper 15', authors: 'Author 15', year: '2021', citations: '1', references: '1' },
 ]
 
-export default function DisplaySavedTable(props) {
+export default function DisplaySavedTable() {
   const styles = {
     tableContainerStyles: {
       height: '700px',
