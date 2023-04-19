@@ -70,6 +70,16 @@ export default function Website(props) {
       height: `${window.innerHeight}px`,
       width: `${window.innerWidth - 325}px`,
       marginLeft: '0px',
+    },
+    savedBoxStyles: {
+      height: '773px',
+      width: '1217px',
+      backgroundColor: '#D9D9D9',
+      borderRadius: '10px',
+      borderColor: '#000000',
+      borderWidth: '1px',
+      marginLeft: '54px',
+      marginTop: '40px',
     }
   }
 
@@ -156,15 +166,17 @@ export default function Website(props) {
       </div>
 
       <div id="papers-container" style={styles.paperContainerBox}>
-        
-          <DataGrid
+        <div style={styles.savedBoxStyles}>
+          
+        </div>
+          {/* <DataGrid
             rows={savedPaperRows}
             columns={savedPaperColumns}
             pageSize={10}
             slots={{
               toolbar: GridToolbar,
             }}
-          />
+          /> */}
         
       </div>
 
