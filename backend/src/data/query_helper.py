@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import json
-from backend.database.combine_intermediate_jsons import get_cosine_similarity_matrix
+from database.combine_intermediate_jsons import get_cosine_similarity_matrix
 
 
 author = pd.read_csv("./database/BiblioVIS/CSV_Author.csv")
