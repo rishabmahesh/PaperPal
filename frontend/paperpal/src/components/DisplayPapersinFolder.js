@@ -16,13 +16,13 @@ export default function DisplayPapersinFolder(props) {
   const handlePaperClick = (paper) => {
     setSelectedPaper(paper);
   };
-  
+
 
   return (
     <div style={styles.paperStyles}>
       <Text fontSize="23px">
         Papers in: {props.name}
-    </Text>
+      </Text>
       {props.papers.map((paper) => (
         <div>
           <Button
@@ -34,8 +34,8 @@ export default function DisplayPapersinFolder(props) {
             color='#FFFFFF'
             border='1px'
             borderColor='#000000'
-            marginLeft= '28px'
-            marginTop= '18px'
+            marginLeft='28px'
+            marginTop='18px'
             _hover={{ bg: '#636a6c' }}
             _active={{
               bg: '#636a6c',
@@ -45,7 +45,7 @@ export default function DisplayPapersinFolder(props) {
           </Button>
           {selectedPaper && selectedPaper.title === paper.title && (
             <div style={styles.infoStyles}>
-              <DisplayPaperInformation author={paper.author} pub={paper.pub} year={paper.year}/>
+              <DisplayPaperInformation author={paper.author} pub={paper.pub} year={paper.year} />
             </div>
           )}
         </div>
