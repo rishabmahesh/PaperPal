@@ -42,7 +42,7 @@ def get_info():
     logger.info("Entered /info")
     if request.method != "GET":
         return "INVALID METHOD", 405
-    json_data = request.get_json()
+    json_data = request.get_json()["papers"]
     try:
         resp = json.dumps(info_helper(json_data))
     except IndexError as e:
