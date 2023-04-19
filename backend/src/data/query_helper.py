@@ -39,13 +39,10 @@ def get_recommendations(paper_id_arr, n):
     top_n_for_each_paper = {pid: [] for pid in paper_id_arr}
     all_paper_ids = get_all_paper_ids()
     for pid in paper_id_arr:
-        #select all rows where either paperid1 or paperid2 is pid
-        #sort by cosine similarity
-        # csm_df[(csm_df['Paper_ID_1'] == pid) | (csm_df['Paper_ID_2'] == pid)].sort_values(by='Cosine_Similarity', ascending=False)
-        #get top n
-        top_n = csm_df[(csm_df['Paper_ID_1'] == pid) | (csm_df['Paper_ID_2'] == pid)].sort_values(by='Cosine_Similarity', ascending=False).head(n)
+        top_n_for_each_paper[pid] = csm_df.loc[pid].sort_values(ascending=False)[1:n+1].index.values
+    return top_n_for_each_paper
 
 
 if __name__ == "__main__":
-    resp = get_info_from_id(146361)
+    resp = get_recommendations([146361, 146362], 10)
     print(resp)
