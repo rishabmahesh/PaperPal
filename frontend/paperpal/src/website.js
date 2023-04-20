@@ -2,129 +2,22 @@ import React from 'react'
 import logo from './images/PaperPal-extension.png'
 import { Image, Button } from '@chakra-ui/react'
 import NewFolderButton from './components/NewFolderButton'
-import ReactDOM from "react-dom";
-import FilterTab from './components/FilterTab'
 import DisplaySavedTable from './components/DisplaySavedTable';
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-
-
-const savedPaperColumns = [
-  { field: "title", headerName: "Title", width: 130 },
-  { field: "authors", headerName: "Authors", width: 130 },
-  { field: "year", headerName: "Year", width: 130 },
-  { field: "citations", headerName: "Citation no.", width: 130 },
-  { field: "references", headerName: "Reference no.", width: 130 },
-];
-
-const savedPaperRows = [
-  {
-    id: 1,
-    title: "Paper 1",
-    authors: "Author 1",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 2,
-    title: "Paper 2",
-    authors: "Author 2",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 3,
-    title: "Paper 3",
-    authors: "Author 3",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 4,
-    title: "Paper 4",
-    authors: "Author 4",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 5,
-    title: "Paper 5",
-    authors: "Author 5",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 6,
-    title: "Paper 6",
-    authors: "Author 6",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 7,
-    title: "Paper 7",
-    authors: "Author 7",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 8,
-    title: "Paper 8",
-    authors: "Author 8",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 9,
-    title: "Paper 9",
-    authors: "Author 9",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 10,
-    title: "Paper 10",
-    authors: "Author 10",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 11,
-    title: "Paper 11",
-    authors: "Author 11",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-  {
-    id: 12,
-    title: "Paper 12",
-    authors: "Author 12",
-    year: "2021",
-    citations: "1",
-    references: "1",
-  },
-];
-
-export default function Website(props) {
+export default function Website() {
 
   const [extensionStorage, setExtensionStorage] = React.useState({})
   const [recommendationButtonClicked, setRecommendationButtonClicked] = React.useState(false)
+
+  const [savedPapers, setSavedPapers] = React.useState(false)
+  const [folderDetails, setFolderDetails] = React.useState({})
+
 
   const extensionStorageInit = {
     numberOfFolders: 0,
@@ -181,7 +74,7 @@ export default function Website(props) {
       borderRadius: "10px",
       borderColor: "#000000",
       borderWidth: "1px",
-      marginLeft: recommendationButtonClicked ? "0px" : "54px",
+      marginLeft: recommendationButtonClicked ? "30px" : "54px",
       marginTop: "40px",
     },
     filterContainerBox: {
@@ -224,12 +117,8 @@ export default function Website(props) {
   }
 
   function displayPapers(name) {
-    console.log("in function display");
-    const folder = extensionStorage.folders.find((obj) => obj.name === name);
-    const element = (
-      <DisplaySavedTable name={folder.name} papers={folder.papers} />
-    );
-    ReactDOM.render(element, document.getElementById("saved-papers-container"));
+    setSavedPapers(true);
+    setFolderDetails(name);
   }
 
   function generateRecommendations() {
@@ -240,12 +129,6 @@ export default function Website(props) {
 
     // code to validate recs button click
     setRecommendationButtonClicked(true)
-
-    // code to display recs in table format
-    const element = (
-      <DisplaySavedTable name={null} papers={null} />
-    );
-    // ReactDOM.render(element, document.getElementById("recommended-papers-container"));
   }
   //drawer width
   const drawerWidth = 325;
@@ -346,20 +229,6 @@ export default function Website(props) {
             </div>
           </div>
 
-          <div>
-            <Button
-              height='130px'
-              width='325px'
-              bg='#296A5E'
-              borderRadius='0px'
-              _hover={{ bg: '#297D6D' }}
-              fontSize='23px'
-              color='#FFFFFF'
-              onClick={addFolder}
-            >
-              Add Folder
-            </Button>
-          </div>
         </Drawer>
         <IconButton
           color="inherit"
@@ -380,9 +249,16 @@ export default function Website(props) {
               </div>
 
               <div id="saved-papers-container">
-                <h1>
-                  select a folder
-                </h1>
+                {
+                  savedPapers ? (
+                    // TODO: have to pass folder.name and folder.papers to DisplaySavedTable
+                    <DisplaySavedTable name={null} papers={null} />
+                  ) :
+                    <h1>
+                      Select a folder
+                    </h1>
+                }
+
               </div>
 
               {/* TODO: Hide generate recommendation button until folder is selected via variable */}
@@ -406,13 +282,8 @@ export default function Website(props) {
             {/* Recommendation papers box */}
             {recommendationButtonClicked ? (
               <div style={styles.savedBoxStyles}>
-                <div>
-
-                </div>
-
-                <div id="recommended-papers-container">
-                  
-                </div>
+                {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
+                <DisplaySavedTable name={null} papers={null} />
               </div>
             ) : null}
           </div>
