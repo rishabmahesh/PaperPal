@@ -13,7 +13,7 @@ export default function DisplayPapersinFolder(props) {
       // display: 'flex',
       alignItems: 'center',
       position: 'relative',
-      backgroundColor: "#b7bbbc",
+      // backgroundColor: "#b7bbbc",
       marginTop: '20px'
     },
     hoverButtonStyles: {
