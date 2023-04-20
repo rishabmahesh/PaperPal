@@ -270,10 +270,10 @@ export default function Website() {
                       </div>
                     </div>
                   ) : (
-                    <div>
-                      <h1>
+                    <div style={{marginTop: "400px", marginLeft: "500px"}}>
+                      <p style={{fontSize: 40}}>
                         Select a folder
-                      </h1>
+                      </p>
                     </div>
                   )
                 }
