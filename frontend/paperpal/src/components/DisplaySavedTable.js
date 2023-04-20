@@ -30,7 +30,7 @@ const savedPaperRows = [
 export default function DisplaySavedTable() {
   const styles = {
     tableContainerStyles: {
-      height: '700px',
+      height: `${window.innerHeight*0.70}px`,
     },
   }
 
