@@ -80,9 +80,6 @@ function App() {
       fontSize: '23px',
       textAlign: 'center'
     },
-    insideAddFolderButtonStyles: {
-      backgroundColor: '#000000'
-    },
     foldersBoxContainerStyles: {
       width: '202px',
       height: '305px',

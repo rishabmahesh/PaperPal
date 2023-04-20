@@ -252,31 +252,32 @@ export default function Website() {
                 {
                   savedPapers ? (
                     // TODO: have to pass folder.name and folder.papers to DisplaySavedTable
-                    <DisplaySavedTable name={null} papers={null} />
-                  ) : (
-                      <div>
-                        <h1>
-                          Select a folder
-                        </h1>
-                      </div>)
-                }
-
-                        {/* TODO: Hide generate recommendation button until folder is selected via variable */}
-                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '150vh'}}>
-                          <Button
-                              height='45px'
-                              width='405px'
-                              bg='#296A5E'
-                              borderRadius='10px'
-                              _hover={{ bg: '#297D6D' }}
-                              fontSize='23px'
-                              color='#FFFFFF'
-                              onClick={generateRecommendations}
-                          >
-                            Generate Recommendations
-                          </Button>
-                        </div>
+                    <div>
+                      <DisplaySavedTable name={null} papers={null} />
+                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '14vh' }}>
+                        <Button
+                          height='45px'
+                          width='405px'
+                          bg='#296A5E'
+                          borderRadius='10px'
+                          _hover={{ bg: '#297D6D' }}
+                          fontSize='23px'
+                          color='#FFFFFF'
+                          onClick={generateRecommendations}
+                        >
+                          Generate Recommendations
+                        </Button>
                       </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <h1>
+                        Select a folder
+                      </h1>
+                    </div>
+                  )
+                }
+              </div>
             </div>
 
             {/* Recommendation papers box */}
