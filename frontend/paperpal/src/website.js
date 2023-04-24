@@ -39,6 +39,8 @@ export default function Website() {
       height: `${window.innerHeight}px`,
       display: "flex",
       flexDirection: "row",
+      overflowY: "hidden",
+      overflowX: "hidden",
     },
     leftFolderTabStyles: {
       height: `${window.innerHeight}px`,
@@ -71,10 +73,10 @@ export default function Website() {
       height: `${window.innerHeight * 0.85}px`,
       width: recommendationButtonClicked ? `${window.innerWidth * 0.35}px` : `${window.innerWidth * 0.6864}px`,
       backgroundColor: "#D9D9D9",
-      borderRadius: "10px",
+      borderRadius: "2px",
       borderColor: "#000000",
-      borderWidth: "1px",
-      marginLeft: recommendationButtonClicked ? "30px" : "54px",
+      borderWidth: "1.5px",
+      marginLeft: recommendationButtonClicked ? "30px" : "64px",
       marginTop: "40px",
     },
     filterContainerBox: {
@@ -244,40 +246,35 @@ export default function Website() {
 
             {/* Saved papers box */}
             <div style={styles.savedBoxStyles}>
-              <div>
-
-              </div>
-
-              <div id="saved-papers-container">
-                {
-                  savedPapers ? (
-                    // TODO: have to pass folder.name and folder.papers to DisplaySavedTable
-                    <div>
-                      <DisplaySavedTable name={null} papers={null} />
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '14vh' }}>
-                        <Button
-                          height='45px'
-                          width='405px'
-                          bg='#296A5E'
-                          borderRadius='10px'
-                          _hover={{ bg: '#297D6D' }}
-                          fontSize='23px'
-                          color='#FFFFFF'
-                          onClick={generateRecommendations}
-                        >
-                          Generate Recommendations
-                        </Button>
-                      </div>
+              {
+                savedPapers ? (
+                  // TODO: have to pass folder.name and folder.papers to DisplaySavedTable
+                  <div>
+                    <DisplaySavedTable name={null} papers={null} />
+                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh' }}>
+                      <Button
+                        height='45px'
+                        width='405px'
+                        bg='#296A5E'
+                        borderRadius='10px'
+                        _hover={{ bg: '#297D6D' }}
+                        fontSize='23px'
+                        color='#FFFFFF'
+                        onClick={generateRecommendations}
+                      >
+                        Generate Recommendations
+                      </Button>
                     </div>
-                  ) : (
-                    <div style={{marginTop: "400px", marginLeft: "500px"}}>
-                      <p style={{fontSize: 40}}>
-                        Select a folder
-                      </p>
-                    </div>
-                  )
-                }
-              </div>
+                  </div>
+                ) : (
+                  <div style={{ marginTop: "400px", marginLeft: "500px" }}>
+                    <p style={{ fontSize: 40 }}>
+                      Select a folder
+                    </p>
+                  </div>
+                )
+              }
+
             </div>
 
             {/* Recommendation papers box */}
