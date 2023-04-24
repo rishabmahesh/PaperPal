@@ -85,9 +85,12 @@ function App() {
       height: '305px',
       overflowY: 'scroll'
     },
-    addPaperButton: {
+    addPaperButtonBox: {
       display: 'flex',
-      paddingLeft: '5%'
+      paddingLeft: '5%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     inputBox: {
       marginLeft: '20px',
@@ -148,9 +151,9 @@ function App() {
             <div style={styles.topBarStyles}>
               <Image src={logo} alt="paperpal-logo" width={'202px'} height={'122px'} />
               <div style={styles.upperBox}>
-                <div style={styles.addPaperButton}>
-                  <Button colorScheme='addPaperButton' height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center'>
-                    <AddIcon />
+                <div style={styles.addPaperButtonBox}>
+                  <Button bg="addPaperButton.500" height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center'>
+                    <AddIcon color="white" />
                   </Button>
                   <input type="text" style={styles.inputBox} />
                 </div>
