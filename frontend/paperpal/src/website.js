@@ -16,7 +16,7 @@ export default function Website() {
   const [recommendationButtonClicked, setRecommendationButtonClicked] = React.useState(false)
 
   const [savedPapers, setSavedPapers] = React.useState(false)
-  const [folderDetails, setFolderDetails] = React.useState({})
+  const [folderName, setFolderName] = React.useState("")
 
 
   const extensionStorageInit = {
@@ -62,7 +62,7 @@ export default function Website() {
       height: `${window.innerHeight}px`,
       width: `${window.innerWidth - 325}px`,
       display: "flex",
-      flexDirection: "row",
+      flexDirection: "column",
     },
     paperContainerBox2: {
       height: `${window.innerHeight}px`,
@@ -84,6 +84,10 @@ export default function Website() {
       width: `${window.innerWidth - 500}px`,
       marginLeft: "175px",
       marginRight: "100px",
+    },
+    folderNameStyles: {
+      color: "#000000",
+      fontSize: "24px",
     },
   };
 
@@ -120,7 +124,7 @@ export default function Website() {
 
   function displayPapers(name) {
     setSavedPapers(true);
-    setFolderDetails(name);
+    setFolderName(name);
   }
 
   function generateRecommendations() {
@@ -243,6 +247,14 @@ export default function Website() {
         </IconButton>
         <Main open={open}>
           <div id="papers-container" style={styles.paperContainerBox}>
+
+            <div>
+              {folderName !== "" ? (
+                <text style={styles.folderNameStyles}>
+                  Papers in: {folderName}
+                </text>
+              ) : null}
+            </div>
 
             {/* Saved papers box */}
             <div style={styles.savedBoxStyles}>
