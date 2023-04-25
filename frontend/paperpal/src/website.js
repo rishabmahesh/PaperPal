@@ -9,6 +9,7 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import DisplayRecommendationTable from './components/DisplayRecommendationTable';
 
 export default function Website() {
 
@@ -70,6 +71,16 @@ export default function Website() {
       marginLeft: `${window.innerWidth - 325}px`,
     },
     savedBoxStyles: {
+      height: `${window.innerHeight * 0.85}px`,
+      width: recommendationButtonClicked ? `${window.innerWidth * 0.35}px` : `${window.innerWidth * 0.6864}px`,
+      backgroundColor: "#D9D9D9",
+      borderRadius: "2px",
+      borderColor: "#000000",
+      borderWidth: "1.5px",
+      marginLeft: recommendationButtonClicked ? "30px" : "64px",
+      marginTop: "40px",
+    },
+    recommendedBoxStyles: {
       height: `${window.innerHeight * 0.85}px`,
       width: recommendationButtonClicked ? `${window.innerWidth * 0.35}px` : `${window.innerWidth * 0.6864}px`,
       backgroundColor: "#D9D9D9",
@@ -294,9 +305,9 @@ export default function Website() {
 
               {/* Recommendation papers box */}
               {recommendationButtonClicked ? (
-                <div style={styles.savedBoxStyles}>
+                <div style={styles.recommendedBoxStyles}>
                   {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
-                  <DisplaySavedTable name={null} papers={null} />
+                  <DisplayRecommendationTable name={null} papers={null} />
                 </div>
               ) : null}
             </div>
