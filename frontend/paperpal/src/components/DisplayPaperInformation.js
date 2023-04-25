@@ -3,14 +3,8 @@ import React from "react";
 
 export default function DisplayPaperInformation(props) {
 
-  const styles = {
-    infopStyles: {
-      marginLeft: '28px',
-    },
-  }
-
   return (
-    <div style={styles.infoStyles}>
+    <div>
       <Box
         as="div"
         width='400px'
@@ -20,11 +14,9 @@ export default function DisplayPaperInformation(props) {
         color='#000000'
         border='1px'
         borderColor='#000000'
-        marginLeft= '28px'
         >
          <div>
-          <Text>Authors: {props.author}</Text>
-          <Text>Publication Venue: {props.pub}</Text>
+          <Text>Authors: {props.author.join(", ")}</Text>
           <Text>Publication Year: {props.year}</Text>
         </div>
       </Box>
