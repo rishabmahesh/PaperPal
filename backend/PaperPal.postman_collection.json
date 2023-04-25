@@ -44,15 +44,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://0.0.0.0:8080/info",
-					"protocol": "http",
+					"raw": "https://paperpal-qfjdfiwtma-uc.a.run.app/info",
+					"protocol": "https",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"paperpal-qfjdfiwtma-uc",
+						"a",
+						"run",
+						"app"
 					],
-					"port": "8080",
 					"path": [
 						"info"
 					]
@@ -121,7 +120,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"my_list\": [123, 234, 345],\n    \"likes\": [123],\n    \"dislikes\": [345]\n}",
+					"raw": "{\n    \"my_list\": [1372243, 346340, 1532153, 1532153, 146375],\n    \"likes\": [123],\n    \"dislikes\": [345]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -129,7 +128,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://0.0.0.0:8000/recommendations",
+					"raw": "http://0.0.0.0:8080/recommendations/v2",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -137,9 +136,10 @@
 						"0",
 						"0"
 					],
-					"port": "8000",
+					"port": "8080",
 					"path": [
-						"recommendations"
+						"recommendations",
+						"v2"
 					]
 				}
 			},
@@ -196,6 +196,145 @@
 					],
 					"cookie": [],
 					"body": "[{\"title\": \"RECO - DEFAULT TITLE 1\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2023, \"more_metadata\": \"TBA\"}, {\"title\": \"RECO - DEFAULT TITLE 2\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2022, \"more_metadata\": \"TBA\"}, {\"title\": \"RECO - DEFAULT TITLE 3\", \"authors\": [\"Author 1\", \"Author 2\", \"Author 3\"], \"year\": 2021, \"more_metadata\": \"TBA\"}]"
+				},
+				{
+					"name": "Get recommendations",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"my_list\": [1372243, 346340, 1532153, 1532153, 146375],\n    \"likes\": [123],\n    \"dislikes\": [345]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8080/recommendations/v2",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8080",
+							"path": [
+								"recommendations",
+								"v2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "22494"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 25 Apr 2023 05:03:58 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[{\"Paper_ID\": 146362.0, \"Title\": \"A procedural interface for volume rendering\", \"Date_Published\": 1990.0, \"Abstract\": \"The author presents a simple, procedural interface for volume rendering. The interface is built on three types of objects: volumes, which contain the data to be visualized, environments, which set up viewing and lighting, and image objects, which convert results to a user-definable format. A volume is rendered against a particular environment with the results sent to an image object for conversion. By defining volume qualities such as color, opacity, and gradient in terms of user-definable transfer functions, the rendering process is made independent of the data set's underlying representation.<\\n\n<ETX xmlns:mml=\\\"http://www.w3.org/1998/Math/MathML\\\" xmlns:xlink=\\\"http://www.w3.org/1999/xlink\\\">&gt;</ETX>\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 1.0, \"Number_references\": 9.0, \"Times_Cited\": 3.0, \"IEEE_Keywords\": \"Rendering (computer graphics),Transfer functions,Data visualization,Image converters,Data structures,Drives,Color,Light sources\", \"Authors\": [\"J.L. Montine\"]}, {\"Paper_ID\": 146372.0, \"Title\": \"A methodology for scientific data visualisation: choosing representations based on a natural scene paradigm\", \"Date_Published\": 1990.0, \"Abstract\": \"A methodology for guiding the choice of visual representations of data is presented. The methodology provides objective and directed display design facilities. Such facilities can guide interactive visualization design, generate standard visualizations automatically, and assess the extent to which chosen representations can convey the required information to data analysis. The methodology is based on objectively distinguishing the types of information conveyed by various visual representations and matching these to the intrinsic characteristics of data and to aims for its interpretation. This approach is directed toward developing a stronger theoretical basis for visualization in scientific computation. The methodology is developed using a natural scene paradigm in which data variables are represented by identifiable properties of realistic scenes.<\\n\n<ETX xmlns:mml=\\\"http://www.w3.org/1998/Math/MathML\\\" xmlns:xlink=\\\"http://www.w3.org/1999/xlink\\\">&gt;</ETX>\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 1.0, \"Number_references\": 21.0, \"Times_Cited\": 12.0, \"IEEE_Keywords\": \"Data visualization,Layout,Displays,Data analysis,Application software,Cognitive science,Information technology,Information systems,Australia,Information analysis\", \"Authors\": [\"Philip K. Robertson\"]}, {\"Paper_ID\": 175837.0, \"Title\": \"Visualization in computational fluid dynamics: a case study\", \"Date_Published\": 1991.0, \"Abstract\": \"VISUAL 3, a highly interactive environment for the visualization of 3D volumetric scientific data, is described. The volume can be broken up in a structured or unstructured manner, and the problem can be static or unsteady in time. Because the data are volumetric and all the information can be changing, traditional CAD techniques are not appropriate. Therefore, VISUAL3 was developed using intermediate mode-rendering methods. A unique aspect of VISUAL3 is the dimensional windowing approach coupled with cursor mapping, which allows efficient pointing in 3D space. VISUAL3 is composed of a large number of visualization tools that can be generally classified into identification, scanning, and probing techniques.<\\n\n<ETX xmlns:mml=\\\"http://www.w3.org/1998/Math/MathML\\\" xmlns:xlink=\\\"http://www.w3.org/1999/xlink\\\">&gt;</ETX>\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 2.0, \"Number_references\": 8.0, \"Times_Cited\": 10.0, \"IEEE_Keywords\": \"Computational fluid dynamics,Computer aided software engineering,Workstations,Data visualization,Hardware,Space technology,Graphics,Computer displays,Computer science education,Packaging\", \"Authors\": [\"Robert Haimes\", \"Dave Darmofal\"]}, {\"Paper_ID\": 235186.0, \"Title\": \"Grand challenge problems in visualization software\", \"Date_Published\": 1992.0, \"Abstract\": \"Discusses issues relating to the complexity of scientific visualization software system implementation. It is argued that the complexity of current implementations of such systems may limit the utility for users because the interfaces typically require significant knowledge of the data being studied and the applicable visualization algorithms, as well as its infrastructure of graphics, imaging and data handling technology. The issues, unknowns, and possible solutions associated with building effective scientific visualization software are discussed.<\\n\n<ETX xmlns:mml=\\\"http://www.w3.org/1998/Math/MathML\\\" xmlns:xlink=\\\"http://www.w3.org/1999/xlink\\\">&gt;</ETX>\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 5.0, \"Number_references\": 11.0, \"Times_Cited\": 5.0, \"IEEE_Keywords\": \"Data visualization,Data handling,Data analysis,Software tools,Laboratories,Software systems,Data structures,Graphics,Application software,Software architecture\", \"Authors\": [\"Lloyd Treinish\", \"David M. Butler\", \"Hikmet Senay\", \"Georges Grinstein\", \"Steve Bryson\"]}, {\"Paper_ID\": 235231.0, \"Title\": \"Towards a comprehensive volume visualization system\", \"Date_Published\": 1992.0, \"Abstract\": \"The VolVis system has been developed to satisfy the diverse requirements of the volume visualization community by comfortably housing numerous visualization algorithms and methods within a consistent and well organized framework. The VolVis system is supported by a generalized abstract model which provides for both geometric and volumetric constructs. VolVis contains several rendering algorithms that span the speed versus accuracy continuum. A fast volume rendering algorithm has been developed, which is capable of exploiting existing graphics hardware without placing any viewing restrictions or compromising accuracy. In addition, VolVis includes a volumetric navigation facility, key-frame animation generator, quantitative analysis tools, and a generalized protocol for communicating with 3D input devices.<\\n\n<ETX xmlns:mml=\\\"http://www.w3.org/1998/Math/MathML\\\" xmlns:xlink=\\\"http://www.w3.org/1999/xlink\\\">&gt;</ETX>\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 3.0, \"Number_references\": 16.0, \"Times_Cited\": 31.0, \"IEEE_Keywords\": \"Rendering (computer graphics),Data visualization,Graphics,Application software,Navigation,Hardware,Surgery,Meteorology,Weather forecasting,Geology\", \"Authors\": [\"Ricardo S. Avila\", \"Lisa Sobierajski\", \"Arie E Kaufman\"]}, {\"Paper_ID\": 346287.0, \"Title\": \"Visualizing multidimensional (multivariate) data and relations\", \"Date_Published\": 1994.0, \"Abstract\": \"The paper provides a review of the field of multidimensional data visualisation and discusses some promising methodologies. It considers some crucial problems and directions. The emphasis is more on concepts and foundations rather than ad hoc methods. Visualization is considered as a collection of transformations from problem domains to a perceptual domain, usually visual. The paper discusses the extension of visualisation from the pixel to icons.<\\n\n<ETX xmlns:mml=\\\"http://www.w3.org/1998/Math/MathML\\\" xmlns:xlink=\\\"http://www.w3.org/1999/xlink\\\">&gt;</ETX>\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 4.0, \"Number_references\": 29.0, \"Times_Cited\": 0.0, \"IEEE_Keywords\": \"Data visualization,Multidimensional systems,Humans,Auditory displays,Biomedical imaging,Computer displays,Reflectivity,Focusing,Psychology,Vectors\", \"Authors\": [\"Alfred Inselberg\", \"Georges Grinstein\", \"Ted Mihalisin\", \"Hans Hinterberger\"]}, {\"Paper_ID\": 346303.0, \"Title\": \"An object oriented design for the visualization of multi-variable data objects\", \"Date_Published\": 1994.0, \"Abstract\": \"This paper presents an object-oriented system design supporting the composition of scientific data visualization techniques based on the definition of hierarchies of typed data objects and tools. Traditional visualization systems focus on creating graphical objects which often cannot be re-used for further processing. Our approach provides objects of different topological dimension to offer a natural way of describing the results of visualization mappings. Serial composition of data extraction tools is allowed, while each intermediate visualization object shares a common description and behavior. Visualization objects can be re-used, facilitating the data exploration process by expanding the available analysis and correlation functions provided. This design offers an open-ended architecture for the development of new visualization techniques. It promotes data and software re-use, eliminates the need for writing special purpose software and reduces processing requirements during interactive visualization sessions.<\\n\n<ETX xmlns:mml=\\\"http://www.w3.org/1998/Math/MathML\\\" xmlns:xlink=\\\"http://www.w3.org/1999/xlink\\\">&gt;</ETX>\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 2.0, \"Number_references\": 15.0, \"Times_Cited\": 2.0, \"IEEE_Keywords\": \"Data visualization,Geometry,Graphics,Data mining,Computer architecture,Writing,LAN interconnection,Data processing,Computer languages,Data structures\", \"Authors\": [\"J.M. Favre\", \"J. Hahn\"]}, {\"Paper_ID\": 485142.0, \"Title\": \"Voxel based object simplification\", \"Date_Published\": 1995.0, \"Abstract\": \"Presents a simple, robust and practical method for object simplification for applications where gradual elimination of high-frequency details is desired. This is accomplished by sampling and low-pass filtering the object into multi-resolution volume buffers and applying the marching cubes algorithm to generate a multi-resolution triangle-mesh hierarchy. Our method simplifies the genus of objects and can also help existing object simplification algorithms achieve better results. At each level of detail, a multi-layered mesh can be used for an optional and efficient antialiased rendering.\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 5.0, \"Number_references\": 18.0, \"Times_Cited\": 20.0, \"IEEE_Keywords\": \"Topology,Geometry,Robustness,Sampling methods,Layout,Low pass filters,Helium,Computer science,Application software,Frequency\", \"Authors\": [\"Taosong He\", \"Lichan Hong\", \"Arie E Kaufman\", \"Amitabh Varshney\", \"Sidney Wang\"]}, {\"Paper_ID\": 636792.0, \"Title\": \"The structure of the information visualization design space\", \"Date_Published\": 1997.0, \"Abstract\": \"Research on information visualization has reached the point where a number of successful point designs have been proposed and a variety of techniques have been discovered. It is now appropriate to describe and analyze portions of the design space so as to understand the differences among designs and to suggest new possibilities. This paper proposes an organization of the information visualization literature and illustrates it with a series of examples. The result is a framework for designing new visualizations and augmenting existing designs.\", \"Author_Keywords\": null, \"Track\": \"InfoVis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 2.0, \"Number_references\": 24.0, \"Times_Cited\": 88.0, \"IEEE_Keywords\": \"Data visualization,Space technology,Graphics,Data communication,Taxonomy,Color,Visual communication,Arithmetic,Information analysis\", \"Authors\": [\"Stuart K. Card\", \"Jock Mackinlay\"]}, {\"Paper_ID\": 663900.0, \"Title\": \"Integrated volume compression and visualization\", \"Date_Published\": 1997.0, \"Abstract\": \"Volumetric data sets require enormous storage capacity even at moderate resolution levels. The excessive storage demands not only stress the capacity of the underlying storage and communications systems, but also seriously limit the speed of volume rendering due to data movement and manipulation. A novel volumetric data visualization scheme is proposed and implemented in this work that renders 2D images directly from compressed 3D data sets. The novelty of this algorithm is that rendering is performed on the compressed representation of the volumetric data without pre-decompression. As a result, the overheads associated with both data movement and rendering processing are significantly reduced. The proposed algorithm generalizes previously proposed whole-volume frequency-domain rendering schemes by first dividing the 3D data set into subcubes, transforming each subcube to a frequency-domain representation, and applying the Fourier projection theorem to produce the projected 2D images according to given viewing angles. Compared to the whole-volume approach, the subcube-based scheme not only achieves higher compression efficiency by exploiting local coherency, but also improves the quality of resultant rendering images because it approximates the occlusion effect on a subcube by subcube basis.\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 5.0, \"Number_references\": 16.0, \"Times_Cited\": 5.0, \"IEEE_Keywords\": \"Image coding,Rendering (computer graphics),Data visualization,Fourier transforms,Nuclear magnetic resonance,Helium,Computer science,Stress,Communication systems,Frequency conversion\", \"Authors\": [\"Tzi-Cker Chiueh\", \"Chuan-Kai Yang\", \"Taosong He\", \"Hanspeter Pfister\", \"Arie E Kaufman\"]}, {\"Paper_ID\": 745330.0, \"Title\": \"Task-specific visualization design: a case study in operational weather forecasting\", \"Date_Published\": 1998.0, \"Abstract\": \"Efforts to create highly generic visualizations, both content and interface, often when applied to non research oriented or operational activities are composed of several goals. Although these goals may appear to be related, they are often composed of distinct tasks. Generic solutions, even if domain-specific, may lack sufficient focus to be effective for such purposes. The design of different visualization tools matched to a set of tasks but built on top of a common framework with a similar approach to content is a promising alternative. This hypothesis is tested in detail by application to a demanding problem-operational weather forecasting.\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 1.0, \"Number_references\": 15.0, \"Times_Cited\": 9.0, \"IEEE_Keywords\": \"Weather forecasting,Data visualization,Atmospheric modeling,Testing,Predictive models,Meteorology,Taxonomy,Chromium,Hybrid integrated circuits,Computational modeling\", \"Authors\": [\"Lloyd Treinish\"]}, {\"Paper_ID\": 809882.0, \"Title\": \"Interactive lens visualization techniques\", \"Date_Published\": 1999.0, \"Abstract\": \"The paper describes new techniques for minimally immersive visualization of 3D scalar and vector fields, and visualization of document corpora. In our glyph based visualization system, the user interacts with the 3D volume of glyphs using a pair of button-enhanced 3D position and orientation trackers. The user may also examine the volume using an interactive lens, which is a rectangle that slices through the 3D volume and displays scalar information on its surface. A lens allows the display of scalar data in the 3D volume using a contour diagram, and a texture based volume rendering.\", \"Author_Keywords\": null, \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 4.0, \"Number_references\": 19.0, \"Times_Cited\": 4.0, \"IEEE_Keywords\": \"Lenses,Data visualization,NASA,Virtual reality,Computer science,Two dimensional displays,Three dimensional displays,Rendering (computer graphics),Shape,Statistics\", \"Authors\": [\"Christopher D. Shaw\", \"James A. Hall\", \"David S. Ebert\", \"D. Aaron Roberts\"]}, {\"Paper_ID\": 1372245.0, \"Title\": \"Panel 3: The Future Visualization Platform\", \"Date_Published\": 2004.0, \"Abstract\": \"Advances in graphics hardware and rendering methods are shaping the future of visualization. For example, programmable graphics processors are redefining the traditional visualization cycle. In some cases it is now possible to run the computational simulation and associated visualization side-by-side on the same chip. Moreover, global illumination and non-photorealistic effects promise to deliver imagery which enables greater insight into high resolution, multivariate, and higher-dimensional data. The panelists will offer distinct viewpoints on the direction of future graphics hardware and its potential impact on visualization, and on the nature of advanced visualizationrelated tools and techniques. Presentation of these viewpoints will be followed by audience participation in the form of a question and answer period moderated by the panel organizer.\", \"Author_Keywords\": \"future,visualization,hardware,techniques\", \"Track\": \"Vis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 6.0, \"Number_references\": 0.0, \"Times_Cited\": 1.0, \"IEEE_Keywords\": \"Data visualization,Graphics,Lighting,Hardware,Rendering (computer graphics),Atmospheric modeling,Computational modeling,Light scattering,Particle scattering,Kirk field collapse effect\", \"Authors\": [\"Gregory P. Johnson\", \"David S. Ebert\", \"Charles Hansen\", \"David Kirk\", \"Bill Mark\", \"Hanspeter Pfister\"]}, {\"Paper_ID\": 4376145.0, \"Title\": \"Interactive Tree Comparison for Co-located Collaborative Information Visualization\", \"Date_Published\": 2007.0, \"Abstract\": \"In many domains, increased collaboration has lead to more innovation by fostering the sharing of knowledge, skills, and ideas. Shared analysis of information visualizations does not only lead to increased information processing power, but team members can also share, negotiate, and discuss their views and interpretations on a dataset and contribute unique perspectives on a given problem. Designing technologies to support collaboration around information visualizations poses special challenges and relatively few systems have been designed. We focus on supporting small groups collaborating around information visualizations in a co-located setting, using a shared interactive tabletop display. We introduce an analysis of challenges and requirements for the design of co-located collaborative information visualization systems. We then present a new system that facilitates hierarchical data comparison tasks for this type of collaborative work. Our system supports multi-user input, shared and individual views on the hierarchical data visualization, flexible use of representations, and flexible workspace organization to facilitate group work around visualizations.\", \"Author_Keywords\": \"Information visualization,collaboration,co-located work,hierarchical data comparison\", \"Track\": \"InfoVis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 2.0, \"Number_references\": 41.0, \"Times_Cited\": 62.0, \"IEEE_Keywords\": \"Collaboration,Collaborative work,Data visualization,Information analysis,Collaborative tools,Biomedical imaging,Data analysis,Technological innovation,Information processing,Displays\", \"Authors\": [\"Petra Isenberg\", \"Sheelagh Carpendale\"]}, {\"Paper_ID\": 5613431.0, \"Title\": \"How Information Visualization Novices Construct Visualizations\", \"Date_Published\": 2010.0, \"Abstract\": \"It remains challenging for information visualization novices to rapidly construct visualizations during exploratory data analysis. We conducted an exploratory laboratory study in which information visualization novices explored fictitious sales data by communicating visualization specifications to a human mediator, who rapidly constructed the visualizations using commercial visualization software. We found that three activities were central to the iterative visualization construction process: data attribute selection, visual template selection, and visual mapping specification. The major barriers faced by the participants were translating questions into data attributes, designing visual mappings, and interpreting the visualizations. Partial specification was common, and the participants used simple heuristics and preferred visualizations they were already familiar with, such as bar, line and pie charts. We derived abstract models from our observations that describe barriers in the data exploration process and uncovered how information visualization novices think about visualization specifications. Our findings support the need for tools that suggest potential visualizations and support iterative refinement, that provide explanations and help with learning, and that are tightly integrated into tool support for the overall visual analytics process.\", \"Author_Keywords\": \"Empirical study,visualization,visualization construction,visual analytics,visual mapping,novices\", \"Track\": \"InfoVis\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 3.0, \"Number_references\": 40.0, \"Times_Cited\": 80.0, \"IEEE_Keywords\": \"Decision support systems,Visualization,IEEE Computer Society\", \"Authors\": [\"Lars Grammel\", \"Melanie Tory\", \"Margaret-Anne D. Storey\"]}, {\"Paper_ID\": 8017577.0, \"Title\": \"The Interactive Visualization Gap in Initial Exploratory Data Analysis\", \"Date_Published\": 2017.0, \"Abstract\": \"Data scientists and other analytic professionals often use interactive visualization in the dissemination phase at the end of a workflow during which findings are communicated to a wider audience. Visualization scientists, however, hold that interactive representation of data can also be used during exploratory analysis itself. Since the use of interactive visualization is optional rather than mandatory, this leaves a \\u201cvisualization gap\\u201d during initial exploratory analysis that is the onus of visualization researchers to fill. In this paper, we explore areas where visualization would be beneficial in applied research by conducting a design study using a novel variation on contextual inquiry conducted with professional data analysts. Based on these interviews and experiments, we propose a set of interactive initial exploratory visualization guidelines which we believe will promote adoption by this type of user.\", \"Author_Keywords\": \"Data science,visualization,visual analytics,contextual inquiry,semi-structured interviews\", \"Track\": \"VAST\", \"Award_Type\": null, \"Award\": false, \"Number_Authors\": 2.0, \"Number_references\": 62.0, \"Times_Cited\": 8.0, \"IEEE_Keywords\": \"Data visualization,Data science,Tools,Visualization,Big Data,Interviews\", \"Authors\": [\"Andrea Batch\", \"Niklas Elmqvist\"]}]"
+				}
+			]
+		},
+		{
+			"name": "Get recommendation insights",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"my_list\": [1372243, 346340, 1532153, 1532153, 146375],\n    \"query_paper\": 1372245,\n    \"likes\": [123],\n    \"dislikes\": [345]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8080/insights",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"insights"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get recommendation insights",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"my_list\": [1372243, 346340, 1532153, 1532153, 146375],\n    \"query_paper\": 1372245,\n    \"likes\": [123],\n    \"dislikes\": [345]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8080/insights",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8080",
+							"path": [
+								"insights"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "6504"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 25 Apr 2023 05:09:56 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[{\"Paper_ID\":1372243.0,\"Title\":\"Panel 1: Can We Determine the Top Unresolved Problems of Visualization?\",\"Date_Published\":2004.0,\"Abstract\":\"Many of us working in visualization have our own list of our top 5 or 10 unresolved problems in visualization. We have assembled a group of panelists to debate and perhaps reach concensus on the top problems in visualization that still need to be explored. We include panelists from both the information and scientific visualization domains. After our presentations, we encourage interaction with the audience to see if we can further formulate and perhaps finalize our list of top unresolved problems in visualization.\",\"Author_Keywords\":\"visualization,top unresolved problems\",\"Track\":\"Vis\",\"Award_Type\":null,\"Award\":false,\"Number_Authors\":5.0,\"Number_references\":0.0,\"Times_Cited\":6.0,\"IEEE_Keywords\":\"Visualization,Assembly,Collaborative work,Art,Conferences,Space technology,Computer graphics,Chaos,Hardware,Design methodology\",\"Authors\":[\"T.M. Rhyne\",\"Bill Hibbard\",\"Chris R. Johnson\",\"Chaomei Chen\",\"Steve Eick\"],\"Author_Score\":0.0,\"Keyword_Score\":0.3333333333,\"Abstract_Score\":[0.8966645118]},{\"Paper_ID\":346340.0,\"Title\":\"VolVis: a diversified volume visualization system\",\"Date_Published\":1994.0,\"Abstract\":\"VolVis is a diversified, easy to use, extensible, high performance, and portable volume visualization system for scientists and engineers as well as for visualization developers and researchers. VolVis accepts as input 3D scalar volumetric data as well as 3D volume-sampled and classical geometric models. Interaction with the data is controlled by a variety of 3D input devices in an input device-independent environment. VolVis output includes navigation preview, static images, and animation sequences. A variety of volume rendering algorithms are supported ranging from fast rough approximations, to compression-domain rendering, to accurate volumetric ray tracing and radiosity, and irregular grid rendering.<\\n\n<ETX xmlns:mml=\\\"http:\\/\\/www.w3.org\\/1998\\/Math\\/MathML\\\" xmlns:xlink=\\\"http:\\/\\/www.w3.org\\/1999\\/xlink\\\">&gt;<\\/ETX>\",\"Author_Keywords\":null,\"Track\":\"Vis\",\"Award_Type\":null,\"Award\":false,\"Number_Authors\":8.0,\"Number_references\":15.0,\"Times_Cited\":32.0,\"IEEE_Keywords\":\"Data visualization,Solid modeling,Rendering (computer graphics),Ray tracing,Workstations,Graphics,Pipelines,Data mining,Helium,Artificial intelligence\",\"Authors\":[\"Ricardo S. Avila\",\"Taosong He\",\"Lichan Hong\",\"Arie E Kaufman\",\"Hanspeter Pfister\",\"Claudio T. Silva\",\"Lisa Sobierajski\",\"Sidney Wang\"],\"Author_Score\":0.3333333333,\"Keyword_Score\":1.0,\"Abstract_Score\":[0.8966645118]},{\"Paper_ID\":1532153.0,\"Title\":\"Turning information visualization innovations into commercial products: lessons to guide the next success\",\"Date_Published\":2005.0,\"Abstract\":\"As information visualization matures as an academic research field, commercial spinoffs are proliferating, but success stories are harder to find. This is the normal process of emergence for new technologies, but the panel organizers believe that there are certain strategies that facilitate success. To teach these lessons, we have invited several key figures who are seeking to commercialize information visualization tools. The panelists make short presentations, engage in a moderated discussion, and respond to audience questions.\",\"Author_Keywords\":null,\"Track\":\"InfoVis\",\"Award_Type\":null,\"Award\":false,\"Number_Authors\":7.0,\"Number_references\":0.0,\"Times_Cited\":0.0,\"IEEE_Keywords\":\"Turning,Technological innovation,Data visualization,User interfaces,Books,Management training,Computer science,Laboratories,Computer interfaces,Educational institutions\",\"Authors\":[\"Ben Shneiderman\",\"R. Rao\",\"Keith Andrews\",\"Christopher Ahlberg\",\"Dominique Brodbeck\",\"Tony Jewitt\",\"Jock Mackinlay\"],\"Author_Score\":0.0,\"Keyword_Score\":0.3333333333,\"Abstract_Score\":[0.8966645118]},{\"Paper_ID\":1532153.0,\"Title\":\"Turning information visualization innovations into commercial products: lessons to guide the next success\",\"Date_Published\":2005.0,\"Abstract\":\"As information visualization matures as an academic research field, commercial spinoffs are proliferating, but success stories are harder to find. This is the normal process of emergence for new technologies, but the panel organizers believe that there are certain strategies that facilitate success. To teach these lessons, we have invited several key figures who are seeking to commercialize information visualization tools. The panelists make short presentations, engage in a moderated discussion, and respond to audience questions.\",\"Author_Keywords\":null,\"Track\":\"InfoVis\",\"Award_Type\":null,\"Award\":false,\"Number_Authors\":7.0,\"Number_references\":0.0,\"Times_Cited\":0.0,\"IEEE_Keywords\":\"Turning,Technological innovation,Data visualization,User interfaces,Books,Management training,Computer science,Laboratories,Computer interfaces,Educational institutions\",\"Authors\":[\"Ben Shneiderman\",\"R. Rao\",\"Keith Andrews\",\"Christopher Ahlberg\",\"Dominique Brodbeck\",\"Tony Jewitt\",\"Jock Mackinlay\"],\"Author_Score\":0.0,\"Keyword_Score\":0.3333333333,\"Abstract_Score\":[0.8966645118]},{\"Paper_ID\":146375.0,\"Title\":\"A problem-oriented classification of visualization techniques\",\"Date_Published\":1990.0,\"Abstract\":\"Progress in scientific visualization could be accelerated if workers could more readily find visualization techniques relevant to a given problem. The authors describe an approach to this problem, based on a classification of visualization techniques, that is independent of particular application domains. A user breaks up a problem into subproblems, describes these subproblems in terms of the objects to be represented and the operations to be supported by a representation, locates applicable visualization techniques in a catalog, and combines these representations into a composite representation for the original problem. The catalog and its underlying classification provide a way for workers in different application disciplines to share methods.<\\n\n    <ETX xmlns:mml=\\\"http:\\/\\/www.w3.org\\/1998\\/Math\\/MathML\\\" xmlns:xlink=\\\"http:\\/\\/www.w3.org\\/1999\\/xlink\\\">&gt;<\\/ETX>\",\"Author_Keywords\":null,\"Track\":\"Vis\",\"Award_Type\":null,\"Award\":false,\"Number_Authors\":2.0,\"Number_references\":6.0,\"Times_Cited\":106.0,\"IEEE_Keywords\":\"Data visualization,Displays,Bars,Computer science,Acceleration,Application software,Earth,Brain,Logic\",\"Authors\":[\"Stephen Wehrend\",\"Clayton Lewis\"],\"Author_Score\":0.0,\"Keyword_Score\":0.3333333333,\"Abstract_Score\":[0.8966645118]}]"
 				}
 			]
 		}
