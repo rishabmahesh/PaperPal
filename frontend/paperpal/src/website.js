@@ -265,9 +265,9 @@ export default function Website() {
 
             <div>
               {folderName !== "" ? (
-                <text style={styles.folderNameStyles}>
-                  Papers in: {folderName}
-                </text>
+                <div style={styles.folderNameStyles}>
+                  Papers in: { folderName }
+                </div> 
               ) : null}
             </div>
             <div style={styles.tablesContainerStyles}>

@@ -1,6 +1,8 @@
 import React from "react";
 import MaterialReactTable from 'material-react-table';
 import { Box, Typography } from '@mui/material';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { Key } from "@mui/icons-material";
 
 const paperData = [
   {
@@ -67,13 +69,21 @@ export default function DisplaySavedTable() {
         accessorKey: 'Title', //access nested data with dot notation
         enableColumnOrdering: true,
         header: 'Paper Title',
+      },
+      {
+        accessorKey: 'Authors',
+        enableColumnOrdering: true,
+        header: 'Authors',
         Cell: ({ cell }) => (
           <div>
             {
-              cell.row.original.Times_Cited === 27 ? (
-                <div style={styles.insightCellStyles}>
-                  {cell.getValue()}
+              cell.row.original.Times_Cited === 7 ? (
+                <div>
+                  {cell.getValue() + "\n"}
                   {console.log(cell.row.original.Times_Cited)}
+                  <div>
+                    <PersonOutlineIcon />
+                  </div>
                 </div>
               ) : (
                 <div>
@@ -85,11 +95,6 @@ export default function DisplaySavedTable() {
         ),
       },
       {
-        accessorKey: 'Authors',
-        enableColumnOrdering: true,
-        header: 'Authors',
-      },
-      {
         accessorKey: 'Times_Cited', //normal accessorKey
         enableColumnOrdering: true,
         header: 'Citations No.',
@@ -98,6 +103,24 @@ export default function DisplaySavedTable() {
         accessorKey: 'IEEE_Keywords',
         enableColumnOrdering: true,
         header: 'Keywords',
+        Cell: ({ cell }) => (
+          <div>
+            {
+              cell.row.original.Times_Cited === 7 ? (
+                <div>
+                  {cell.getValue() + "\n"}
+                  <div>
+                    <Key />
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  {cell.getValue()}
+                </div>
+              )
+            }
+          </div >
+        ),
       },
       {
         accessorKey: 'Date_Published',
