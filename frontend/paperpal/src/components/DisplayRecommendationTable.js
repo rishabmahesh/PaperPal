@@ -1,6 +1,8 @@
 import React from "react";
 import MaterialReactTable from 'material-react-table';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, IconButton } from '@mui/material';
+import { Lightbulb as LightBulbIcon } from '@mui/icons-material';
+
 
 const paperData = [
   {
@@ -16,7 +18,10 @@ const paperData = [
     Number_references: 2,
     Times_Cited: 27,
     IEEE_Keywords: "Animation,Data visualization,Graphics,Workstations,Software tools,Earth,Atmospheric modeling,Hydrology,Land surface temperature,Ocean temperature",
-    Authors: "Bill Hibbard, David Santek",
+    Authors: [
+      "Bill Hibbard",
+      "David Santek"
+    ]
   },
   {
     Paper_ID: 146362,
@@ -31,7 +36,9 @@ const paperData = [
     Number_references: 9,
     Times_Cited: 3,
     IEEE_Keywords: "Rendering (computer graphics),Transfer functions,Data visualization,Image converters,Data structures,Drives,Color,Light sources",
-    Authors: "J.L. Montine",
+    Authors: [
+      "J.L. Montine"
+    ]
   },
   {
     Paper_ID: 146363,
@@ -46,19 +53,19 @@ const paperData = [
     Number_references: 35,
     Times_Cited: 7,
     IEEE_Keywords: "Data visualization,Scattering,Computer science,Temperature measurement,Furnaces,Functional analysis",
-    Authors: "Gregory M. Nielson, Bernd Hamann",
+    Authors: [
+      "Gregory M. Nielson",
+      "Bernd Hamann"
+    ]
   }
 ]
 
-export default function DisplaySavedTable() {
+export default function DisplayRecommendationTable() {
   const styles = {
     tableContainerStyles: {
-      height: `${window.innerHeight * 0.75}px`,
+      height: `${window.innerHeight * 0.84}px`,
       overflowY: 'auto',
     },
-    insightCellStyles: {
-      backgroundColor: '#FFD700',
-    }
   }
 
   const columns = React.useMemo(
@@ -67,22 +74,6 @@ export default function DisplaySavedTable() {
         accessorKey: 'Title', //access nested data with dot notation
         enableColumnOrdering: true,
         header: 'Paper Title',
-        Cell: ({ cell }) => (
-          <div>
-            {
-              cell.row.original.Times_Cited === 27 ? (
-                <div style={styles.insightCellStyles}>
-                  {cell.getValue()}
-                  {console.log(cell.row.original.Times_Cited)}
-                </div>
-              ) : (
-                <div>
-                  {cell.getValue()}
-                </div>
-              )
-            }
-          </div >
-        ),
       },
       {
         accessorKey: 'Authors',
@@ -105,7 +96,6 @@ export default function DisplaySavedTable() {
         header: 'Year',
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
@@ -119,6 +109,7 @@ export default function DisplaySavedTable() {
         enableColumnResizing
         enableStickyHeader
         enableStickyFooter
+        enableRowActions
         enableBottomToolbar={false}
         renderDetailPanel={({ row }) => (
           <Box
@@ -136,8 +127,19 @@ export default function DisplaySavedTable() {
             <Typography sx={{ mb: 2 }}>Number of citations: {row.original.Times_Cited}</Typography>
           </Box>
         )}
+        renderRowActions={() => (
+          <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
+            <IconButton
+              color="#000000"
+              onClick={() => {
+                console.log("change colors")
+              }}
+            >
+              <LightBulbIcon />
+            </IconButton>
+          </Box>
+        )}
       />
     </div>
   );
 }
-
