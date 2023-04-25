@@ -16,8 +16,7 @@ export default function DisplayPaperInformation(props) {
         borderColor='#000000'
         >
          <div>
-          <Text>Authors: {props.author}</Text>
-          <Text>Publication Venue: {props.pub}</Text>
+          <Text>Authors: {props.author.join(", ")}</Text>
           <Text>Publication Year: {props.year}</Text>
         </div>
       </Box>

@@ -62,7 +62,6 @@ export default function DisplayPapersinFolder(props) {
               width="400px"
               bg={selectedPaper === paper ? "#636a6c" : "#b7bbbc"}
               borderRadius="10px"
-              fontSize="23px"
               color="#FFFFFF"
               border="1px"
               borderColor="#000000"
@@ -71,6 +70,7 @@ export default function DisplayPapersinFolder(props) {
                 bg: "#636a6c",
               }}
               onClick={() => handlePaperClick(paper)}
+              style={{ overflow: "hidden", textOverflow: "ellipsis" }}
             >
               {paper.title}
             </Button>
