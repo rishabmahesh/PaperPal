@@ -105,6 +105,7 @@ export default function DisplaySavedTable() {
         header: 'Year',
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
