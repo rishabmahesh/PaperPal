@@ -1,7 +1,7 @@
 import os
 import json
 from flask import Blueprint, request, send_file, jsonify, current_app
-from src.api.helpers import title_helper, info_helper, recommendations_helper, home_helper, info_helper_single, authors_helper
+from src.api.helpers import title_helper, info_helper, recommendations_helper, home_helper, info_helper_single, authors_helper, insights_helper
 from src.utils.constants import get_logger
 
 import time
@@ -100,6 +100,46 @@ def recommendations():
     except KeyError as e:
         return handle_error(6, "Invalid Paper ID in list", "paperpal")
     return resp
+
+
+@api.route("/recommendations/v2", methods=["POST"])
+def recommendations_v2():
+    logger.info("Entered /recommendations/v2/")
+    if request.method != "POST":
+        return "INVALID METHOD", 405
+    json_data = request.get_json()
+    try:
+        paper_list = json_data["my_list"]
+    except KeyError as e:
+        return handle_error(4, "Could not find 'my_list' parameter in payload", "paperpal")
+    try:
+        resp = json.dumps(recommendations_helper(paper_list, v2=True))
+    except (ValueError, IndexError, TypeError) as e:
+        return handle_error(5, "could not prepare json response", "paperpal")
+    except KeyError as e:
+        return handle_error(6, f"Invalid Paper ID in list {e}", "paperpal")
+    return resp
+
+
+@api.route("/insights", methods=["POST"])
+def insights():
+    logger.info("Entered /insights")
+    if request.method != "POST":
+        return "INVALID METHOD", 405
+    json_data = request.get_json()
+    try:
+        paper_list = json_data["my_list"]
+        query_paper = json_data["query_paper"]
+    except KeyError as e:
+        return handle_error(4, "Could not find 'my_list' parameter in payload", "paperpal")
+    try:
+        resp = insights_helper(paper_list, query_paper)
+    except (ValueError, IndexError, TypeError) as e:
+        return handle_error(5, f"could not prepare json response: {e}", "paperpal")
+    except KeyError as e:
+        return handle_error(6, "Invalid Paper ID in list", "paperpal")
+    return resp
+
 
 
 @errors.app_errorhandler(Exception)

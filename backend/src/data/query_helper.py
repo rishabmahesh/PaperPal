@@ -54,14 +54,72 @@ def get_all_paper_ids():
     return paper['Paper_ID'].values
 
 
-def get_recommendations(paper_id_arr, n):
-    top_n_for_each_paper = {pid: [] for pid in paper_id_arr}
-    all_paper_ids = get_all_paper_ids()
+def get_recommendations(paper_id_arr, n, v2=False):
+    if not v2:
+        top_n_for_each_paper = {pid: [] for pid in paper_id_arr}
+        for pid in paper_id_arr:
+            top_n_for_each_paper[pid] = json.loads(csm_df.loc[pid].sort_values(ascending=False)[1:n + 1].to_json())
+        return top_n_for_each_paper
+    else:
+        reco_set1 = get_papers_with_same_authors(paper_id_arr, n)
+        reco_set2 = get_papers_with_same_keywords(paper_id_arr, n)
+        # use cosine similarity matrix to get top n papers for each paper in paper_id_arr and add to reco_set3
+        reco_set3 = []
+        for pid in paper_id_arr:
+            # get top n papers from csm_df
+            top_n_papers = csm_df[str(pid)].sort_values(ascending=False).head(n)
+            reco_set3.extend(top_n_papers.index.values)
+        reco_set3 = np.array(reco_set3)
+        unique_recos = np.unique(np.concatenate((reco_set1, reco_set2, reco_set3))).tolist()
+        # remove papers in paper_id_arr from unique_recos
+        unique_recos = [x for x in unique_recos if x not in paper_id_arr]
+        return unique_recos
+
+
+def get_papers_with_same_authors(paper_id_arr, n):
+    # create a set of authors from the paper_id_arr
+    authors = set()
     for pid in paper_id_arr:
-        top_n_for_each_paper[pid] = json.loads(csm_df.loc[pid].sort_values(ascending=False)[1:n+1].to_json())
-    return top_n_for_each_paper
+        authors.update(get_paper_authors(pid))
+    # for each paper in all papers, get the authors and check if they are in the set
+    paper_authors_subset = author_paper[author_paper['Author_ID'].isin(list(authors))]
+    common_author_count = paper_authors_subset.groupby('Paper_ID').count()
+    # sort by count and get top n PaperIDs
+    top_n_papers = common_author_count.sort_values(by='Author_ID', ascending=False).head(n)
+    return top_n_papers.index.values
+
+
+def get_papers_with_same_keywords(paper_id_arr, n):
+    # create a set of keywords from the paper_id_arr
+    keywords = set()
+    for pid in paper_id_arr:
+        keywords.update(get_paper_keywords(pid))
+    # for each paper in all papers, get the keywords and check if they are in the set
+    paper_keywords_subset = paper[paper['IEEE_Keywords'].isin(list(keywords))]
+    common_keyword_count = paper_keywords_subset.groupby('Paper_ID').count()
+    # sort by count and get top n PaperIDs
+    top_n_papers = common_keyword_count.sort_values(by='IEEE_Keywords', ascending=False).head(n)
+    return top_n_papers.index.values
+
+
+
+def get_paper_authors(paper_id):
+    return author_paper[author_paper['Paper_ID'] == int(paper_id)]['Author_ID'].values
+
+
+def get_paper_keywords(paper_id):
+    return paper[paper['Paper_ID'] == int(paper_id)]['IEEE_Keywords'].values
+
+
+def get_cosine_similarity_paper_with_set(paper_id, paper_id_set):
+    # ignore the first value as it is the paper itself
+    csm_arr = csm_df[str(paper_id)].sort_values(ascending=False).head(len(paper_id_set) + 1).values[1:]
+    return csm_arr
 
 
 if __name__ == "__main__":
-    resp = get_recommendations([146361, 146362], 10)
+    _paper_ids = [1372243]
+    # resp = get_recommendations([146361, 146362], 10)
+    # resp = get_papers_with_same_authors(_paper_ids, 5)
+    resp = get_recommendations(_paper_ids, 5, v2=True)
     print(resp)
