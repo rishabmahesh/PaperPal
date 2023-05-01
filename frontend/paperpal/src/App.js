@@ -123,6 +123,23 @@ function App() {
     saveExtensionStorage()
   }
 
+  function deletePaper(paper, folderName) {
+    const folder = extensionStorage.folders.find((obj) => obj.name === folderName);
+    const index = folder.papers.indexOf(paper);
+    if (index > -1) {
+      folder.papers.splice(index, 1);
+    }
+
+    // update extensionStorage locally and in local storage
+    setExtensionStorage(prevState => {
+      return {
+        ...prevState,
+        folders: [...prevState.folders, folder]
+      }
+    })
+    saveExtensionStorage()
+  }
+
   /**
    * Saves the extensionStorage object to local storage
    */
@@ -136,11 +153,10 @@ function App() {
   function displayPapers(name) {
     const folder = extensionStorage.folders.find((obj) => obj.name === name);
     const element = (
-      <DisplayPapersinFolder name={folder.name} papers={folder.papers}/>
+      <DisplayPapersinFolder name={folder.name} papers={folder.papers} handleDeletePaper={(paper) => deletePaper(paper, folder.name)} />
     );
     setDisplayedPapers(element);
   }
-
 
 
   return (
