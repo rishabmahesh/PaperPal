@@ -23,5 +23,8 @@
     "38": "/images/paperpal-38.png",
     "48": "/images/paperpal-48.png",
     "128": "/images/paperpal-128.png"
-  }
+  },
+  "permissions": [ 
+  "tabs"
+  ]
 }

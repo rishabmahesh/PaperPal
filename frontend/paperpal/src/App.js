@@ -158,6 +158,18 @@ function App() {
     setDisplayedPapers(element);
   }
 
+  const [tabUrl, setTabUrl] = useState("");
+
+  React.useEffect(() => {
+    window.chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+      setTabUrl(tabs[0].url);
+    });
+  }, []);
+
+  function getURL(){
+    console.log(tabUrl);
+  }
+
 
   return (
     <div>
@@ -168,7 +180,7 @@ function App() {
               <Image src={logo} alt="paperpal-logo" width={'202px'} height={'122px'} />
               <div style={styles.upperBox}>
                 <div style={styles.addPaperButtonBox}>
-                  <Button bg="addPaperButton.500" height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center'>
+                  <Button bg="addPaperButton.500" height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center' onClick={getURL}>
                     <AddIcon color="white" />
                   </Button>
                   <input type="text" style={styles.inputBox} />
