@@ -158,14 +158,23 @@ function App() {
     setDisplayedPapers(element);
   }
 
+  const [extensionButtonClicked, setExtensionButtonClicked] = useState(false);
+
+  function handleExtensionButtonClick() {
+    setExtensionButtonClicked(true);
+    window.open('http://localhost:3000', '_blank');
+  }
+
 
   return (
     <div>
       {
-        window.chrome && window.chrome.runtime && window.chrome.runtime.id ? (
+        !extensionButtonClicked && window.chrome && window.chrome.runtime && window.chrome.runtime.id ? (
           <div style={styles.extensionStyles}>
             <div style={styles.topBarStyles}>
+            <Button onClick={handleExtensionButtonClick}>
               <Image src={logo} alt="paperpal-logo" width={'202px'} height={'122px'} />
+              </Button>
               <div style={styles.upperBox}>
                 <div style={styles.addPaperButtonBox}>
                   <Button bg="addPaperButton.500" height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center'>
