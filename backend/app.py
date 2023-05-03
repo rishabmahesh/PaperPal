@@ -46,7 +46,8 @@ DELETE = "DELETE"
 def main():
     print("Main:app.py")
     app = create_app()
-    CORS(app)
+    CORS(app, resources={r"/*": {"origins": "*"}})
+    app.config['CORS_HEADERS'] = 'Content-Type'
     # app.run(host='127.0.0.1',port=6060, threaded=True)
     # uncomment code below to run flask with debugger
     if os.environ.get('TESTING') == "1":
