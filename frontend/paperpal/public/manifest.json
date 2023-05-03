@@ -3,6 +3,10 @@
   "description": "An extension to store and recommend research papers",
   "version": "1.0",
   "manifest_version": 3,
+  "permissions": [
+    "tabs",
+    "activeTab"
+  ],
   "action": {
     "default_popup": "index.html",
     "default_icon": {              

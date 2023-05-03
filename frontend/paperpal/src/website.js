@@ -261,7 +261,7 @@ export default function Website() {
           <ChevronLeftIcon fontSize="large" />
         </IconButton>
         <Main open={open}>
-          <div id="papers-container" style={styles.paperContainerBox}>
+          <div style={styles.paperContainerBox}>
 
             <div>
               {folderName !== "" ? (

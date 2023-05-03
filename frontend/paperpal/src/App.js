@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import logo from './images/PaperPal-extension.png'
 import { AddIcon } from '@chakra-ui/icons'
-import { Image, Button, useTheme } from '@chakra-ui/react'
+import { Image, Button, useTheme, Text } from '@chakra-ui/react'
 import NewFolderButton from './components/NewFolderButton'
 import Website from './website'
 import DisplayPapersinFolder from './components/DisplayPapersinFolder'
@@ -11,6 +11,12 @@ function App() {
   const { brand } = theme.colors
 
   const [extensionStorage, setExtensionStorage] = useState({})
+
+  //Displays the papers in each folder
+  const [displayedPapers, setDisplayedPapers] = useState(null);
+
+  // Store the folder name
+  const [folderName, setFolderName] = useState("");
 
   const extensionStorageInit = {
     numberOfFolders: 0,
@@ -69,6 +75,14 @@ function App() {
       backgroundColor: brand.folderBox,
       display: 'flex',
       flexDirection: 'column'
+    },
+    paperBox: {
+      width: '519px',
+      height: '374px',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     addFolderButtonStyles: {
       width: '202px',
@@ -140,6 +154,40 @@ function App() {
     saveExtensionStorage()
   }
 
+  async function addPaper() {
+    // get title from chrome window
+    await window.chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var tabURL = tabs[0].url;
+      console.log(tabURL);
+
+      const paperNumber = parseInt(tabURL.match(/\d+/)[0], 10);
+
+      // TODO: make call to API to get info about paper
+      const paper = {
+        title: 'Paper ' + paperNumber,
+      }
+
+      if (folderName !== "") {
+        // add paper to folder
+        const folder = extensionStorage.folders.find((obj) => obj.name === folderName);
+        folder.papers.push(paper);
+
+        // update extensionStorage locally and in local storage
+        setExtensionStorage(prevState => {
+          return {
+            ...prevState,
+            folders: [...prevState.folders, folder]
+          }
+        })
+        saveExtensionStorage()
+      } else {
+        console.log("Folder not selected")
+        // can add a text here to store "Please select a folder" and display it in the div with styles.paperBox
+      }
+
+    });
+  }
+
   /**
    * Saves the extensionStorage object to local storage
    */
@@ -147,28 +195,25 @@ function App() {
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage))
   }
 
-  //Displays the papers in each fodler on click
-  const [displayedPapers, setDisplayedPapers] = useState(null);
-
   function displayPapers(name) {
     const folder = extensionStorage.folders.find((obj) => obj.name === name);
+    setFolderName(name);
     const element = (
       <DisplayPapersinFolder name={folder.name} papers={folder.papers} handleDeletePaper={(paper) => deletePaper(paper, folder.name)} />
     );
     setDisplayedPapers(element);
   }
 
-
   return (
     <div>
       {
-        window.chrome && window.chrome.runtime && window.chrome.runtime.id ? (
+        (window.chrome && window.chrome.runtime && window.chrome.runtime.id) ? (
           <div style={styles.extensionStyles}>
             <div style={styles.topBarStyles}>
               <Image src={logo} alt="paperpal-logo" width={'202px'} height={'122px'} />
               <div style={styles.upperBox}>
                 <div style={styles.addPaperButtonBox}>
-                  <Button bg="addPaperButton.500" height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center'>
+                  <Button bg="addPaperButton.500" height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center' onClick={addPaper}>
                     <AddIcon color="white" />
                   </Button>
                   <input type="text" style={styles.inputBox} />
@@ -208,9 +253,15 @@ function App() {
                 </Button>
               </div>
 
-              <div id="papers-container" style={styles.paperContainerBox}>
-                {displayedPapers}
-              </div>
+              {folderName !== "" ?
+                <div>
+                  {displayedPapers}
+                </div>
+                :
+                <div style={styles.paperBox}>
+                  <Text fontSize="23px">Please select a folder</Text>
+                </div>
+              }
             </div>
           </div>
         ) : (
