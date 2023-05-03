@@ -5,6 +5,7 @@ import { Image, Button, useTheme, Text } from '@chakra-ui/react'
 import NewFolderButton from './components/NewFolderButton'
 import Website from './website'
 import DisplayPapersinFolder from './components/DisplayPapersinFolder'
+import PaperConsumer from './PaperConsumer'
 
 function App() {
   const theme = useTheme()
@@ -156,11 +157,14 @@ function App() {
 
   async function addPaper() {
     // get title from chrome window
-    await window.chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    await window.chrome.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
       var tabURL = tabs[0].url;
       console.log(tabURL);
 
       const paperNumber = parseInt(tabURL.match(/\d+/)[0], 10);
+
+      const response = await PaperConsumer.getPaperInfo([paperNumber]);
+      console.log("RES ", response);
 
       // TODO: make call to API to get info about paper
       const paper = {
