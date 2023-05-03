@@ -23,12 +23,8 @@ function App() {
     folders: []
   }
 
-  // const paper = {
-  //   title: 'Paper 1',
-  //   authors: ['Author 1'],
-  //   year: '2021',
-  //   pubication: 'Publication 1',
-  // }
+  // Check if need to go to the website
+  const [extensionButtonClicked, setExtensionButtonClicked] = useState(false);
 
   React.useEffect(() => {
     localStorage.getItem('extensionStorage') ? setExtensionStorage(JSON.parse(localStorage.getItem('extensionStorage'))) : setExtensionStorage(extensionStorageInit)
@@ -195,6 +191,9 @@ function App() {
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage))
   }
 
+  /*
+    Displays the papers in each folder
+  */
   function displayPapers(name) {
     const folder = extensionStorage.folders.find((obj) => obj.name === name);
     setFolderName(name);
@@ -204,13 +203,22 @@ function App() {
     setDisplayedPapers(element);
   }
 
+  //Handles extension to website transition
+  function handleExtensionButtonClick() {
+    setExtensionButtonClicked(true);
+    //change the link; if hosted in a different place
+    window.open('http://localhost:3000', '_blank');
+  }
+
   return (
     <div>
       {
-        (window.chrome && window.chrome.runtime && window.chrome.runtime.id) ? (
+        (!extensionButtonClicked && window.chrome && window.chrome.runtime && window.chrome.runtime.id) ? (
           <div style={styles.extensionStyles}>
             <div style={styles.topBarStyles}>
-              <Image src={logo} alt="paperpal-logo" width={'202px'} height={'122px'} />
+              <Button onClick={handleExtensionButtonClick}>
+                <Image src={logo} alt="paperpal-logo" width={'202px'} height={'122px'} />
+              </Button>
               <div style={styles.upperBox}>
                 <div style={styles.addPaperButtonBox}>
                   <Button bg="addPaperButton.500" height='50px' width='50px' borderRadius='25px' fontSize='30px' textAlign='center' onClick={addPaper}>
