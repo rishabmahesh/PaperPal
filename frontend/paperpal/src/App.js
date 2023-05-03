@@ -158,11 +158,29 @@ function App() {
     setDisplayedPapers(element);
   }
 
+  const handleSave = (text, folderName) => {
+    let folder = extensionStorage.folders.find((obj) => obj.name === folderName);
+
+    folder.name = text;
+    setExtensionStorage(prevState => {
+      return {
+        ...prevState,
+        numberOfFolders: extensionStorage.folders.length,
+        folders: prevState.folders
+      }
+    })
+    saveExtensionStorage()
+
+    console.log("folder ehre", JSON.stringify(folder));
+  };
+
 
   return (
     <div>
       {
         window.chrome && window.chrome.runtime && window.chrome.runtime.id ? (
+          console.log("in")
+        ) : (
           <div style={styles.extensionStyles}>
             <div style={styles.topBarStyles}>
               <Image src={logo} alt="paperpal-logo" width={'202px'} height={'122px'} />
@@ -185,10 +203,11 @@ function App() {
                         <NewFolderButton
                           name={folder.name}
                           height={'44px'}
-                          width={'145px'}
+                          width={'120px'}
                           marginLeft={'28px'}
                           marginTop={'18px'}
                           onClick={() => displayPapers(folder.name)}
+                          onSave={handleSave}
                         />
                       )
                       : null}
@@ -213,10 +232,11 @@ function App() {
               </div>
             </div>
           </div>
-        ) : (
+          /* 
           <div>
             <Website extensionStorage={extensionStorage} />
           </div>
+        */
         )
 
       }
