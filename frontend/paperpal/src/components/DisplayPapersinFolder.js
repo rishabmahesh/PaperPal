@@ -48,7 +48,7 @@ export default function DisplayPapersinFolder(props) {
 
   return (
     <div style={styles.paperStyles}>
-      <Text fontSize="23px">Papers in: {props.name}</Text>
+      <Text fontSize="23px">Papers in: {props.name} || Number of papers: {props.papers.length}</Text>
       {props.papers.map((paper, index) => (
         <div
           key={index}
