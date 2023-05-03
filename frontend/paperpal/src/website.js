@@ -183,6 +183,27 @@ export default function Website() {
     setOpen(false);
   };
 
+  /*
+  window.addEventListener('message', (event) => {
+    if (event.data.type === 'FROM_EXTENSION') {
+      const myData = JSON.parse(event.data.payload);
+      // Do something with myData here
+      console.log("data here", JSON.stringify(myData));
+    }
+  });
+  */
+
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    // Send a message to the extension content script to get the local storage data
+    window.chrome.runtime.sendMessage("getLocalStorageData", (response) => {
+      setData(response);
+    });
+  }, []);
+
+  console.log("data here 2.0", JSON.stringify(data));
+
   return (
     <div style={styles.websiteStyles}>
       <Box sx={{ display: "flex" }}>

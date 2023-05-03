@@ -210,6 +210,23 @@ function App() {
     window.open('http://localhost:3000', '_blank');
   }
 
+/*
+  const myData = JSON.stringify(localStorage.getItem('extensionStorage'));
+  console.log(myData);
+
+  window.postMessage({ type: 'FROM_EXTENSION', payload: myData }, '*');
+  */
+
+  window.chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    console.log("in the chrome function");
+    if (message === "getLocalStorageData") {
+      // Get the data from local storage and send it back to the other React app
+      const data = JSON.parse(localStorage.getItem("extensionStorage"));
+      sendResponse(data);
+    }
+  });
+
+
   return (
     <div>
       {
