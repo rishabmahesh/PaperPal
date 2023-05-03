@@ -52,7 +52,6 @@ def get_authors():
     return resp
 
 
-@api.route("/info", methods=["GET"])
 @api.route("/info", methods=["POST"])
 def get_info():
     logger.info("Entered /info")
