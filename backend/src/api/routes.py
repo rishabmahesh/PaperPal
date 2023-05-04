@@ -144,6 +144,7 @@ def insights():
 @errors.app_errorhandler(Exception)
 def handle_error(error, messg, api_name):
     logger.debug("Inside handle error")
+    logger.debug(f"API:\t{api_name}\nErrorType: {type(error)}\nErrorStr: {str(error)}\nErrorMessage: {messg}")
     if not (type(error) == int):
         message = [str(x) for x in error.args]
         status_code = error.status_code
