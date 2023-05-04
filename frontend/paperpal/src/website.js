@@ -11,9 +11,9 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DisplayRecommendationTable from './components/DisplayRecommendationTable';
 
-export default function Website() {
+export default function Website(props) {
 
-  const [extensionStorage, setExtensionStorage] = React.useState({})
+  const [extensionStorage, setExtensionStorage] = React.useState(props.extensionStorage)
   const [recommendationButtonClicked, setRecommendationButtonClicked] = React.useState(false)
 
   const [savedPapers, setSavedPapers] = React.useState(false)
@@ -25,6 +25,9 @@ export default function Website() {
     folders: [],
   };
 
+  console.log("somewhere here", props.extensionStorage);
+
+  /*
   React.useEffect(() => {
     localStorage.getItem("extensionStorage")
       ? setExtensionStorage(
@@ -33,6 +36,26 @@ export default function Website() {
       : setExtensionStorage(extensionStorageInit);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  */
+
+  // Listen for messages from the extension
+window.addEventListener('message', (event) => {
+  if (event.origin !== 'chrome-extension://aimnolidndbbicodcdcjifdlnlaclkdc/index.html') return;
+  // Check if the message is from the extension
+  if (event.source === window && event.data.type === 'MY_EXTENSION_DATA') {
+    console.log("in here");
+    // Get the data from the message payload
+    const myData = event.data.payload;
+
+    // Do something with the data
+    console.log(myData);
+    
+    // Reload the page to reflect the changes
+   // window.location.reload();
+  }
+});
+
 
   const styles = {
     websiteStyles: {
@@ -191,7 +214,7 @@ export default function Website() {
       console.log("data here", JSON.stringify(myData));
     }
   });
-  */
+ 
 
   const [data, setData] = React.useState([]);
 
@@ -203,6 +226,7 @@ export default function Website() {
   }, []);
 
   console.log("data here 2.0", JSON.stringify(data));
+   */
 
   return (
     <div style={styles.websiteStyles}>

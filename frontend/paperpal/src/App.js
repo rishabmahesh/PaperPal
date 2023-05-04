@@ -215,7 +215,7 @@ function App() {
   console.log(myData);
 
   window.postMessage({ type: 'FROM_EXTENSION', payload: myData }, '*');
-  */
+  
 
   window.chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log("in the chrome function");
@@ -225,6 +225,10 @@ function App() {
       sendResponse(data);
     }
   });
+  */
+
+  // Send a message to the website
+window.postMessage({ type: 'MY_EXTENSION_DATA', payload: extensionStorage }, '*');
 
 
   return (
