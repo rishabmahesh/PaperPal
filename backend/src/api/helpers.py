@@ -3,6 +3,8 @@ from src.utils.constants import FAIL_RECOS
 from src.data.query_helper import get_info_from_id, get_title_from_id, get_all_authors, get_recommendations, get_paper_authors, get_paper_keywords, get_cosine_similarity_paper_with_set
 import pandas as pd
 
+
+session_data_dict = {}
 def title_helper(inp_json, action):
     return get_title_from_id(action)
 
@@ -108,6 +110,19 @@ def insights_helper(paper_id_list, query_paper_id):
     # Convert dataframe to JSON
     insights_json = insights_df.to_json(orient="records")
     return insights_json
+
+
+def get_session_data_helper(session_id):
+    if session_id in session_data_dict:
+        return session_data_dict[session_id]
+    else:
+        return "FAIL"
+
+
+def set_session_data_helper(session_id, data):
+    session_data_dict[session_id] = data
+    return "SUCCESS"
+
 
 
 if __name__ == "__main__":
