@@ -120,7 +120,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"my_list\": [1372243, 346340, 1532153, 1532153, 146375],\n    \"likes\": [123],\n    \"dislikes\": [345]\n}",
+					"raw": "{\n    \"my_list\": [1372243, 346340, 1532153, 1532153, 146375]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -128,15 +128,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://0.0.0.0:8080/recommendations/v2",
-					"protocol": "http",
+					"raw": "https://paperpal-qfjdfiwtma-uc.a.run.app/recommendations/v2",
+					"protocol": "https",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"paperpal-qfjdfiwtma-uc",
+						"a",
+						"run",
+						"app"
 					],
-					"port": "8080",
 					"path": [
 						"recommendations",
 						"v2"
@@ -254,6 +253,183 @@
 			]
 		},
 		{
+			"name": "save session data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hello\": [1, 2, 3],\n    \"likes\": [123],\n    \"dislikes\": \"hii!!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8080/set_session_data/123",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"set_session_data",
+						"123"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "set session data",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hello\": [1, 2, 3],\n    \"likes\": [123],\n    \"dislikes\": \"hii!!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8080/set_session_data/123",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8080",
+							"path": [
+								"set_session_data",
+								"123"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "7"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 08 May 2023 19:01:51 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "SUCCESS"
+				}
+			]
+		},
+		{
+			"name": "get session data",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"my_list\": [1372243, 346340, 1532153, 1532153, 146375],\n    \"likes\": [123],\n    \"dislikes\": [345]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:8080/get_session_data/123",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8080",
+					"path": [
+						"get_session_data",
+						"123"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get session data",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"my_list\": [1372243, 346340, 1532153, 1532153, 146375],\n    \"likes\": [123],\n    \"dislikes\": [345]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8080/get_session_data/123",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8080",
+							"path": [
+								"get_session_data",
+								"123"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "94"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/2.0.2 Python/3.9.6"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 08 May 2023 19:01:54 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"dislikes\": \"hii!!\",\n    \"hello\": [\n        1,\n        2,\n        3\n    ],\n    \"likes\": [\n        123\n    ]\n}"
+				}
+			]
+		},
+		{
 			"name": "Get recommendation insights",
 			"request": {
 				"method": "POST",
@@ -268,15 +444,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://0.0.0.0:8080/insights",
-					"protocol": "http",
+					"raw": "https://paperpal-qfjdfiwtma-uc.a.run.app/insights",
+					"protocol": "https",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"paperpal-qfjdfiwtma-uc",
+						"a",
+						"run",
+						"app"
 					],
-					"port": "8080",
 					"path": [
 						"insights"
 					]
