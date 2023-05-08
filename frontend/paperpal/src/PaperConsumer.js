@@ -54,4 +54,36 @@ export default class PaperConsumer {
     const response = await axios.request(config);
     return response.data;
   }
+  static async setSessionData(sessionID, sessionData) {
+    let data = JSON.stringify({
+      "session_data": sessionData
+    });
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: `https://paperpal-qfjdfiwtma-uc.a.run.app/set_session_data/${sessionID}`,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    const response = await axios.request(config);
+    return response.data;
+
+  }
+
+  static async getSessionData(sessionID) {
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: `https://paperpal-qfjdfiwtma-uc.a.run.app/get_session_data/${sessionID}`,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const response = await axios.request(config);
+    return response.data;
+  }
 }
