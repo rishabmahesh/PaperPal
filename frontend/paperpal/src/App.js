@@ -166,7 +166,7 @@ function App() {
       const response = await PaperConsumer.getPaperInfo([paperNumber]);
       console.log("RES ", response);
 
-      // todo remove resp2 and resp3 as they're only for testing
+      // todo remove resp2, resp3, 4, and 5 as they're only for testing
       const resp2 = await PaperConsumer.getRecommendations([1372243, 346340, 1532153, 1532153, 146375]);
       console.log("RES2 ", resp2);
 
