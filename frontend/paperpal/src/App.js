@@ -160,13 +160,19 @@ function App() {
     await window.chrome.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
       var tabURL = tabs[0].url;
       console.log(tabURL);
-
-      const paperNumber = parseInt(tabURL.match(/\d+/)[0], 10);
-
+      // todo un-hardcode below code
+      // const paperNumber = parseInt(tabURL.match(/\d+/)[0], 10);
+      const paperNumber = "146362";
       const response = await PaperConsumer.getPaperInfo([paperNumber]);
       console.log("RES ", response);
 
-      // TODO: make call to API to get info about paper
+      // todo remove resp2 and resp3 as they're only for testing
+      const resp2 = await PaperConsumer.getRecommendations([1372243, 346340, 1532153, 1532153, 146375]);
+      console.log("RES2 ", resp2);
+
+      const resp3 = await PaperConsumer.getInsights([1372243, 346340, 1532153, 1532153, 146375], '636792');
+      console.log("RES3 ", resp3);
+
       const paper = {
         title: 'Paper ' + paperNumber,
       }
@@ -191,6 +197,8 @@ function App() {
 
     });
   }
+
+  window.addPaper= addPaper;
 
   /**
    * Saves the extensionStorage object to local storage
