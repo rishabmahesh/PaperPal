@@ -6,6 +6,7 @@ import NewFolderButton from './components/NewFolderButton'
 import Website from './website'
 import DisplayPapersinFolder from './components/DisplayPapersinFolder'
 import PaperConsumer from './PaperConsumer'
+import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
   const theme = useTheme()
@@ -18,6 +19,8 @@ function App() {
 
   // Store the folder name
   const [folderName, setFolderName] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const extensionStorageInit = {
     numberOfFolders: 0,
@@ -38,6 +41,9 @@ function App() {
 
   React.useEffect(() => {
     saveExtensionStorage()
+    if (folderName !== "") {
+      displayPapers(folderName);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [extensionStorage])
 
@@ -143,6 +149,7 @@ function App() {
   }
 
   function deletePaper(paper, folderName) {
+    setIsLoading(true);
     // find folder with folderName
     const folder = extensionStorage.folders.find((obj) => obj.name === folderName);
     const index = folder.papers.indexOf(paper);
@@ -168,9 +175,11 @@ function App() {
         folders: foldersToSort
       }
     })
+    setIsLoading(false);
   }
 
   async function addPaper() {
+    setIsLoading(true);
     // get title from chrome window
     await window.chrome.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
       var tabURL = tabs[0].url;
@@ -229,11 +238,9 @@ function App() {
         console.log("Folder not selected")
         // can add a text here to store "Please select a folder" and display it in the div with styles.paperBox
       }
-
     });
+    setIsLoading(false);
   }
-
-  window.addPaper = addPaper;
 
   /**
    * Saves the extensionStorage object to local storage
@@ -301,15 +308,21 @@ function App() {
                 </Button>
               </div>
 
-              {folderName !== "" ?
-                <div>
-                  {displayedPapers}
+              {isLoading ? (
+                <div style={{ marginLeft: '251px' }}>
+                  {console.log("show loading")}
+                  <LoadingSpinner />
                 </div>
-                :
-                <div style={styles.paperBox}>
-                  <Text fontSize="23px">Please select a folder</Text>
-                </div>
-              }
+              ) : (
+                folderName !== "" ?
+                  <div>
+                    {displayedPapers}
+                  </div>
+                  :
+                  <div style={styles.paperBox}>
+                    <Text fontSize="23px">Please select a folder</Text>
+                  </div>
+              )}
             </div>
           </div>
         ) : (
@@ -319,7 +332,7 @@ function App() {
         )
 
       }
-    </div>
+    </div >
   )
 }
 
