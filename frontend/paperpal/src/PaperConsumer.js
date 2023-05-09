@@ -11,19 +11,21 @@ export default class PaperConsumer {
   static async getRecommendations(paperIDArray) {
     // default value for paperIDArray
     if (paperIDArray === undefined) {
-        paperIDArray = [1372243, 346340, 1532153, 1532153, 146375];
+      paperIDArray = [1372243, 346340, 1532153, 1532153, 146375];
     }
+    
     let data = JSON.stringify({
-      "my_list":paperIDArray
+      "my_list": paperIDArray
     });
+
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://paperpal-qfjdfiwtma-uc.a.run.app/recommendations/v2',
+      url: `${API_MAIN}/recommendations/v2`,
       headers: {
         'Content-Type': 'application/json'
       },
-      data : data
+      data: data
     };
     const response = await axios.request(config);
     return response.data;
@@ -37,47 +39,50 @@ export default class PaperConsumer {
     if (queryPaperID === undefined) {
       queryPaperID = 636792;
     }
+
     let data = JSON.stringify({
-      "my_list":paperIDArray,
+      "my_list": paperIDArray,
       "query_paper": queryPaperID
     });
+
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://paperpal-qfjdfiwtma-uc.a.run.app/insights',
+      url: `${API_MAIN}/insights`,
       headers: {
         'Content-Type': 'application/json'
       },
-      data : data
+      data: data
     };
 
     const response = await axios.request(config);
     return response.data;
   }
+
   static async setSessionData(sessionID, sessionData) {
     let data = JSON.stringify({
       "session_data": sessionData
     });
+
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: `https://paperpal-qfjdfiwtma-uc.a.run.app/set_session_data/${sessionID}`,
+      url: `${API_MAIN}/set_session_data/${sessionID}`,
       headers: {
         'Content-Type': 'application/json'
       },
-      data : data
+      data: data
     };
 
     const response = await axios.request(config);
     return response.data;
-
   }
 
   static async getSessionData(sessionID) {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `https://paperpal-qfjdfiwtma-uc.a.run.app/get_session_data/${sessionID}`,
+      url: `${API_MAIN}/get_session_data/${sessionID}`,
       headers: {
         'Content-Type': 'application/json'
       }
