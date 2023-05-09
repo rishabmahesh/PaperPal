@@ -1,7 +1,7 @@
 import os
 import json
 from flask import Blueprint, request, send_file, jsonify, current_app
-from src.api.helpers import title_helper, info_helper, recommendations_helper, home_helper, info_helper_single, authors_helper, insights_helper
+from src.api.helpers import title_helper, info_helper, recommendations_helper, home_helper, info_helper_single, authors_helper, insights_helper, set_session_data_helper, get_session_data_helper
 from src.utils.constants import get_logger
 
 import time
@@ -138,6 +138,35 @@ def insights():
     except KeyError as e:
         return handle_error(6, "Invalid Paper ID in list", "paperpal")
     return resp
+
+
+# endpoint to save session data
+@api.route("/set_session_data/<session_id>", methods=["POST"])
+def set_session_data(session_id):
+    logger.info(f"Entered /save_data for session {session_id}")
+    if request.method != "POST":
+        return "INVALID METHOD", 405
+    json_data = request.get_json()
+    try:
+        set_session_data_helper(session_id, json_data)
+    except Exception as e:
+        return handle_error(7, f"Could not save session data: {e}", "paperpal")
+    return "SUCCESS"
+
+
+# endpoint to retrieve session data
+@api.route("/get_session_data/<session_id>", methods=["GET"])
+def get_session_data(session_id):
+    logger.info("Entered /get_data")
+    if request.method != "GET":
+        return "INVALID METHOD", 405
+    json_data = request.get_json()
+    try:
+        resp = get_session_data_helper(session_id)
+    except Exception as e:
+        return handle_error(8, f"Could not retrieve session data: {e}", "paperpal")
+    return resp
+
 
 
 

@@ -5,6 +5,7 @@ import { Image, Button, useTheme, Text } from '@chakra-ui/react'
 import NewFolderButton from './components/NewFolderButton'
 import Website from './website'
 import DisplayPapersinFolder from './components/DisplayPapersinFolder'
+import PaperConsumer from './PaperConsumer'
 
 function App() {
   const theme = useTheme()
@@ -152,13 +153,29 @@ function App() {
 
   async function addPaper() {
     // get title from chrome window
-    await window.chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    await window.chrome.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
       var tabURL = tabs[0].url;
       console.log(tabURL);
+      // todo un-hardcode below code
+      // const paperNumber = parseInt(tabURL.match(/\d+/)[0], 10);
+      const paperNumber = "146362";
+      const response = await PaperConsumer.getPaperInfo([paperNumber]);
+      console.log("RES ", response);
 
-      const paperNumber = parseInt(tabURL.match(/\d+/)[0], 10);
+      // todo remove resp2, resp3, 4, and 5 as they're only for testing
+      const resp2 = await PaperConsumer.getRecommendations([1372243, 346340, 1532153, 1532153, 146375]);
+      console.log("RES2 ", resp2);
 
-      // TODO: make call to API to get info about paper
+      const resp3 = await PaperConsumer.getInsights([1372243, 346340, 1532153, 1532153, 146375], '636792');
+      console.log("RES3 ", resp3);
+
+      const resp4 = await PaperConsumer.setSessionData(1234, [1, 2, 3, "hello"])
+      console.log("RES4 ", resp4);
+
+      const resp5 = await PaperConsumer.getSessionData(1234)
+      console.log("RES5 ", resp5);
+
+
       const paper = {
         title: 'Paper ' + paperNumber,
       }
@@ -183,6 +200,8 @@ function App() {
 
     });
   }
+
+  window.addPaper= addPaper;
 
   /**
    * Saves the extensionStorage object to local storage

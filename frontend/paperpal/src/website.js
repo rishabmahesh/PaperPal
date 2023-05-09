@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DisplayRecommendationTable from './components/DisplayRecommendationTable';
+import PaperConsumer from './PaperConsumer'
 
 export default function Website() {
 
@@ -142,12 +143,12 @@ export default function Website() {
     setFolderName(name);
   }
 
-  function generateRecommendations() {
+  async function generateRecommendations(paperIdArray) {
     // TODO: code to call API and get recs
-
+    const response = await PaperConsumer.getRecommendations(paperIdArray);
+    console.log("response for recs");
+    console.log(response);
     // TODO: format received papers to required format and send in DisplaySavedTable
-
-
     // code to validate recs button click
     setRecommendationButtonClicked(true)
   }
