@@ -89,6 +89,9 @@ function App() {
       justifyContent: 'center',
       alignItems: 'center',
     },
+    paperBoxFilled: {
+      overflowY: 'scroll'
+    },
     addFolderButtonStyles: {
       width: '202px',
       height: '69px',
@@ -311,7 +314,7 @@ function App() {
                 </div>
               ) : (
                 folderName !== "" ?
-                  <div>
+                  <div style={styles.paperBoxFilled}>
                     {displayedPapers}
                   </div>
                   :
@@ -326,7 +329,6 @@ function App() {
             <Website extensionStorage={extensionStorage} />
           </div>
         )
-
       }
     </div >
   )

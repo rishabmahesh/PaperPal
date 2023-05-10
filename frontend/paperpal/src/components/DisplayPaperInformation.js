@@ -14,9 +14,13 @@ export default function DisplayPaperInformation(props) {
         color='#000000'
         border='1px'
         borderColor='#000000'
+        paddingLeft= "1rem"
+        paddingRight= "1rem"
+        textAlign= "left"
         >
          <div>
-          <Text>Authors: {props.author}</Text>
+         <Text>Title: {props.title}</Text>
+          <Text>Authors: {props.author.join(', ')}</Text>
           <Text>Publication Year: {props.year}</Text>
         </div>
       </Box>

@@ -1,4 +1,4 @@
-import { Button, Text, Box } from "@chakra-ui/react";
+import { Button, Text} from "@chakra-ui/react";
 import React, { useState } from "react";
 import DisplayPaperInformation from "./DisplayPaperInformation";
 import { DeleteIcon } from "@chakra-ui/icons";
@@ -26,6 +26,11 @@ export default function DisplayPapersinFolder(props) {
       display: "flex", 
       alignItems: "center" 
     },
+    buttonStyle: {
+      paddingLeft: "1rem",
+      paddingRight: "1rem",
+      textAlign: "left",
+    }
   };
 
   const [selectedPaper, setSelectedPaper] = useState(null);
@@ -42,9 +47,6 @@ export default function DisplayPapersinFolder(props) {
   const handleMouseLeave = (index) => {
     setHoveredPapers(hoveredPapers.filter((item) => item !== index));
   };
-
- // const handleDeletePaper = (paper) => {};
-
 
   return (
     <div style={styles.paperStyles}>
@@ -70,24 +72,20 @@ export default function DisplayPapersinFolder(props) {
                 bg: "#636a6c",
               }}
               onClick={() => handlePaperClick(paper)}
-              style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+              style={styles.buttonStyle}
             >
-              {paper.title}
+            <Text isTruncated> {paper.title} </Text>
+              
             </Button>
-            {((hoveredPapers.indexOf(index) !== -1) || (selectedPaper && selectedPaper.title === paper.title)) && (
-              <Box style={styles.hoverButtonStyles}>
-                <Button onClick={() => props.handleDeletePaper(paper)}>
-                  {/*<DeleteIcon boxSize={6} color='white'/>*/}
+            <Button onClick={() => props.handleDeletePaper(paper)}>
                   <DeleteIcon boxSize={6} />
                 </Button>
-              </Box>
-            )}
           </div>
           {selectedPaper && selectedPaper.title === paper.title && (
             <div style={styles.infoStyles}>
               <DisplayPaperInformation
+                title={paper.title}
                 author={paper.author}
-                pub={paper.pub}
                 year={paper.year}
               />
             </div>
