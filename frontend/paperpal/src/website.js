@@ -164,12 +164,10 @@ export default function Website() {
   async function generateRecommendations() {
     // get paper ids from saved papers
     const paperIdArray = savedPapers.map((paper) => parseInt(paper.Paper_ID));
-    console.log("paperIDs: ",paperIdArray);
 
     // get recommendations from server
     const recPapers = await PaperConsumer.getRecommendations(paperIdArray);
     setRecommendationButtonClicked(true);
-    console.log(recPapers);
 
     const papersToRec = recPapers.map((paper) => {
       return {
