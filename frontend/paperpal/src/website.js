@@ -23,6 +23,7 @@ export default function Website() {
   const [savedPapers, setSavedPapers] = React.useState(null)
   const [recommendedPapers, setRecommendedPapers] = React.useState(null)
   const [folderName, setFolderName] = React.useState("")
+  const [savedPaperIDArray, setSavedPaperIDArray] = React.useState([])
 
   React.useEffect(() => {
     async function getData() {
@@ -162,8 +163,10 @@ export default function Website() {
   }
 
   async function generateRecommendations() {
+    setIsLoading(true);
     // get paper ids from saved papers
     const paperIdArray = savedPapers.map((paper) => parseInt(paper.Paper_ID));
+    setSavedPaperIDArray(paperIdArray);
 
     // get recommendations from server
     const recPapers = await PaperConsumer.getRecommendations(paperIdArray);
@@ -184,6 +187,7 @@ export default function Website() {
     });
 
     setRecommendedPapers(papersToRec);
+    setIsLoading(false);
   }
   //drawer width
   const drawerWidth = 325;
@@ -348,7 +352,7 @@ export default function Website() {
                   {recommendationButtonClicked ? (
                     <div style={styles.recommendedBoxStyles}>
                       {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
-                      <DisplayRecommendationTable papers={recommendedPapers} />
+                      <DisplayRecommendationTable papers={recommendedPapers} savedPapersIDArray={savedPaperIDArray} />
                     </div>
                   ) : null}
                 </div>
