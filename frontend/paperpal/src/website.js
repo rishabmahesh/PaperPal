@@ -21,6 +21,7 @@ export default function Website() {
   const [isLoading, setIsLoading] = React.useState(false)
 
   const [savedPapers, setSavedPapers] = React.useState(null)
+  const [recommendedPapers, setRecommendedPapers] = React.useState(null)
   const [folderName, setFolderName] = React.useState("")
 
   React.useEffect(() => {
@@ -153,16 +154,36 @@ export default function Website() {
     // get papers from folder name
     const papers = extensionStorage.folders.find((folder) => folder.name === name).papers;
     setSavedPapers(papers);
+
+    if (folderName !== name) {
+      setRecommendationButtonClicked(false);
+      setRecommendedPapers(null);
+    }
   }
 
-  async function generateRecommendations(paperIdArray) {
-    // TODO: code to call API and get recs
-    const response = await PaperConsumer.getRecommendations(paperIdArray);
-    console.log("response for recs");
-    console.log(response);
-    // TODO: format received papers to required format and send in DisplaySavedTable
-    // code to validate recs button click
-    setRecommendationButtonClicked(true)
+  async function generateRecommendations() {
+    // get paper ids from saved papers
+    const paperIdArray = savedPapers.map((paper) => paper.Paper_ID);
+
+    // get recommendations from server
+    const recPapers = await PaperConsumer.getRecommendations(paperIdArray);
+    setRecommendationButtonClicked(true);
+
+    const papersToRec = recPapers.map((paper) => {
+      return {
+        Paper_ID: paper.Paper_ID,
+        Title: paper.Title,
+        Authors: paper.Authors.join(", "),
+        Year: paper.Date_Published,
+        IEEE_Keywords: paper.IEEE_Keywords.replaceAll(",", ", "),
+        Abstract: paper.Abstract,
+        Number_Authors: paper.Number_Authors,
+        Number_references: paper.Number_references,
+        Times_Cited: paper.Times_Cited,
+      }
+    });
+
+    setRecommendedPapers(papersToRec);
   }
   //drawer width
   const drawerWidth = 325;
@@ -278,7 +299,7 @@ export default function Website() {
           <div style={styles.paperContainerBox}>
 
             {isLoading ? (
-              <div style={{marginTop: `${window.innerHeight/4}px`}}>
+              <div style={{ marginTop: `${window.innerHeight / 4}px` }}>
                 <LoadingSpinner />
               </div>
             ) : (
@@ -327,7 +348,7 @@ export default function Website() {
                   {recommendationButtonClicked ? (
                     <div style={styles.recommendedBoxStyles}>
                       {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
-                      <DisplayRecommendationTable name={null} papers={null} />
+                      <DisplayRecommendationTable papers={recommendedPapers} />
                     </div>
                   ) : null}
                 </div>

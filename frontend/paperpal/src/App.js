@@ -182,8 +182,6 @@ function App() {
       console.log("RES ", paperInfo);
 
       // todo remove resp2, resp3, 4, and 5 as they're only for testing
-      // const resp2 = await PaperConsumer.getRecommendations([1372243, 346340, 1532153, 1532153, 146375]);
-      // console.log("RES2 ", resp2);
 
       // const resp3 = await PaperConsumer.getInsights([1372243, 346340, 1532153, 1532153, 146375], '636792');
       // console.log("RES3 ", resp3);
@@ -192,9 +190,9 @@ function App() {
         Paper_ID: String(paperNumber),
         title: String(paperInfo[0].Title),
         year: String(paperInfo[0].Date_Published),
-        author: paperInfo[0].Authors,
+        author: paperInfo[0].Authors.join(", "),
         Abstract: paperInfo[0].Abstract,
-        IEEE_Keywords: paperInfo[0].IEEE_Keywords,
+        IEEE_Keywords: paperInfo[0].IEEE_Keywords.replaceAll(",", ", "),
         Times_Cited: paperInfo[0].Times_Cited,
         Number_Authors: paperInfo[0].Number_Authors,
         Number_references: paperInfo[0].Number_references,

@@ -84,8 +84,8 @@ export default function DisplaySavedTable(props) {
             }}
           >
             <Typography sx={{ mb: 2 }}>Title: {row.original.title}</Typography>
-            <Typography sx={{ mb: 2 }}>Authors: {row.original.author.join(", ")}</Typography>
-            <Typography sx={{ mb: 2 }}>Keywords: {row.original.IEEE_Keywords.replaceAll(",", ", ")}</Typography>
+            <Typography sx={{ mb: 2 }}>Authors: {row.original.author}</Typography>
+            <Typography sx={{ mb: 2 }}>Keywords: {row.original.IEEE_Keywords}</Typography>
             <Typography sx={{ mb: 2 }}>Abstract: {row.original.Abstract}</Typography>
             <Typography sx={{ mb: 2 }}>Number of references: {row.original.Number_references}</Typography>
             <Typography sx={{ mb: 2 }}>Number of citations: {row.original.Times_Cited}</Typography>
