@@ -20,7 +20,7 @@ export default function Website() {
 
   const [isLoading, setIsLoading] = React.useState(false)
 
-  const [savedPapers, setSavedPapers] = React.useState(false)
+  const [savedPapers, setSavedPapers] = React.useState(null)
   const [folderName, setFolderName] = React.useState("")
 
   React.useEffect(() => {
@@ -143,10 +143,16 @@ export default function Website() {
     localStorage.setItem("extensionStorage", JSON.stringify(extensionStorage));
   }
 
-  // TODO: make variable to store all papers to display and send to DisplaySavedTable
+  /**
+   * Set folder name and papers to display in saved papers table
+   * @param {name} Name of selected folder
+   */
   function displayPapers(name) {
-    setSavedPapers(true);
     setFolderName(name);
+
+    // get papers from folder name
+    const papers = extensionStorage.folders.find((folder) => folder.name === name).papers;
+    setSavedPapers(papers);
   }
 
   async function generateRecommendations(paperIdArray) {
@@ -290,9 +296,8 @@ export default function Website() {
                   <div style={styles.savedBoxStyles}>
                     {
                       savedPapers ? (
-                        // TODO: have to pass folder.name and folder.papers to DisplaySavedTable
                         <div>
-                          <DisplaySavedTable name={null} papers={null} />
+                          <DisplaySavedTable papers={savedPapers} />
                           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh' }}>
                             <Button
                               height='45px'
