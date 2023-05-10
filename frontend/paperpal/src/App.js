@@ -6,6 +6,7 @@ import NewFolderButton from './components/NewFolderButton'
 import Website from './website'
 import DisplayPapersinFolder from './components/DisplayPapersinFolder'
 import PaperConsumer from './PaperConsumer'
+import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
   const theme = useTheme()
@@ -19,6 +20,8 @@ function App() {
   // Store the folder name
   const [folderName, setFolderName] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const extensionStorageInit = {
     numberOfFolders: 0,
     folders: []
@@ -31,6 +34,14 @@ function App() {
     localStorage.getItem('extensionStorage') ? setExtensionStorage(JSON.parse(localStorage.getItem('extensionStorage'))) : setExtensionStorage(extensionStorageInit)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  React.useEffect(() => {
+    saveExtensionStorage()
+    if (folderName !== "") {
+      displayPapers(folderName);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [extensionStorage])
 
   const styles = {
     extensionStyles: {
@@ -131,82 +142,107 @@ function App() {
         folders: prevState.folders
       }
     })
-    saveExtensionStorage()
   }
 
   function deletePaper(paper, folderName) {
+    setIsLoading(true);
+    // find folder with folderName
     const folder = extensionStorage.folders.find((obj) => obj.name === folderName);
     const index = folder.papers.indexOf(paper);
+    // remove paper from folder
     if (index > -1) {
       folder.papers.splice(index, 1);
     }
 
     // update extensionStorage locally and in local storage
     setExtensionStorage(prevState => {
+      //remove folder with folderName from folders array
+      const index2 = prevState.folders.indexOf(folder);
+      if (index2 > -1) {
+        prevState.folders.splice(index2, 1);
+      }
+
+      // sort folders alphabetically
+      const foldersToSort = [...prevState.folders, folder];
+      foldersToSort.sort((a, b) => a.name.localeCompare(b.name));
+
       return {
         ...prevState,
-        folders: [...prevState.folders, folder]
+        folders: foldersToSort
       }
     })
-    saveExtensionStorage()
+    setIsLoading(false);
   }
 
   async function addPaper() {
+    setIsLoading(true);
     // get title from chrome window
     await window.chrome.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
       var tabURL = tabs[0].url;
       console.log(tabURL);
-      // todo un-hardcode below code
-      // const paperNumber = parseInt(tabURL.match(/\d+/)[0], 10);
-      const paperNumber = "146362";
-      const response = await PaperConsumer.getPaperInfo([paperNumber]);
-      console.log("RES ", response);
+      const paperNumber = parseInt(tabURL.match(/\d+/)[0], 10);
+      const paperInfo = await PaperConsumer.getPaperInfo([paperNumber]);
+      console.log("RES ", paperInfo);
 
       // todo remove resp2, resp3, 4, and 5 as they're only for testing
-      const resp2 = await PaperConsumer.getRecommendations([1372243, 346340, 1532153, 1532153, 146375]);
-      console.log("RES2 ", resp2);
+      // const resp2 = await PaperConsumer.getRecommendations([1372243, 346340, 1532153, 1532153, 146375]);
+      // console.log("RES2 ", resp2);
 
-      const resp3 = await PaperConsumer.getInsights([1372243, 346340, 1532153, 1532153, 146375], '636792');
-      console.log("RES3 ", resp3);
+      // const resp3 = await PaperConsumer.getInsights([1372243, 346340, 1532153, 1532153, 146375], '636792');
+      // console.log("RES3 ", resp3);
 
-      const resp4 = await PaperConsumer.setSessionData(1234, [1, 2, 3, "hello"])
-      console.log("RES4 ", resp4);
+      // const resp4 = await PaperConsumer.setSessionData(1234, [1, 2, 3, "hello"])
+      // console.log("RES4 ", resp4);
 
-      const resp5 = await PaperConsumer.getSessionData(1234)
-      console.log("RES5 ", resp5);
-
+      // const resp5 = await PaperConsumer.getSessionData(1234)
+      // console.log("RES5 ", resp5);
 
       const paper = {
-        title: 'Paper ' + paperNumber,
+        Paper_ID: String(paperNumber),
+        title: String(paperInfo[0].Title),
+        year: String(paperInfo[0].Date_Published),
+        author: paperInfo[0].Authors,
+        Abstract: paperInfo[0].Abstract,
+        IEEE_Keywords: paperInfo[0].IEEE_Keywords,
+        Times_Cited: paperInfo[0].Times_Cited,
+        Number_Authors: paperInfo[0].Number_Authors,
+        Number_references: paperInfo[0].Number_references,
       }
 
       if (folderName !== "") {
-        // add paper to folder
         const folder = extensionStorage.folders.find((obj) => obj.name === folderName);
         folder.papers.push(paper);
 
         // update extensionStorage locally and in local storage
         setExtensionStorage(prevState => {
+          //remove folder with folderName from folders array
+          const index = prevState.folders.indexOf(folder);
+          if (index > -1) {
+            prevState.folders.splice(index, 1);
+          }
+
+          // sort folders alphabetically
+          const foldersToSort = [...prevState.folders, folder];
+          foldersToSort.sort((a, b) => a.name.localeCompare(b.name));
+
           return {
             ...prevState,
-            folders: [...prevState.folders, folder]
+            folders: foldersToSort
           }
         })
-        saveExtensionStorage()
       } else {
         console.log("Folder not selected")
         // can add a text here to store "Please select a folder" and display it in the div with styles.paperBox
       }
-
     });
+    setIsLoading(false);
   }
-
-  window.addPaper= addPaper;
 
   /**
    * Saves the extensionStorage object to local storage
    */
   function saveExtensionStorage() {
+    console.log("saving extension storage ", extensionStorage);
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage))
   }
 
@@ -280,15 +316,21 @@ function App() {
                 </Button>
               </div>
 
-              {folderName !== "" ?
-                <div>
-                  {displayedPapers}
+              {isLoading ? (
+                <div style={{ marginLeft: '251px' }}>
+                  {console.log("show loading")}
+                  <LoadingSpinner />
                 </div>
-                :
-                <div style={styles.paperBox}>
-                  <Text fontSize="23px">Please select a folder</Text>
-                </div>
-              }
+              ) : (
+                folderName !== "" ?
+                  <div>
+                    {displayedPapers}
+                  </div>
+                  :
+                  <div style={styles.paperBox}>
+                    <Text fontSize="23px">Please select a folder</Text>
+                  </div>
+              )}
             </div>
           </div>
         ) : (
@@ -298,7 +340,7 @@ function App() {
         )
 
       }
-    </div>
+    </div >
   )
 }
 
