@@ -27,9 +27,6 @@ function App() {
     folders: []
   }
 
-  // Check if need to go to the website
-  const [extensionButtonClicked, setExtensionButtonClicked] = useState(false);
-
   React.useEffect(() => {
     localStorage.getItem('extensionStorage') ? setExtensionStorage(JSON.parse(localStorage.getItem('extensionStorage'))) : setExtensionStorage(extensionStorageInit)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -191,12 +188,6 @@ function App() {
       // const resp3 = await PaperConsumer.getInsights([1372243, 346340, 1532153, 1532153, 146375], '636792');
       // console.log("RES3 ", resp3);
 
-      // const resp4 = await PaperConsumer.setSessionData(1234, [1, 2, 3, "hello"])
-      // console.log("RES4 ", resp4);
-
-      // const resp5 = await PaperConsumer.getSessionData(1234)
-      // console.log("RES5 ", resp5);
-
       const paper = {
         Paper_ID: String(paperNumber),
         title: String(paperInfo[0].Title),
@@ -259,8 +250,8 @@ function App() {
   }
 
   //Handles extension to website transition
-  function handleExtensionButtonClick() {
-    setExtensionButtonClicked(true);
+  async function handleExtensionButtonClick() {
+    await PaperConsumer.setSessionData(1, extensionStorage);
     //change the link; if hosted in a different place
     window.open('http://localhost:3000', '_blank');
   }
@@ -268,7 +259,7 @@ function App() {
   return (
     <div>
       {
-        (!extensionButtonClicked && window.chrome && window.chrome.runtime && window.chrome.runtime.id) ? (
+        (window.chrome && window.chrome.runtime && window.chrome.runtime.id) ? (
           <div style={styles.extensionStyles}>
             <div style={styles.topBarStyles}>
               <Button onClick={handleExtensionButtonClick}>

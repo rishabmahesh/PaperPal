@@ -20,18 +20,15 @@ export default function Website() {
   const [savedPapers, setSavedPapers] = React.useState(false)
   const [folderName, setFolderName] = React.useState("")
 
-
-  const extensionStorageInit = {
-    numberOfFolders: 0,
-    folders: [],
-  };
-
   React.useEffect(() => {
-    localStorage.getItem("extensionStorage")
-      ? setExtensionStorage(
-        JSON.parse(localStorage.getItem("extensionStorage"))
-      )
-      : setExtensionStorage(extensionStorageInit);
+    async function getData() {
+      const resp5 = await PaperConsumer.getSessionData(1);
+      setExtensionStorage(resp5.session_data);
+    }
+    getData()
+    .catch(() => {
+      console.log("Error occurred in Website getData()");
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
