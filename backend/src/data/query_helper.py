@@ -72,7 +72,7 @@ def get_recommendations(paper_id_arr, n, v2=False):
         reco_set3 = np.array(reco_set3)
         unique_recos = np.unique(np.concatenate((reco_set1, reco_set2, reco_set3))).tolist()
         # remove papers in paper_id_arr from unique_recos
-        unique_recos = [x for x in unique_recos if x not in paper_id_arr]
+        unique_recos = [x for x in unique_recos if int(x) not in [int(i) for i in paper_id_arr]]
         return unique_recos
 
 
