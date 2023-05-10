@@ -74,7 +74,7 @@ export default function DisplaySavedTable(props) {
         enableColumnResizing
         enableStickyHeader
         enableStickyFooter
-        enableBottomToolbar={false}
+        enableBottomToolbar={true}
         renderDetailPanel={({ row }) => (
           <Box
             sx={{

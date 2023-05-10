@@ -55,7 +55,7 @@ export default function DisplayRecommendationTable(props) {
         enableStickyHeader
         enableStickyFooter
         enableRowActions
-        enableBottomToolbar={false}
+        enableBottomToolbar={true}
         renderDetailPanel={({ row }) => (
           <Box
             sx={{
