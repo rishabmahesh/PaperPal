@@ -309,7 +309,6 @@ function App() {
 
               {isLoading ? (
                 <div style={{ marginLeft: '251px' }}>
-                  {console.log("show loading")}
                   <LoadingSpinner />
                 </div>
               ) : (

@@ -11,24 +11,32 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DisplayRecommendationTable from './components/DisplayRecommendationTable';
 import PaperConsumer from './PaperConsumer'
+import LoadingSpinner from './components/LoadingSpinner';
 
 export default function Website() {
 
   const [extensionStorage, setExtensionStorage] = React.useState({})
   const [recommendationButtonClicked, setRecommendationButtonClicked] = React.useState(false)
 
+  const [isLoading, setIsLoading] = React.useState(false)
+
   const [savedPapers, setSavedPapers] = React.useState(false)
   const [folderName, setFolderName] = React.useState("")
 
   React.useEffect(() => {
     async function getData() {
+      setIsLoading(true);
+
+      // get data from server and store to variable
       const resp5 = await PaperConsumer.getSessionData(1);
       setExtensionStorage(resp5.session_data);
+
+      setIsLoading(false);
     }
     getData()
-    .catch(() => {
-      console.log("Error occurred in Website getData()");
-    });
+      .catch(() => {
+        console.log("Error occurred in Website getData()");
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -135,6 +143,7 @@ export default function Website() {
     localStorage.setItem("extensionStorage", JSON.stringify(extensionStorage));
   }
 
+  // TODO: make variable to store all papers to display and send to DisplaySavedTable
   function displayPapers(name) {
     setSavedPapers(true);
     setFolderName(name);
@@ -193,6 +202,7 @@ export default function Website() {
         >
           <ChevronRightIcon fontSize="large" />
         </IconButton>
+
         <Drawer
           sx={{
             width: drawerWidth,
@@ -261,56 +271,64 @@ export default function Website() {
         <Main open={open}>
           <div style={styles.paperContainerBox}>
 
-            <div>
-              {folderName !== "" ? (
-                <div style={styles.folderNameStyles}>
-                  Papers in: { folderName }
-                </div> 
-              ) : null}
-            </div>
-            <div style={styles.tablesContainerStyles}>
-              {/* Saved papers box */}
-              <div style={styles.savedBoxStyles}>
-                {
-                  savedPapers ? (
-                    // TODO: have to pass folder.name and folder.papers to DisplaySavedTable
-                    <div>
-                      <DisplaySavedTable name={null} papers={null} />
-                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh' }}>
-                        <Button
-                          height='45px'
-                          width='405px'
-                          bg='#296A5E'
-                          borderRadius='10px'
-                          _hover={{ bg: '#297D6D' }}
-                          fontSize='23px'
-                          color='#FFFFFF'
-                          onClick={generateRecommendations}
-                        >
-                          Generate Recommendations
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div style={{ marginTop: "400px", marginLeft: "500px" }}>
-                      <p style={{ fontSize: 40 }}>
-                        Select a folder
-                      </p>
-                    </div>
-                  )
-                }
+            {isLoading ? (
+              <div style={{marginTop: `${window.innerHeight/4}px`}}>
+                <LoadingSpinner />
               </div>
-
-              {/* Recommendation papers box */}
-              {recommendationButtonClicked ? (
-                <div style={styles.recommendedBoxStyles}>
-                  {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
-                  <DisplayRecommendationTable name={null} papers={null} />
+            ) : (
+              <>
+                <div>
+                  {folderName !== "" ? (
+                    <div style={styles.folderNameStyles}>
+                      Papers in: {folderName}
+                    </div>
+                  ) : null}
                 </div>
-              ) : null}
-            </div>
-          </div>
 
+                <div style={styles.tablesContainerStyles}>
+                  {/* Saved papers box */}
+                  <div style={styles.savedBoxStyles}>
+                    {
+                      savedPapers ? (
+                        // TODO: have to pass folder.name and folder.papers to DisplaySavedTable
+                        <div>
+                          <DisplaySavedTable name={null} papers={null} />
+                          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh' }}>
+                            <Button
+                              height='45px'
+                              width='405px'
+                              bg='#296A5E'
+                              borderRadius='10px'
+                              _hover={{ bg: '#297D6D' }}
+                              fontSize='23px'
+                              color='#FFFFFF'
+                              onClick={generateRecommendations}
+                            >
+                              Generate Recommendations
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div style={{ marginTop: "400px", marginLeft: "500px" }}>
+                          <p style={{ fontSize: 40 }}>
+                            Select a folder
+                          </p>
+                        </div>
+                      )
+                    }
+                  </div>
+
+                  {/* Recommendation papers box */}
+                  {recommendationButtonClicked ? (
+                    <div style={styles.recommendedBoxStyles}>
+                      {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
+                      <DisplayRecommendationTable name={null} papers={null} />
+                    </div>
+                  ) : null}
+                </div>
+              </>
+            )}
+          </div>
         </Main>
       </Box>
     </div >

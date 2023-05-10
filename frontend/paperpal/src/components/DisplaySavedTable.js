@@ -1,7 +1,6 @@
 import React from "react";
 import MaterialReactTable from 'material-react-table';
 import { Box, Typography } from '@mui/material';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Key } from "@mui/icons-material";
 
 const paperData = [
@@ -52,7 +51,7 @@ const paperData = [
   }
 ]
 
-export default function DisplaySavedTable() {
+export default function DisplaySavedTable(props) {
   const styles = {
     tableContainerStyles: {
       height: `${window.innerHeight * 0.75}px`,
@@ -74,25 +73,6 @@ export default function DisplaySavedTable() {
         accessorKey: 'Authors',
         enableColumnOrdering: true,
         header: 'Authors',
-        Cell: ({ cell }) => (
-          <div>
-            {
-              cell.row.original.Times_Cited === 7 ? (
-                <div>
-                  {cell.getValue() + "\n"}
-                  {console.log(cell.row.original.Times_Cited)}
-                  <div>
-                    <PersonOutlineIcon />
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  {cell.getValue()}
-                </div>
-              )
-            }
-          </div >
-        ),
       },
       {
         accessorKey: 'Times_Cited', //normal accessorKey
