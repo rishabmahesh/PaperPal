@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import logging
 # uncomment import if CORS is required
-# from flask_cors import CORS
+from flask_cors import CORS
 from waitress import serve
 import os, sys, inspect
 
@@ -46,6 +46,8 @@ DELETE = "DELETE"
 def main():
     print("Main:app.py")
     app = create_app()
+    CORS(app, resources={r"/*": {"origins": "*"}})
+    app.config['CORS_HEADERS'] = 'Content-Type'
     # app.run(host='127.0.0.1',port=6060, threaded=True)
     # uncomment code below to run flask with debugger
     if os.environ.get('TESTING') == "1":
