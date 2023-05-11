@@ -13,6 +13,7 @@ import DisplayRecommendationTable from './components/DisplayRecommendationTable'
 import PaperConsumer from './PaperConsumer'
 import LoadingSpinner from './components/LoadingSpinner';
 
+
 export default function Website() {
 
   const [extensionStorage, setExtensionStorage] = React.useState({})
@@ -23,6 +24,8 @@ export default function Website() {
   const [savedPapers, setSavedPapers] = React.useState(null)
   const [recommendedPapers, setRecommendedPapers] = React.useState(null)
   const [folderName, setFolderName] = React.useState("")
+  const [open, setOpen] = React.useState(true);
+  // const [open, setOpen] = React.useState(true);
 
   React.useEffect(() => {
     async function getData() {
@@ -43,8 +46,8 @@ export default function Website() {
 
   const styles = {
     websiteStyles: {
-      width: `${window.innerWidth}px`,
-      height: `${window.innerHeight}px`,
+      // width: `${window.innerWidth}px`,
+      // height: `${window.innerHeight}px`,
       display: "flex",
       flexDirection: "row",
       overflowY: "hidden",
@@ -67,49 +70,47 @@ export default function Website() {
       height: "724px",
     },
     paperContainerBox: {
-      height: `${window.innerHeight}px`,
-      width: `${window.innerWidth - 325}px`,
+      // height: `${window.innerHeight}px`,
+      // width: `${window.innerWidth - 325}px`,
+      width: recommendationButtonClicked ? `50%` : `100%`,
       display: "flex",
       flexDirection: "column",
     },
-    paperContainerBox2: {
-      height: `${window.innerHeight}px`,
-      width: `${window.innerWidth - 325}px`,
-      marginLeft: `${window.innerWidth - 325}px`,
-    },
     savedBoxStyles: {
-      height: `${window.innerHeight * 0.85}px`,
-      width: recommendationButtonClicked ? `${window.innerWidth * 0.35}px` : `${window.innerWidth * 0.6864}px`,
+      // height: `${window.innerHeight * 0.85}px`,
+      width: recommendationButtonClicked ? `50%` : `100%`,
       backgroundColor: "#D9D9D9",
       borderRadius: "2px",
       borderColor: "#000000",
       borderWidth: "1.5px",
-      marginLeft: recommendationButtonClicked ? "30px" : "64px",
-      marginTop: "40px",
+      justifyContent: 'center',
+      alignItems: 'center',
+      // marginLeft: recommendationButtonClicked ? "30px" : "64px",
+      // marginTop: "40px",
+      display: recommendationButtonClicked ? "flex" : "flex",
     },
     recommendedBoxStyles: {
-      height: `${window.innerHeight * 0.85}px`,
-      width: recommendationButtonClicked ? `${window.innerWidth * 0.35}px` : `${window.innerWidth * 0.6864}px`,
+      // height: `${window.innerHeight * 0.85}px`,
+      width: open ? (recommendationButtonClicked ? `70%` : `100%`): (recommendationButtonClicked ? `90%` : `100%`),
+      transition: "all 1s ease-in-out",
+      display: "flex",
       backgroundColor: "#D9D9D9",
       borderRadius: "2px",
       borderColor: "#000000",
       borderWidth: "1.5px",
-      marginLeft: recommendationButtonClicked ? "30px" : "64px",
-      marginTop: "40px",
-    },
-    filterContainerBox: {
-      height: `${window.innerHeight}px`,
-      width: `${window.innerWidth - 500}px`,
-      marginLeft: "175px",
-      marginRight: "100px",
+      // marginLeft: recommendationButtonClicked ? "30px" : "64px",
+      // marginTop: "40px",
     },
     folderNameStyles: {
       color: "#000000",
       fontSize: "24px",
+      width: "100%",
     },
     tablesContainerStyles: {
       display: "flex",
-      flexDirection: "row",
+      // width: recommendationButtonClicked ? `50%` : `100%`
+      // flexDirection: "row",
+      // width: recommendationButtonClicked ? `50%` : `100%`
     }
   };
 
@@ -207,7 +208,7 @@ export default function Website() {
     })
   );
 
-  const [open, setOpen] = React.useState(true);
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -264,6 +265,7 @@ export default function Website() {
                       marginTop={"18px"}
                       onClick={() => displayPapers(folder.name)}
                     />
+
                   ))
                   : null}
               </div>
@@ -297,7 +299,6 @@ export default function Website() {
         </IconButton>
         <Main open={open}>
           <div style={styles.paperContainerBox}>
-
             {isLoading ? (
               <div style={{ marginTop: `${window.innerHeight / 4}px` }}>
                 <LoadingSpinner />
@@ -314,6 +315,12 @@ export default function Website() {
 
                 <div style={styles.tablesContainerStyles}>
                   {/* Saved papers box */}
+                  {recommendationButtonClicked ? (
+                    <div style={styles.recommendedBoxStyles}>
+                      {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
+                      <DisplayRecommendationTable papers={recommendedPapers} />
+                    </div>
+                  ) :
                   <div style={styles.savedBoxStyles}>
                     {
                       savedPapers ? (
@@ -322,7 +329,7 @@ export default function Website() {
                           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh' }}>
                             <Button
                               height='45px'
-                              width='405px'
+                              width='40%'
                               bg='#296A5E'
                               borderRadius='10px'
                               _hover={{ bg: '#297D6D' }}
@@ -343,6 +350,7 @@ export default function Website() {
                       )
                     }
                   </div>
+                  }&nbsp;
 
                   {/* Recommendation papers box */}
                   {recommendationButtonClicked ? (
