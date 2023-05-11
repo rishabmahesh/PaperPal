@@ -20,7 +20,7 @@ export default function DisplayPaperInformation(props) {
         >
          <div>
          <Text>Title: {props.title}</Text>
-          <Text>Authors: {props.author.join(', ')}</Text>
+          <Text>Authors: {props.author}</Text>
           <Text>Publication Year: {props.year}</Text>
         </div>
       </Box>
