@@ -77,7 +77,7 @@ def insights_helper(paper_id_list, query_paper_id):
     # get top 5 papers with highest cosine similarity
     cosine_similarity_array = []
     for input_paper_id in paper_id_list:
-        cosine_similarity = get_cosine_similarity_paper_with_set(query_paper_id, [input_paper_id])
+        cosine_similarity = get_cosine_similarity_paper_with_set(query_paper_id, [input_paper_id])[0]
         cosine_similarity_array.append(cosine_similarity)
     cosine_similarity_col = cosine_similarity_array
 
