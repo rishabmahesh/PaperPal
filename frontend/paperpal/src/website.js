@@ -25,6 +25,7 @@ export default function Website() {
   const [recommendedPapers, setRecommendedPapers] = React.useState(null)
   const [folderName, setFolderName] = React.useState("")
   const [open, setOpen] = React.useState(true);
+  const scaler = {'open_no_reco': 1.5, 'open_reco': 2.9, 'close_no_reco': 1.1, 'close_reco': 2.2}
   // const [open, setOpen] = React.useState(true);
 
   React.useEffect(() => {
@@ -34,7 +35,6 @@ export default function Website() {
       // get data from server and store to variable
       const resp5 = await PaperConsumer.getSessionData(1);
       setExtensionStorage(resp5.session_data);
-
       setIsLoading(false);
     }
     getData()
@@ -73,12 +73,16 @@ export default function Website() {
       // height: `${window.innerHeight}px`,
       // width: `${window.innerWidth - 325}px`,
       width: recommendationButtonClicked ? `50%` : `100%`,
+      // width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
+
       display: "flex",
       flexDirection: "column",
     },
     savedBoxStyles: {
       // height: `${window.innerHeight * 0.85}px`,
-      width: recommendationButtonClicked ? `50%` : `100%`,
+      // width: recommendationButtonClicked ? `50%` : `100%`,
+      // width: open ? (recommendationButtonClicked ? `${window.innerWidth/4}px` : `${window.innerWidth/4}px`): (recommendationButtonClicked ? `${window.innerWidth/2}px` : `${window.innerWidth/4}px`),
+      width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
       backgroundColor: "#D9D9D9",
       borderRadius: "2px",
       borderColor: "#000000",
@@ -91,8 +95,8 @@ export default function Website() {
     },
     recommendedBoxStyles: {
       // height: `${window.innerHeight * 0.85}px`,
-      width: open ? (recommendationButtonClicked ? `70%` : `100%`): (recommendationButtonClicked ? `90%` : `100%`),
-      transition: "all 1s ease-in-out",
+      // width: open ? (recommendationButtonClicked ? `70%` : `100%`): (recommendationButtonClicked ? `90%` : `100%`),
+      width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
       display: "flex",
       backgroundColor: "#D9D9D9",
       borderRadius: "2px",
@@ -342,7 +346,7 @@ export default function Website() {
                           </div>
                         </div>
                       ) : (
-                        <div style={{ marginTop: "400px", marginLeft: "500px" }}>
+                        <div style={{ marginTop: "300px", marginLeft: "300px", marginRight:"300px", marginBottom:"300px", display:"flex" }}>
                           <p style={{ fontSize: 40 }}>
                             Select a folder
                           </p>
