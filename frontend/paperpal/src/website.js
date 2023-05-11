@@ -24,6 +24,9 @@ export default function Website() {
   const [recommendedPapers, setRecommendedPapers] = React.useState(null)
   const [folderName, setFolderName] = React.useState("")
   const [savedPaperIDArray, setSavedPaperIDArray] = React.useState([])
+  const [open, setOpen] = React.useState(true);
+  const scaler = {'open_no_reco': 1.5, 'open_reco': 2.9, 'close_no_reco': 1.1, 'close_reco': 2.2}
+  // const [open, setOpen] = React.useState(true);
 
   React.useEffect(() => {
     async function getData() {
@@ -32,7 +35,6 @@ export default function Website() {
       // get data from server and store to variable
       const resp5 = await PaperConsumer.getSessionData(1);
       setExtensionStorage(resp5.session_data);
-
       setIsLoading(false);
     }
     getData()
@@ -44,8 +46,8 @@ export default function Website() {
 
   const styles = {
     websiteStyles: {
-      width: `${window.innerWidth}px`,
-      height: `${window.innerHeight}px`,
+      // width: `${window.innerWidth}px`,
+      // height: `${window.innerHeight}px`,
       display: "flex",
       flexDirection: "row",
       overflowY: "hidden",
@@ -68,49 +70,51 @@ export default function Website() {
       height: "724px",
     },
     paperContainerBox: {
-      height: `${window.innerHeight}px`,
-      width: `${window.innerWidth - 325}px`,
+      // height: `${window.innerHeight}px`,
+      // width: `${window.innerWidth - 325}px`,
+      width: recommendationButtonClicked ? `50%` : `100%`,
+      // width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
+
       display: "flex",
       flexDirection: "column",
     },
-    paperContainerBox2: {
-      height: `${window.innerHeight}px`,
-      width: `${window.innerWidth - 325}px`,
-      marginLeft: `${window.innerWidth - 325}px`,
-    },
     savedBoxStyles: {
-      height: `${window.innerHeight * 0.85}px`,
-      width: recommendationButtonClicked ? `${window.innerWidth * 0.35}px` : `${window.innerWidth * 0.6864}px`,
+      // height: `${window.innerHeight * 0.85}px`,
+      // width: recommendationButtonClicked ? `50%` : `100%`,
+      // width: open ? (recommendationButtonClicked ? `${window.innerWidth/4}px` : `${window.innerWidth/4}px`): (recommendationButtonClicked ? `${window.innerWidth/2}px` : `${window.innerWidth/4}px`),
+      width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
       backgroundColor: "#D9D9D9",
       borderRadius: "2px",
       borderColor: "#000000",
       borderWidth: "1.5px",
-      marginLeft: recommendationButtonClicked ? "30px" : "64px",
-      marginTop: "40px",
+      justifyContent: 'center',
+      alignItems: 'center',
+      // marginLeft: recommendationButtonClicked ? "30px" : "64px",
+      // marginTop: "40px",
+      display: recommendationButtonClicked ? "flex" : "flex",
     },
     recommendedBoxStyles: {
-      height: `${window.innerHeight * 0.85}px`,
-      width: recommendationButtonClicked ? `${window.innerWidth * 0.35}px` : `${window.innerWidth * 0.6864}px`,
+      // height: `${window.innerHeight * 0.85}px`,
+      // width: open ? (recommendationButtonClicked ? `70%` : `100%`): (recommendationButtonClicked ? `90%` : `100%`),
+      width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
+      display: "flex",
       backgroundColor: "#D9D9D9",
       borderRadius: "2px",
       borderColor: "#000000",
       borderWidth: "1.5px",
-      marginLeft: recommendationButtonClicked ? "30px" : "64px",
-      marginTop: "40px",
-    },
-    filterContainerBox: {
-      height: `${window.innerHeight}px`,
-      width: `${window.innerWidth - 500}px`,
-      marginLeft: "175px",
-      marginRight: "100px",
+      // marginLeft: recommendationButtonClicked ? "30px" : "64px",
+      // marginTop: "40px",
     },
     folderNameStyles: {
       color: "#000000",
       fontSize: "24px",
+      width: "100%",
     },
     tablesContainerStyles: {
       display: "flex",
-      flexDirection: "row",
+      // width: recommendationButtonClicked ? `50%` : `100%`
+      // flexDirection: "row",
+      // width: recommendationButtonClicked ? `50%` : `100%`
     }
   };
 
@@ -211,7 +215,7 @@ export default function Website() {
     })
   );
 
-  const [open, setOpen] = React.useState(true);
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -268,6 +272,7 @@ export default function Website() {
                       marginTop={"18px"}
                       onClick={() => displayPapers(folder.name)}
                     />
+
                   ))
                   : null}
               </div>
@@ -301,7 +306,6 @@ export default function Website() {
         </IconButton>
         <Main open={open}>
           <div style={styles.paperContainerBox}>
-
             {isLoading ? (
               <div style={{ marginTop: `${window.innerHeight / 4}px` }}>
                 <LoadingSpinner />
@@ -318,6 +322,12 @@ export default function Website() {
 
                 <div style={styles.tablesContainerStyles}>
                   {/* Saved papers box */}
+                  {recommendationButtonClicked ? (
+                    <div style={styles.recommendedBoxStyles}>
+                      {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
+                      <DisplayRecommendationTable papers={recommendedPapers} />
+                    </div>
+                  ) :
                   <div style={styles.savedBoxStyles}>
                     {
                       savedPapers ? (
@@ -326,7 +336,7 @@ export default function Website() {
                           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh' }}>
                             <Button
                               height='45px'
-                              width='405px'
+                              width='40%'
                               bg='#296A5E'
                               borderRadius='10px'
                               _hover={{ bg: '#297D6D' }}
@@ -339,7 +349,7 @@ export default function Website() {
                           </div>
                         </div>
                       ) : (
-                        <div style={{ marginTop: "400px", marginLeft: "500px" }}>
+                        <div style={{ marginTop: "300px", marginLeft: "300px", marginRight:"300px", marginBottom:"300px", display:"flex" }}>
                           <p style={{ fontSize: 40 }}>
                             Select a folder
                           </p>
@@ -347,6 +357,7 @@ export default function Website() {
                       )
                     }
                   </div>
+                  }&nbsp;
 
                   {/* Recommendation papers box */}
                   {recommendationButtonClicked ? (
