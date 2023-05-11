@@ -37,7 +37,11 @@ export default function DisplayPapersinFolder(props) {
   const [hoveredPapers, setHoveredPapers] = useState([]);
 
   const handlePaperClick = (paper) => {
-    setSelectedPaper(paper);
+    if (selectedPaper && selectedPaper.title === paper.title) {
+      setSelectedPaper(null);
+    } else {
+      setSelectedPaper(paper);
+    }
   };
 
   const handleMouseEnter = (index) => {
@@ -78,8 +82,8 @@ export default function DisplayPapersinFolder(props) {
               
             </Button>
             <Button onClick={() => props.handleDeletePaper(paper)}>
-                  <DeleteIcon boxSize={6} />
-                </Button>
+                <DeleteIcon boxSize={6} />
+            </Button>
           </div>
           {selectedPaper && selectedPaper.title === paper.title && (
             <div style={styles.infoStyles}>
