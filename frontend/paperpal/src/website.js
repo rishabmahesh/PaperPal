@@ -25,7 +25,8 @@ export default function Website() {
   const [folderName, setFolderName] = React.useState("")
   const [savedPaperIDArray, setSavedPaperIDArray] = React.useState([])
   const [open, setOpen] = React.useState(true);
-  const scaler = {'open_no_reco': 1.5, 'open_reco': 2.9, 'close_no_reco': 1.1, 'close_reco': 2.2}
+  const scaler = {'open_no_reco': 1.35, 'open_reco': 2.7 , 'close_no_reco': 1.1, 'close_reco': 2.2}
+  // const scaler = {'open_no_reco': 1.5, 'open_reco': 2.9, 'close_no_reco': 1.1, 'close_reco': 2.2}
   // const [open, setOpen] = React.useState(true);
 
   React.useEffect(() => {
@@ -46,12 +47,13 @@ export default function Website() {
 
   const styles = {
     websiteStyles: {
-      // width: `${window.innerWidth}px`,
-      // height: `${window.innerHeight}px`,
+      width: `${window.innerWidth}px`,
+      height: `${window.innerHeight}px`,
       display: "flex",
       flexDirection: "row",
       overflowY: "hidden",
       overflowX: "hidden",
+      marginBottom: "50px",
     },
     leftFolderTabStyles: {
       height: `${window.innerHeight}px`,
@@ -60,42 +62,37 @@ export default function Website() {
     },
     folderTabStyles: {
       backgroundColor: "#6CAFBE",
-      width: `${window.innerWidth * 0.2115}px`,
-      height: "854px",
+      // width: `${window.innerWidth * 0.2115}px`,
+      // height: "854px",
+      // height: `${window.innerHeight -170}px`,
       display: "flex",
       flexDirection: "column",
+      // deal with overflow
+        overflowY: "scroll",
     },
     allFoldersBoxStyles: {
       overflowY: "scroll",
-      height: "724px",
+      // height: `${window.innerHeight}px`,
+      display: "flex",
+        flexDirection: "column",
+      justifyContent: "flex-start",
+        alignItems: "center",
+
+      // height: "724px",
     },
     paperContainerBox: {
-      // height: `${window.innerHeight}px`,
+      height: `${window.innerHeight * (0.85)}px`,
+      // height: "inherit",
       // width: `${window.innerWidth - 325}px`,
-      width: recommendationButtonClicked ? `50%` : `100%`,
+      width: open ? window.innerWidth - window.innerWidth/6 : `100%`,
+      // width: open ?
       // width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
-
       display: "flex",
       flexDirection: "column",
     },
     savedBoxStyles: {
-      // height: `${window.innerHeight * 0.85}px`,
-      // width: recommendationButtonClicked ? `50%` : `100%`,
-      // width: open ? (recommendationButtonClicked ? `${window.innerWidth/4}px` : `${window.innerWidth/4}px`): (recommendationButtonClicked ? `${window.innerWidth/2}px` : `${window.innerWidth/4}px`),
-      width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
-      backgroundColor: "#D9D9D9",
-      borderRadius: "2px",
-      borderColor: "#000000",
-      borderWidth: "1.5px",
-      justifyContent: 'center',
-      alignItems: 'center',
-      // marginLeft: recommendationButtonClicked ? "30px" : "64px",
-      // marginTop: "40px",
-      display: recommendationButtonClicked ? "flex" : "flex",
-    },
-    recommendedBoxStyles: {
-      // height: `${window.innerHeight * 0.85}px`,
-      // width: open ? (recommendationButtonClicked ? `70%` : `100%`): (recommendationButtonClicked ? `90%` : `100%`),
+      height: `${window.innerHeight * 0.85}px`,
+      // width: recommendationButtonClicked ? "45%" : "85%",
       width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
       display: "flex",
       backgroundColor: "#D9D9D9",
@@ -103,8 +100,19 @@ export default function Website() {
       borderColor: "#000000",
       borderWidth: "1.5px",
       flexDirection: "column",
-      // marginLeft: recommendationButtonClicked ? "30px" : "64px",
-      // marginTop: "40px",
+      overflowY: "scroll",
+    },
+    recommendedBoxStyles: {
+      height: `${window.innerHeight * 0.85}px`,
+      // width: recommendationButtonClicked ? "45%" : "85%",
+      width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
+      display: "flex",
+      backgroundColor: "#D9D9D9",
+      borderRadius: "2px",
+      borderColor: "#000000",
+      borderWidth: "1.5px",
+      flexDirection: "column",
+      overflowY: "scroll",
     },
     folderNameStyles: {
       color: "#000000",
@@ -113,7 +121,9 @@ export default function Website() {
     },
     tablesContainerStyles: {
       display: "flex",
-      // width: recommendationButtonClicked ? `50%` : `100%`
+      // height: `${window.innerHeight * 0.85}px`,
+      // height: "inherit",
+      // width: recommendationButtonClicked ? `50%  ` : `100%`
       // flexDirection: "row",
       // width: recommendationButtonClicked ? `50%` : `100%`
     }
@@ -195,7 +205,8 @@ export default function Website() {
     setIsLoading(false);
   }
   //drawer width
-  const drawerWidth = 325;
+  // const drawerWidth = 325;
+  const drawerWidth = window.innerWidth/6;
 
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     ({ theme, open }) => ({
@@ -229,35 +240,23 @@ export default function Website() {
   return (
     <div style={styles.websiteStyles}>
       <Box sx={{ display: "flex" }}>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{ mr: 2, ...(open && { display: "none" }) }}
-        >
+        <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" sx={{ mr: 2, ...(open && { display: "none" }) }}>
           <ChevronRightIcon fontSize="large" />
         </IconButton>
-
-        <Drawer
-          sx={{
+        <Drawer sx={{/**/
             width: drawerWidth,
             flexShrink: 0,
             "& .MuiDrawer-paper": {
               width: drawerWidth,
               boxSizing: "border-box",
             },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
+          }} variant="persistent" anchor="left" open={open}>
           <div style={styles.leftFolderTabStyles}>
             <Image
               src={logo}
               alt="paperpal-logo"
               width={`${window.innerWidth * 0.2115}px`}
-              height={"192px"}
+              // height={"192px"}
             />
 
             <div style={styles.folderTabStyles}>
@@ -268,8 +267,11 @@ export default function Website() {
                       key={folder.name}
                       name={folder.name}
                       height={"108px"}
-                      width={"268px"}
-                      marginLeft={"28.5px"}
+                      // width={"268px"}
+                      width={drawerWidth*0.9}
+                      display={"flex"}
+                      flexDirection={"row"}
+                      // marginLeft={"28.5px"}
                       marginTop={"18px"}
                       onClick={() => displayPapers(folder.name)}
                     />
@@ -277,11 +279,13 @@ export default function Website() {
                   ))
                   : null}
               </div>
-
-              <div>
+            </div>
+            <div>
                 <Button
                   height="130px"
-                  width="325px"
+                  // width="310px"
+                  width={drawerWidth}
+                  // width="auto"
                   bg="#296A5E"
                   borderRadius="0px"
                   _hover={{ bg: "#297D6D" }}
@@ -292,101 +296,80 @@ export default function Website() {
                   Add Folder
                 </Button>
               </div>
-            </div>
           </div>
-
         </Drawer>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerClose}
-          edge="start"
-          sx={{ mr: 2, ...(!open && { display: "none" }) }}
-        >
+        <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerClose} edge="start" sx={{ mr: 2, ...(!open && { display: "none" }) }}>
           <ChevronLeftIcon fontSize="large" />
         </IconButton>
         <Main open={open}>
           <div style={styles.paperContainerBox}>
-            {isLoading ? (
-              <div style={{ marginTop: `${window.innerHeight / 4}px` }}>
-                <LoadingSpinner />
-              </div>
-            ) : (
-              <>
-                <div>
-                  {folderName !== "" ? (
-                    <div style={styles.folderNameStyles}>
-                      Papers in: {folderName}
-                    </div>
-                  ) : null}
-                </div>
-
-                <div style={styles.tablesContainerStyles}>
-                  {/* Saved papers box */}
-                  {recommendationButtonClicked ? (
-                    <div style={styles.recommendedBoxStyles}>
-                      {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
-                      {/*<div>*/}
-                        <DisplaySavedTable papers={savedPapers} />
-                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh', flexDirection:'column'}}>
-                            <Button
-                              height='45px'
-                              width='400px'
-                              bg='#296A5E'
-                              borderRadius='10px'
-                              _hover={{ bg: '#297D6D' }}
-                              fontSize='23px'
-                              color='#FFFFFF'
-                              onClick={generateRecommendations}
-                            >
-                              Generate Recommendations
-                            </Button>
-                          </div>
-                      {/*</div>*/}
-                    </div>
-                  ) :
-                  <div style={styles.savedBoxStyles}>
-                    {
-                      savedPapers ? (
+            {
+              isLoading ?
+                  (<div style={{ marginTop: `${window.innerHeight / 4}px` }}>
+                        <LoadingSpinner />
+                  </div>) :
+                  (<>
                         <div>
-                          <DisplaySavedTable papers={savedPapers} />
-                          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh' }}>
-                            <Button
-                              height='45px'
-                              width='40%'
-                              bg='#296A5E'
-                              borderRadius='10px'
-                              _hover={{ bg: '#297D6D' }}
-                              fontSize='23px'
-                              color='#FFFFFF'
-                              onClick={generateRecommendations}
-                            >
-                              Generate Recommendations
-                            </Button>
-                          </div>
+                          {
+                            folderName !== "" ? (
+                                <div style={styles.folderNameStyles}>
+                                  Papers in: {folderName}
+                                </div>
+                            ) :
+                                null
+                          }
                         </div>
-                      ) : (
-                        <div style={{ marginTop: "300px", marginLeft: "300px", marginRight:"300px", marginBottom:"300px", display:"flex" }}>
-                          <p style={{ fontSize: 40 }}>
-                            Select a folder
-                          </p>
-                        </div>
-                      )
-                    }
-                  </div>
-                  }&nbsp;
 
-                  {/* Recommendation papers box */}
-                  {recommendationButtonClicked ? (
-                    <div style={styles.recommendedBoxStyles}>
-                      {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
-                      <DisplayRecommendationTable papers={recommendedPapers} savedPapersIDArray={savedPaperIDArray} />
-                    </div>
-                  ) : null}
-                </div>
-              </>
-            )}
+                        <div style={styles.tablesContainerStyles}>
+                          {/* Saved papers box */}
+                          {recommendationButtonClicked ? (
+                              <div style={styles.recommendedBoxStyles}>
+                                {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
+                                <div>
+                                <DisplaySavedTable papers={savedPapers} />
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh', flexDirection:'column'}}>
+                                  <Button height='45px' width='400px' bg='#296A5E' borderRadius='10px' _hover={{ bg: '#297D6D' }} fontSize='23px' color='#FFFFFF' onClick={generateRecommendations}>
+                                    Generate Recommendations
+                                  </Button>
+                                </div>
+                              </div>
+                          ) :
+                              <div style={styles.savedBoxStyles}>
+                                {
+                                  savedPapers ? (
+                                      <div>
+                                        <div>
+                                          <DisplaySavedTable papers={savedPapers} />
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh' }}>
+                                          <Button height='45px' width='40%' bg='#296A5E' borderRadius='10px' _hover={{ bg: '#297D6D' }} fontSize='23px' color='#FFFFFF' onClick={generateRecommendations}>
+                                            Generate Recommendations
+                                          </Button>
+                                        </div>
+                                      </div>
+                                  ) : (
+                                      <div style={{ marginTop: "300px", marginLeft: "300px", marginRight:"300px", marginBottom:"300px", display:"flex" }}>
+                                        <p style={{ fontSize: 40 }}>
+                                          Select a folder
+                                        </p>
+                                      </div>
+                                  )
+                                }
+                              </div>
+                          }&nbsp;
+                          {/* Recommendation papers box */}
+                          {recommendationButtonClicked ? (
+                              <div style={styles.recommendedBoxStyles}>
+                                {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
+                                <DisplayRecommendationTable papers={recommendedPapers} savedPapersIDArray={savedPaperIDArray} />
+                              </div>
+                          ) : null}
+                        </div>
+                  </>
+                  )}
           </div>
+
         </Main>
       </Box>
     </div >
