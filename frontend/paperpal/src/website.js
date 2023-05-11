@@ -102,6 +102,7 @@ export default function Website() {
       borderRadius: "2px",
       borderColor: "#000000",
       borderWidth: "1.5px",
+      flexDirection: "column",
       // marginLeft: recommendationButtonClicked ? "30px" : "64px",
       // marginTop: "40px",
     },
@@ -325,7 +326,23 @@ export default function Website() {
                   {recommendationButtonClicked ? (
                     <div style={styles.recommendedBoxStyles}>
                       {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
-                      <DisplayRecommendationTable papers={recommendedPapers} />
+                      {/*<div>*/}
+                        <DisplaySavedTable papers={savedPapers} />
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh', flexDirection:'column'}}>
+                            <Button
+                              height='45px'
+                              width='400px'
+                              bg='#296A5E'
+                              borderRadius='10px'
+                              _hover={{ bg: '#297D6D' }}
+                              fontSize='23px'
+                              color='#FFFFFF'
+                              onClick={generateRecommendations}
+                            >
+                              Generate Recommendations
+                            </Button>
+                          </div>
+                      {/*</div>*/}
                     </div>
                   ) :
                   <div style={styles.savedBoxStyles}>
