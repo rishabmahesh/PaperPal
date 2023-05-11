@@ -179,15 +179,8 @@ function App() {
     // get title from chrome window
     await window.chrome.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
       var tabURL = tabs[0].url;
-      console.log(tabURL);
       const paperNumber = parseInt(tabURL.match(/\d+/)[0], 10);
       const paperInfo = await PaperConsumer.getPaperInfo([paperNumber]);
-      console.log("RES ", paperInfo);
-
-      // todo remove resp2, resp3, 4, and 5 as they're only for testing
-
-      // const resp3 = await PaperConsumer.getInsights([1372243, 346340, 1532153, 1532153, 146375], '636792');
-      // console.log("RES3 ", resp3);
 
       const paper = {
         Paper_ID: String(paperNumber),
@@ -234,7 +227,6 @@ function App() {
    * Saves the extensionStorage object to local storage
    */
   function saveExtensionStorage() {
-    console.log("saving extension storage ", extensionStorage);
     localStorage.setItem('extensionStorage', JSON.stringify(extensionStorage))
   }
 
