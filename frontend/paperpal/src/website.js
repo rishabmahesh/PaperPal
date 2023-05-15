@@ -18,7 +18,7 @@ export default function Website() {
   const [extensionStorage, setExtensionStorage] = React.useState({})
   const [recommendationButtonClicked, setRecommendationButtonClicked] = React.useState(false)
 
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(true)
 
   const [savedPapers, setSavedPapers] = React.useState(null)
   const [recommendedPapers, setRecommendedPapers] = React.useState(null)
@@ -305,7 +305,8 @@ export default function Website() {
           <div style={styles.paperContainerBox}>
             {
               isLoading ?
-                  (<div style={{ marginTop: `${window.innerHeight / 4}px` }}>
+                  // set top margin to 30vh and set right margin to 10vh if open, else 40vh
+                  (<div style={{marginTop: "30vh", marginLeft: open ? "10vh": "80vh"}}>
                         <LoadingSpinner />
                   </div>) :
                   (<>
