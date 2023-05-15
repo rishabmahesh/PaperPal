@@ -6,13 +6,9 @@ import { Key, Person2, Article } from "@mui/icons-material";
 export default function DisplaySavedTable(props) {
   const styles = {
     tableContainerStyles: {
-      height: `${window.innerHeight - 200}px`,
-        // height: 'inherit',
-      overflowY: 'auto',
+      // height: `${window.innerHeight - 200}px`,
+      // overflowY: 'auto',
     },
-    insightCellStyles: {
-      backgroundColor: '#FFD700',
-    }
   }
 
   const columns = React.useMemo(
@@ -155,7 +151,6 @@ export default function DisplaySavedTable(props) {
     <div style={styles.tableContainerStyles}>
       {props.insightsArray !== null && props.insightsArray !== undefined ? (
         <>
-          {console.log('displaying insights table ', props.insightArray)}
           {/* when insights is clicked, display this table */}
           <MaterialReactTable
             columns={insightColumns}
@@ -165,6 +160,7 @@ export default function DisplaySavedTable(props) {
             enableStickyHeader
             enableStickyFooter
             enableBottomToolbar={true}
+            muiTableContainerProps={{ sx: { maxHeight: `${window.innerHeight - 350}px` } }}
             renderDetailPanel={({ row }) => (
               <Box
                 sx={{
@@ -240,8 +236,6 @@ export default function DisplaySavedTable(props) {
                       >
                         <Article sx={{ mr: 1 }} />
                         <div style={{
-
-
                           width: '30px',
                           height: '25px',
                           display: 'flex',
@@ -249,7 +243,6 @@ export default function DisplaySavedTable(props) {
                           justifyContent: 'center',
                         }}>{row.original.Abstract_Score.toFixed(0) + "%"}</div>
                       </Box>
-
                     </Typography>
                   </>
                 ) : (
@@ -262,10 +255,8 @@ export default function DisplaySavedTable(props) {
             )}
           />
         </>
-
       ) : (
         <>
-          {console.log('displaying other table ', props.insightsArray)}
           <MaterialReactTable
             columns={columns}
             data={props.papers}
@@ -274,6 +265,7 @@ export default function DisplaySavedTable(props) {
             enableStickyHeader
             enableStickyFooter
             enableBottomToolbar={true}
+            muiTableContainerProps={{ sx: { maxHeight: `${window.innerHeight - 350}px` } }}
             renderDetailPanel={({ row }) => (
               <Box
                 sx={{

@@ -9,7 +9,7 @@ export default function DisplayRecommendationTable(props) {
       // height: `${window.innerHeight * 0.84}px`,
       //   height: `${window.innerHeight * 0.85}px`,
         height: 'inherit',
-      overflowY: 'auto',
+      // overflowY: 'auto',
     },
   }
 
