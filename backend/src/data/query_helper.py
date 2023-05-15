@@ -67,7 +67,7 @@ def get_recommendations(paper_id_arr, n, v2=False):
         reco_set3 = []
         for pid in paper_id_arr:
             # get top n papers from csm_df
-            top_n_papers = csm_df[str(pid)].sort_values(ascending=False).head(n)
+            top_n_papers = csm_df[int(pid)].sort_values(ascending=False).head(n)
             reco_set3.extend(top_n_papers.index.values)
         reco_set3 = np.array(reco_set3)
         unique_recos = np.unique(np.concatenate((reco_set1, reco_set2, reco_set3))).tolist()
@@ -113,7 +113,7 @@ def get_paper_keywords(paper_id):
 
 def get_cosine_similarity_paper_with_set(paper_id, paper_id_set):
     # ignore the first value as it is the paper itself
-    csm_arr = csm_df[str(paper_id)].sort_values(ascending=False).head(len(paper_id_set) + 1).values[1:]
+    csm_arr = csm_df[int(paper_id)].sort_values(ascending=False).head(len(paper_id_set) + 1).values[1:]
     return csm_arr
 
 
