@@ -22,10 +22,13 @@ export default function Website() {
 
   const [savedPapers, setSavedPapers] = React.useState(null)
   const [recommendedPapers, setRecommendedPapers] = React.useState(null)
-  const [folderName, setFolderName] = React.useState("")
   const [savedPaperIDArray, setSavedPaperIDArray] = React.useState([])
+  const [insightsPapers, setInsightsPapers] = React.useState(null)
+
+  const [bulbIndex, setBulbIndex] = React.useState(-1);
+  const [folderName, setFolderName] = React.useState("")
   const [open, setOpen] = React.useState(true);
-  const scaler = {'open_no_reco': 1.5, 'open_reco': 2.9, 'close_no_reco': 1.1, 'close_reco': 2.2}
+  const scaler = { 'open_no_reco': 1.5, 'open_reco': 2.9, 'close_no_reco': 1.1, 'close_reco': 2.2 }
   // const [open, setOpen] = React.useState(true);
 
   React.useEffect(() => {
@@ -78,7 +81,7 @@ export default function Website() {
     },
     savedBoxStyles: {
       height: `${window.innerHeight * 0.85}px`,
-      width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
+      width: open ? (recommendationButtonClicked ? `${window.innerWidth / scaler["open_reco"]}px` : `${window.innerWidth / scaler["open_no_reco"]}px`) : (recommendationButtonClicked ? `${window.innerWidth / scaler["close_reco"]}px` : `${window.innerWidth / scaler["close_no_reco"]}px`),
       backgroundColor: "#D9D9D9",
       borderRadius: "2px",
       borderColor: "#000000",
@@ -91,7 +94,7 @@ export default function Website() {
     },
     recommendedBoxStyles: {
       height: `${window.innerHeight * 0.85}px`,
-      width: open ? (recommendationButtonClicked ? `${window.innerWidth/scaler["open_reco"]}px` : `${window.innerWidth/scaler["open_no_reco"]}px`): (recommendationButtonClicked ? `${window.innerWidth/scaler["close_reco"]}px` : `${window.innerWidth/scaler["close_no_reco"]}px`),
+      width: open ? (recommendationButtonClicked ? `${window.innerWidth / scaler["open_reco"]}px` : `${window.innerWidth / scaler["open_no_reco"]}px`) : (recommendationButtonClicked ? `${window.innerWidth / scaler["close_reco"]}px` : `${window.innerWidth / scaler["close_no_reco"]}px`),
       display: "flex",
       backgroundColor: "#D9D9D9",
       borderRadius: "2px",
@@ -211,7 +214,36 @@ export default function Website() {
     })
   );
 
-
+  // TODO: use insights from BE to do something
+  async function getInsights(insightPaperID, show) {
+    setIsLoading(true)
+    if (show >= 0) {
+      setBulbIndex(show)
+      const res = await PaperConsumer.getInsights(savedPaperIDArray, parseInt(insightPaperID))
+      const papersForInsights = res.map((paper) => {
+        console.log(paper)
+        return {
+          Paper_ID: paper.Paper_ID,
+          Title: paper.Title,
+          Authors: paper.Authors.join(", "),
+          Year: paper.Date_Published,
+          IEEE_Keywords: paper.IEEE_Keywords.replaceAll(",", ", "),
+          Abstract: paper.Abstract,
+          Number_Authors: paper.Number_Authors,
+          Number_references: paper.Number_references,
+          Times_Cited: paper.Times_Cited,
+          Abstract_Score: paper.Abstract_Score * 100,
+          Author_Score: paper.Author_Score * 100,
+          Keyword_Score: paper.Keyword_Score * 100,
+        }
+      });
+      setInsightsPapers(papersForInsights);
+    } else {
+      setBulbIndex(-1)
+      setInsightsPapers(null);
+    }
+    setIsLoading(false)
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -322,60 +354,63 @@ export default function Website() {
                     <div style={styles.recommendedBoxStyles}>
                       {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
                       {/*<div>*/}
-                        <DisplaySavedTable papers={savedPapers} />
-                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh', flexDirection:'column'}}>
-                            <Button
-                              height='45px'
-                              width='400px'
-                              bg='#296A5E'
-                              borderRadius='10px'
-                              _hover={{ bg: '#297D6D' }}
-                              fontSize='23px'
-                              color='#FFFFFF'
-                              onClick={generateRecommendations}
-                            >
-                              Generate Recommendations
-                            </Button>
-                          </div>
-                      {/*</div>*/}
+                      <DisplaySavedTable papers={savedPapers} insightsArray={insightsPapers} />
+                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh', flexDirection: 'column' }}>
+                        <Button
+                          height='45px'
+                          width='400px'
+                          bg='#296A5E'
+                          borderRadius='10px'
+                          _hover={{ bg: '#297D6D' }}
+                          fontSize='23px'
+                          color='#FFFFFF'
+                          onClick={generateRecommendations}
+                        >
+                          Generate Recommendations
+                        </Button>
+                      </div>
                     </div>
                   ) :
-                  <div style={styles.savedBoxStyles}>
-                    {
-                      savedPapers ? (
-                        <div>
-                          <DisplaySavedTable papers={savedPapers} />
-                          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh' }}>
-                            <Button
-                              height='45px'
-                              width='40%'
-                              bg='#296A5E'
-                              borderRadius='10px'
-                              _hover={{ bg: '#297D6D' }}
-                              fontSize='23px'
-                              color='#FFFFFF'
-                              onClick={generateRecommendations}
-                            >
-                              Generate Recommendations
-                            </Button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div style={{ marginTop: "300px", marginLeft: "300px", marginRight:"300px", marginBottom:"300px", display:"flex" }}>
-                          <p style={{ fontSize: 40 }}>
-                            Select a folder
-                          </p>
-                        </div>
-                      )
-                    }
-                  </div>
-                  }&nbsp;
+                    <div style={styles.savedBoxStyles}>
+                      <>
+                        {
+                          savedPapers !== null ? (
+                            <div>
+                              {/* {console.log('inside savedPapers ', savedPapers)} */}
+                              <DisplaySavedTable papers={savedPapers} insightsArray={insightsPapers} />
+
+                              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh' }}>
+                                <Button
+                                  height='45px'
+                                  width='40%'
+                                  bg='#296A5E'
+                                  borderRadius='10px'
+                                  _hover={{ bg: '#297D6D' }}
+                                  fontSize='23px'
+                                  color='#FFFFFF'
+                                  onClick={generateRecommendations}
+                                >
+                                  Generate Recommendations
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <div style={{ marginTop: "300px", marginLeft: "300px", marginRight: "300px", marginBottom: "300px", display: "flex" }}>
+                              <p style={{ fontSize: 40 }}>
+                                Select a folder
+                              </p>
+                            </div>
+                          )
+                        }
+                      </>
+                    </div>
+                  }
 
                   {/* Recommendation papers box */}
                   {recommendationButtonClicked ? (
                     <div style={styles.recommendedBoxStyles}>
                       {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
-                      <DisplayRecommendationTable papers={recommendedPapers} savedPapersIDArray={savedPaperIDArray} />
+                      <DisplayRecommendationTable papers={recommendedPapers} getInsights={(paperID, show) => getInsights(paperID, show)} bulbIndex={bulbIndex} />
                     </div>
                   ) : null}
                 </div>

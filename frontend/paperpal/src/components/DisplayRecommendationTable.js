@@ -2,7 +2,6 @@ import React from "react";
 import MaterialReactTable from 'material-react-table';
 import { Box, Typography, IconButton } from '@mui/material';
 import { Lightbulb as LightBulbIcon } from '@mui/icons-material';
-import PaperConsumer from "../PaperConsumer";
 
 export default function DisplayRecommendationTable(props) {
   const styles = {
@@ -43,14 +42,7 @@ export default function DisplayRecommendationTable(props) {
     [],
   );
 
-  const [bulbIndex, setBulbIndex] = React.useState(-1);
-
-  // TODO: use insights from BE to do something
-  async function getInsights(insightPaperID) {
-    const resp3 = await PaperConsumer.getInsights(props.savedPapersIDArray, parseInt(insightPaperID));
-    console.log(resp3);
-  }
-
+  const [bulbIndex, setBulbIndex] = React.useState(props.bulbIndex);
 
   return (
     <div style={styles.tableContainerStyles}>
@@ -89,22 +81,27 @@ export default function DisplayRecommendationTable(props) {
                   // different bulb is already on
                   if (bulbIndex !== row.row.id) {
                     setBulbIndex(row.row.id)
-                    getInsights(row.row.original.Paper_ID)
+                    props.getInsights(row.row.original.Paper_ID, row.row.id)
+
                   } else {
                     // turn off bulb of row
                     setBulbIndex(-1)
+                    props.getInsights(row.row.original.Paper_ID, -1)
                   }
                 } else {
                   // bulb is off
                   setBulbIndex(row.row.id)
-                  getInsights(row.row.original.Paper_ID)
+                  props.getInsights(row.row.original.Paper_ID, row.row.id)
+
                 }
               }}
             >
               {bulbIndex === row.row.id ? (
                 <LightBulbIcon style={{ color: "#FFD700" }} />
               ) : (
-                <LightBulbIcon />
+                <>
+                  <LightBulbIcon />
+                </>
               )}
             </IconButton>
           </Box>
