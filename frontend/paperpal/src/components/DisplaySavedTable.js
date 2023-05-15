@@ -6,7 +6,8 @@ import { Key } from "@mui/icons-material";
 export default function DisplaySavedTable(props) {
   const styles = {
     tableContainerStyles: {
-      height: `${window.innerHeight * 0.75}px`,
+      height: `${window.innerHeight - 200}px`,
+        // height: 'inherit',
       overflowY: 'auto',
     },
     insightCellStyles: {
@@ -75,11 +76,12 @@ export default function DisplaySavedTable(props) {
         enableStickyHeader
         enableStickyFooter
         enableBottomToolbar={true}
+        muiTableContainerProps={{ sx: { maxHeight: `${window.innerHeight - 315}px` } }}
         renderDetailPanel={({ row }) => (
           <Box
             sx={{
               display: 'grid',
-              margin: 'auto',
+              // margin: 'auto',
               width: '100%',
             }}
           >
