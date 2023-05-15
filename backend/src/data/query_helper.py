@@ -14,8 +14,8 @@ author_paper_affiliation = pd.read_csv("./database/BiblioVIS/CSV_Paper_Author_Af
 # csm_df = csm_df.pivot(index='Paper_ID_1', columns='Paper_ID_2', values='Cosine_Similarity').fillna(1)
 csm_df = get_csm_matrix_from_zip("./database/pivot_df.csv.zip")
 def get_info_from_id(paper_id):
-    authors = paper[paper["Paper_ID"] == int(paper_id)].merge(author_paper, on="Paper_ID").merge(author, on="Author_ID")['Name'].values
-    response_payload = json.loads(paper[paper['Paper_ID'] == int(paper_id)].to_json(orient='records'))[0]
+    authors = paper[paper["Paper_ID"] == str(paper_id)].merge(author_paper, on="Paper_ID").merge(author, on="Author_ID")['Name'].values
+    response_payload = json.loads(paper[paper['Paper_ID'] == str(paper_id)].to_json(orient='records'))[0]
     response_payload['Authors'] = authors.tolist()
     return response_payload
 
@@ -71,9 +71,8 @@ def get_recommendations(paper_id_arr, n, v2=False):
         reco_set3 = []
         logger.debug("iterating over paper_id_arr")
         for pid in paper_id_arr:
-
             # get top n papers from csm_df
-            top_n_papers = csm_df[int(pid)].sort_values(ascending=False).head(n)
+            top_n_papers = csm_df[str(pid)].sort_values(ascending=False).head(n)
             reco_set3.extend(top_n_papers.index.values)
         reco_set3 = np.array(reco_set3)
         unique_recos = np.unique(np.concatenate((reco_set1, reco_set2, reco_set3))).tolist()
@@ -115,17 +114,17 @@ def get_papers_with_same_keywords(paper_id_arr, n):
 
 
 def get_paper_authors(paper_id):
-    return author_paper[author_paper['Paper_ID'] == int(paper_id)]['Author_ID'].values
+    return author_paper[author_paper['Paper_ID'] == str(int(paper_id))]['Author_ID'].values
 
 
 def get_paper_keywords(paper_id):
-    return paper[paper['Paper_ID'] == int(paper_id)]['IEEE_Keywords'].values
+    return paper[paper['Paper_ID'] == str(int(paper_id))]['IEEE_Keywords'].values
 
 
 def get_cosine_similarity_paper_with_set(paper_id, paper_id_set):
     # ignore the first value as it is the paper itself
     logger.debug("getting cosine similarity for paper_id: {} with paper_id_set: {}".format(paper_id, paper_id_set))
-    csm_arr = csm_df[int(paper_id)].sort_values(ascending=False).head(len(paper_id_set) + 1).values[1:]
+    csm_arr = csm_df[str(int(paper_id))].sort_values(ascending=False).head(len(paper_id_set) + 1).values[1:]
     return csm_arr
 
 
