@@ -6,7 +6,9 @@ import { Lightbulb as LightBulbIcon } from '@mui/icons-material';
 export default function DisplayRecommendationTable(props) {
   const styles = {
     tableContainerStyles: {
-      height: `${window.innerHeight * 0.84}px`,
+      // height: `${window.innerHeight * 0.84}px`,
+      //   height: `${window.innerHeight * 0.85}px`,
+        height: 'inherit',
       overflowY: 'auto',
     },
   }
@@ -55,6 +57,7 @@ export default function DisplayRecommendationTable(props) {
         enableStickyFooter
         enableRowActions
         enableBottomToolbar={true}
+        muiTableContainerProps={{ sx: { maxHeight: `${window.innerHeight - 245}px` } }}
         renderDetailPanel={({ row }) => (
           <Box
             sx={{

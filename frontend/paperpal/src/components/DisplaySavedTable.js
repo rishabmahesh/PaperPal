@@ -6,7 +6,8 @@ import { Key, Person2, Article } from "@mui/icons-material";
 export default function DisplaySavedTable(props) {
   const styles = {
     tableContainerStyles: {
-      height: `${window.innerHeight * 0.75}px`,
+      height: `${window.innerHeight - 200}px`,
+        // height: 'inherit',
       overflowY: 'auto',
     },
     insightCellStyles: {
