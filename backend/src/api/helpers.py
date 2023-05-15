@@ -1,5 +1,6 @@
 import time
 from src.utils.constants import FAIL_RECOS
+from src.utils.constants import logger
 from src.data.query_helper import get_info_from_id, get_title_from_id, get_all_authors, get_recommendations, get_paper_authors, get_paper_keywords, get_cosine_similarity_paper_with_set
 import pandas as pd
 
@@ -21,6 +22,7 @@ def recommendations_helper(inp_json, v2=False):
     if not v2:
         return get_recommendations(inp_json, 5)
     else:
+
         reco_list = get_recommendations(inp_json, 5, v2=True)
         return [get_info_from_id(i) for i in reco_list]
 
