@@ -13,9 +13,14 @@ author_paper_affiliation = pd.read_csv("./database/BiblioVIS/CSV_Paper_Author_Af
 # convert csm_df to matrix
 # csm_df = csm_df.pivot(index='Paper_ID_1', columns='Paper_ID_2', values='Cosine_Similarity').fillna(1)
 csm_df = get_csm_matrix_from_zip("./database/pivot_df.csv.zip")
-def get_info_from_id(paper_id):
-    authors = paper[paper["Paper_ID"] == str(paper_id)].merge(author_paper, on="Paper_ID").merge(author, on="Author_ID")['Name'].values
-    response_payload = json.loads(paper[paper['Paper_ID'] == str(paper_id)].to_json(orient='records'))[0]
+def get_info_from_id(_paper_id):
+    paper_id = str(int(_paper_id))
+    logger.debug(f"getting info for paper_id: {paper_id}")
+    authors = paper[paper["Paper_ID"] == int(paper_id)].merge(author_paper, on="Paper_ID").merge(author, on="Author_ID")['Name'].values
+    logger.debug(f"authors: {authors}")
+    response_payload = json.loads(paper[paper['Paper_ID'] == int(paper_id)].to_json(orient='records'))
+    logger.debug(f"response_payload: {response_payload}")
+    response_payload = response_payload[0]
     response_payload['Authors'] = authors.tolist()
     return response_payload
 
