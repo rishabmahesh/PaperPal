@@ -51,7 +51,6 @@ def get_csm_matrix_from_zip(zip_file_path):
         # read the csv file into a dataframe
         _csm_df = pd.read_csv(os.path.join(temp_dir, os.listdir(temp_dir)[0]))
         _csm_df['Paper_ID_1'] = _csm_df['Paper_ID_1'].astype(int)
-        _csm_df['Paper_ID_2'] = _csm_df['Paper_ID_2'].astype(int)
         _csm_df = _csm_df.set_index(['Paper_ID_1'])
     return _csm_df
 
