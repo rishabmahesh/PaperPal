@@ -35,8 +35,8 @@ export default function Website() {
       setIsLoading(true);
 
       // get data from server and store to variable
-      const resp5 = await PaperConsumer.getSessionData(1);
-      setExtensionStorage(resp5.session_data);
+      const sessionData = await PaperConsumer.getSessionData(1);
+      setExtensionStorage(sessionData.session_data);
       setIsLoading(false);
     }
     getData()
@@ -61,9 +61,6 @@ export default function Website() {
     },
     folderTabStyles: {
       backgroundColor: "#6CAFBE",
-      // width: `${window.innerWidth * 0.2115}px`,
-      // height: "854px",
-      // height: `${window.innerHeight -170}px`,
       display: "flex",
       flexDirection: "column",
       overflowY: "scroll",
@@ -82,7 +79,6 @@ export default function Website() {
       flexDirection: "column",
     },
     savedBoxStyles: {
-      // height: `${window.innerHeight * 0.85}px`,
       width: open ? (recommendationButtonClicked ? `${window.innerWidth / scaler["open_reco"]}px` : `${window.innerWidth / scaler["open_no_reco"]}px`) : (recommendationButtonClicked ? `${window.innerWidth / scaler["close_reco"]}px` : `${window.innerWidth / scaler["close_no_reco"]}px`),
       backgroundColor: "#D9D9D9",
       borderRadius: "2px",
@@ -158,6 +154,7 @@ export default function Website() {
     const papers = extensionStorage.folders.find((folder) => folder.name === name).papers;
     setSavedPapers(papers);
 
+    // remove recommendations if folder name is changed
     if (folderName !== name) {
       setRecommendationButtonClicked(false);
       setRecommendedPapers(null);
@@ -166,6 +163,7 @@ export default function Website() {
 
   async function generateRecommendations() {
     setIsLoading(true);
+
     // get paper ids from saved papers
     const paperIdArray = savedPapers.map((paper) => parseInt(paper.Paper_ID));
     setSavedPaperIDArray(paperIdArray);
@@ -185,6 +183,7 @@ export default function Website() {
         Number_Authors: paper.Number_Authors,
         Number_references: paper.Number_references,
         Times_Cited: paper.Times_Cited,
+        Track: paper.Track,
       }
     });
 
@@ -213,14 +212,17 @@ export default function Website() {
     })
   );
 
-  // TODO: use insights from BE to do something
   async function getInsights(insightPaperID, show) {
     setIsLoading(true)
+
+    // if the bulb is clicked, show the insights
     if (show >= 0) {
       setBulbIndex(show)
+
+      // get insight info from server
       const res = await PaperConsumer.getInsights(savedPaperIDArray, parseInt(insightPaperID))
+
       const papersForInsights = res.map((paper) => {
-        console.log(paper)
         return {
           Paper_ID: paper.Paper_ID,
           Title: paper.Title,
@@ -234,10 +236,12 @@ export default function Website() {
           Abstract_Score: paper.Abstract_Score * 100,
           Author_Score: paper.Author_Score * 100,
           Keyword_Score: paper.Keyword_Score * 100,
+          Track: paper.Track,
         }
       });
       setInsightsPapers(papersForInsights);
     } else {
+      // if bulb is clicked again, hide the insights
       setBulbIndex(-1)
       setInsightsPapers(null);
     }
@@ -254,11 +258,12 @@ export default function Website() {
 
   return (
     <div style={styles.websiteStyles}>
+      {/* left hand side of the website */}
       <Box sx={{ display: "flex" }}>
         <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" sx={{ mr: 2, ...(open && { display: "none" }) }}>
           <ChevronRightIcon fontSize="large" />
         </IconButton>
-        <Drawer sx={{/**/
+        <Drawer sx={{
           width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
@@ -281,15 +286,12 @@ export default function Website() {
                       key={folder.name}
                       name={folder.name}
                       height={"108px"}
-                      // width={"268px"}
                       width={drawerWidth * 0.9}
                       display={"flex"}
                       flexDirection={"row"}
-                      // marginLeft={"28.5px"}
                       marginTop={"18px"}
                       onClick={() => displayPapers(folder.name)}
                     />
-
                   ))
                   : null}
               </div>
@@ -313,6 +315,8 @@ export default function Website() {
         <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerClose} edge="start" sx={{ mr: 2, ...(!open && { display: "none" }) }}>
           <ChevronLeftIcon fontSize="large" />
         </IconButton>
+
+        {/* right hand side of the website */}
         <Main open={open}>
           <div style={styles.paperContainerBox}>
             {isLoading ? (
@@ -387,7 +391,6 @@ export default function Website() {
                   {/* Recommendation papers box */}
                   {recommendationButtonClicked ? (
                     <div style={styles.recommendedBoxStyles}>
-                      {/* have to pass folder.name and folder.papers to DisplaySavedTable */}
                       <DisplayRecommendationTable papers={recommendedPapers} getInsights={(paperID, show) => getInsights(paperID, show)} bulbIndex={bulbIndex} />
                     </div>
                   ) : null}

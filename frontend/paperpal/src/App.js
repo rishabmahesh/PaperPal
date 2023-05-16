@@ -22,6 +22,7 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  // initial storage of the extension
   const extensionStorageInit = {
     numberOfFolders: 0,
     folders: []
@@ -148,7 +149,10 @@ function App() {
     setIsLoading(true);
     // find folder with folderName
     const folder = extensionStorage.folders.find((obj) => obj.name === folderName);
+
+    // find paper with paperID
     const index = folder.papers.indexOf(paper);
+
     // remove paper from folder
     if (index > -1) {
       folder.papers.splice(index, 1);
@@ -176,10 +180,15 @@ function App() {
 
   async function addPaper() {
     setIsLoading(true);
+
     // get title from chrome window
     await window.chrome.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
       var tabURL = tabs[0].url;
+
+      // get paper number from URL
       const paperNumber = parseInt(tabURL.match(/\d+/)[0], 10);
+
+      // get paper info from API
       const paperInfo = await PaperConsumer.getPaperInfo([paperNumber]);
 
       const paper = {
@@ -192,10 +201,14 @@ function App() {
         Times_Cited: paperInfo[0].Times_Cited,
         Number_Authors: paperInfo[0].Number_Authors,
         Number_references: paperInfo[0].Number_references,
+        Track: paperInfo[0].Track,
       }
 
       if (folderName !== "") {
+        // find folder with folderName
         const folder = extensionStorage.folders.find((obj) => obj.name === folderName);
+
+        // push paper to folder
         folder.papers.push(paper);
 
         // update extensionStorage locally and in local storage
@@ -234,6 +247,7 @@ function App() {
     Displays the papers in each folder
   */
   function displayPapers(name) {
+    // find folder with folderName
     const folder = extensionStorage.folders.find((obj) => obj.name === name);
     setFolderName(name);
     const element = (
@@ -244,14 +258,17 @@ function App() {
 
   //Handles extension to website transition
   async function handleExtensionButtonClick() {
+    //set the session data for website
     await PaperConsumer.setSessionData(1, extensionStorage);
-    //change the link; if hosted in a different place
+
+    //change the link; if hosted in a different place - could not figure out how to open a separate website and share storage with different domains
     window.open('http://localhost:3000', '_blank');
   }
 
   return (
     <div>
       {
+        // chrome extension code
         (window.chrome && window.chrome.runtime && window.chrome.runtime.id) ? (
           <div style={styles.extensionStyles}>
             <div style={styles.topBarStyles}>
@@ -272,6 +289,7 @@ function App() {
               <div style={styles.folderBox}>
                 <div style={styles.foldersBoxContainerStyles}>
                   {
+                    // add new folder
                     extensionStorage.folders && extensionStorage.folders.length > 0
                       ? extensionStorage.folders.map((folder) =>
                         <NewFolderButton
@@ -287,6 +305,7 @@ function App() {
                   {/* Replace null with "No folder yet" in above line */}
                 </div>
 
+                {/* add folder button */}
                 <Button
                   height='69px'
                   width='202px'

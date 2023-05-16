@@ -141,6 +141,11 @@ export default function DisplaySavedTable(props) {
         enableColumnOrdering: true,
         header: 'Year',
       },
+      // {
+      //   accessorKey: 'Track',
+      //   enableColumnOrdering: true,
+      //   header: 'Track',
+      // },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [props.insightsArray],
