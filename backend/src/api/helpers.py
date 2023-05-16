@@ -43,6 +43,11 @@ def insights_helper(paper_id_list, query_paper_id):
     """
     # author insights
     # get all authors of query_paper_id
+    logger.info(f"paper_id_list = {paper_id_list}")
+    logger.info(f"query_paper_id = {query_paper_id}")
+    # log types
+    logger.info(f"paper_id_list type = {type(paper_id_list)}")
+    logger.info(f"query_paper_id type = {type(query_paper_id)}")
     query_authors = get_paper_authors(query_paper_id)
     author_intersection_array = []
     # for each paper is paper_id_list

@@ -119,16 +119,18 @@ def get_papers_with_same_keywords(paper_id_arr, n):
 
 
 def get_paper_authors(paper_id):
-    return author_paper[author_paper['Paper_ID'] == str(int(paper_id))]['Author_ID'].values
+    return author_paper[author_paper['Paper_ID'] == int(paper_id)]['Author_ID'].values
 
 
 def get_paper_keywords(paper_id):
-    return paper[paper['Paper_ID'] == str(int(paper_id))]['IEEE_Keywords'].values
+    return paper[paper['Paper_ID'] == int(paper_id)]['IEEE_Keywords'].values
 
 
 def get_cosine_similarity_paper_with_set(paper_id, paper_id_set):
     # ignore the first value as it is the paper itself
     logger.debug("getting cosine similarity for paper_id: {} with paper_id_set: {}".format(paper_id, paper_id_set))
+    # log types
+    logger.debug("type of paper_id: {}".format(type(paper_id)))
     csm_arr = csm_df[str(int(paper_id))].sort_values(ascending=False).head(len(paper_id_set) + 1).values[1:]
     return csm_arr
 
