@@ -23,9 +23,9 @@ def get_title(action):
     try:
         return json.dumps(title_helper(json_data, action).to_list())
     except IndexError as e:
-        return handle_error(1, "Could not find paper in database", "paperpal")
+        return handle_error(1, "Could not find paper in database", "paperpal", e)
     except ValueError as e:
-        return handle_error(11, "Invalid Paper_ID - make sure it is an int", "paperpal")
+        return handle_error(11, "Invalid Paper_ID - make sure it is an int", "paperpal", e)
 
 
 @api.route("/", methods=["GET"])
@@ -46,9 +46,9 @@ def get_authors():
     try:
         resp = json.dumps(authors_helper())
     except IndexError as e:
-        return handle_error(2, "Could not find paper in database", "paperpal")
+        return handle_error(2, "Could not find paper in database", "paperpal", e)
     except ValueError as e:
-        return handle_error(21, "Invalid Paper_ID - make sure it is an int", "paperpal")
+        return handle_error(21, "Invalid Paper_ID - make sure it is an int", "paperpal", e)
     return resp
 
 
@@ -61,9 +61,9 @@ def get_info():
     try:
         resp = json.dumps(info_helper(json_data))
     except IndexError as e:
-        return handle_error(2, "Could not find paper in database", "paperpal")
+        return handle_error(2, "Could not find paper in database", "paperpal", e)
     except ValueError as e:
-        return handle_error(21, "Invalid Paper_ID - make sure it is an int", "paperpal")
+        return handle_error(21, "Invalid Paper_ID - make sure it is an int", "paperpal", e)
     return resp
 
 
@@ -76,9 +76,9 @@ def get_info_single(paper_id):
     try:
         resp = json.dumps(info_helper_single(paper_id))
     except IndexError as e:
-        return handle_error(3, "Could not find paper in database", "paperpal")
+        return handle_error(3, "Could not find paper in database", "paperpal", e)
     except ValueError as e:
-        return handle_error(31, "Invalid Paper_ID - make sure it is an int", "paperpal")
+        return handle_error(31, "Invalid Paper_ID - make sure it is an int", "paperpal", e)
     return resp
 
 
@@ -91,13 +91,13 @@ def recommendations():
     try:
         paper_list = json_data["my_list"]
     except KeyError as e:
-        return handle_error(4, "Could not find 'my_list' parameter in payload", "paperpal")
+        return handle_error(4, "Could not find 'my_list' parameter in payload", "paperpal", e)
     try:
         resp = json.dumps(recommendations_helper(paper_list))
     except (ValueError, IndexError, TypeError) as e:
-        return handle_error(5, "could not prepare json response", "paperpal")
+        return handle_error(5, "could not prepare json response", "paperpal", e)
     except KeyError as e:
-        return handle_error(6, "Invalid Paper ID in list", "paperpal")
+        return handle_error(6, "Invalid Paper ID in list", "paperpal", e)
     return resp
 
 
@@ -110,13 +110,13 @@ def recommendations_v2():
     try:
         paper_list = json_data["my_list"]
     except KeyError as e:
-        return handle_error(4, "Could not find 'my_list' parameter in payload", "paperpal")
+        return handle_error(4, "Could not find 'my_list' parameter in payload", "paperpal", e)
     try:
         resp = json.dumps(recommendations_helper(paper_list, v2=True))
     except (ValueError, IndexError, TypeError) as e:
-        return handle_error(5, "could not prepare json response", "paperpal")
+        return handle_error(5, "could not prepare json response", "paperpal", e)
     except KeyError as e:
-        return handle_error(6, f"Invalid Paper ID in list {e}", "paperpal")
+        return handle_error(6, f"Invalid Paper ID in list {e}", "paperpal", e)
     return resp
 
 
@@ -130,13 +130,13 @@ def insights():
         paper_list = json_data["my_list"]
         query_paper = json_data["query_paper"]
     except KeyError as e:
-        return handle_error(4, "Could not find 'my_list' parameter in payload", "paperpal")
+        return handle_error(4, "Could not find 'my_list' parameter in payload", "paperpal", e)
     try:
         resp = insights_helper(paper_list, query_paper)
     except (ValueError, IndexError, TypeError) as e:
-        return handle_error(5, f"could not prepare json response: {e}", "paperpal")
+        return handle_error(5, f"could not prepare json response: {e}", "paperpal", e)
     except KeyError as e:
-        return handle_error(6, "Invalid Paper ID in list", "paperpal")
+        return handle_error(6, "Invalid Paper ID in list", "paperpal", e)
     return resp
 
 
@@ -150,7 +150,7 @@ def set_session_data(session_id):
     try:
         set_session_data_helper(session_id, json_data)
     except Exception as e:
-        return handle_error(7, f"Could not save session data: {e}", "paperpal")
+        return handle_error(7, f"Could not save session data: {e}", "paperpal", e)
     return "SUCCESS"
 
 
@@ -164,16 +164,16 @@ def get_session_data(session_id):
     try:
         resp = get_session_data_helper(session_id)
     except Exception as e:
-        return handle_error(8, f"Could not retrieve session data: {e}", "paperpal")
+        return handle_error(8, f"Could not retrieve session data: {e}", "paperpal", e)
     return resp
 
 
 
 
 @errors.app_errorhandler(Exception)
-def handle_error(error, messg, api_name):
+def handle_error(error, messg, api_name, e=None):
     logger.debug("Inside handle error")
-    logger.debug(f"API:\t{api_name}\nErrorType: {type(error)}\nErrorStr: {str(error)}\nErrorMessage: {messg}")
+    logger.debug(f"API:\t{api_name}\nErrorType: {type(e)}\nErrorStr: {str(e)}\nErrorNum: {error}\nErrorMessage: {messg}")
     if not (type(error) == int):
         message = [str(x) for x in error.args]
         status_code = error.status_code
